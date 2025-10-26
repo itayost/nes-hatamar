@@ -1,0 +1,234 @@
+{
+  "navigation": {
+    "home": "Home",
+    "about": "About the Authors",
+    "preview": "Book Preview",
+    "purchase": "Purchase"
+  },
+  "home": {
+    "title": "Nes HaTamar",
+    "subtitle": "A Journey Through the Paths of Our Sacred Torah to the World of Homeopathy and Medicinal Plants",
+    "description": "Nes HaTamar is a rare fusion of spiritual and material worlds, faith and medicine. It is a soulful journey inviting the reader to know the Healer of all flesh and the life force inherent in humanity.",
+    "journey": "Like a walk through an enchanted garden, the book unveils a rich world of plants, animals, minerals, and metals, revealing the hidden healing powers that operate according to the law of similars: like cures like.",
+    "connection": "This is a pioneering work connecting the Torah of Israel with the world of homeopathy and medicinal plants. The book illuminates how true healing does not merely cover symptoms but touches the root of illness and sweetens its cause.",
+    "experience": "Accompanied by ancient and modern artwork, Nes HaTamar is an experience that engages all senses - internal and external - and opens a new dialogue between the supernatural world of miracles and the natural world itself, between the bitterness of illness and the sweetness of the date palm.",
+    "cta": "Order Now",
+    "features": {
+      "plants": {
+        "title": "Plants & Minerals",
+        "description": "A rich world of plants, minerals, and metals"
+      },
+      "torah": {
+        "title": "Torah & Homeopathy",
+        "description": "A pioneering connection between Torah and homeopathy"
+      },
+      "art": {
+        "title": "Art & Experience",
+        "description": "Accompanied by ancient and modern artwork"
+      }
+    },
+    "stats": {
+      "pages": "500+",
+      "pagesLabel": "Pages",
+      "plants": "200+",
+      "plantsLabel": "Plants & Remedies",
+      "sources": "100+",
+      "sourcesLabel": "Torah Sources",
+      "illustrations": "50+",
+      "illustrationsLabel": "Illustrations"
+    },
+    "whatsInside": {
+      "title": "What's Inside",
+      "subtitle": "Discover the rich content waiting for you within these pages",
+      "items": {
+        "torahSources": {
+          "title": "Torah Sources",
+          "description": "Deep exploration of sacred texts and their connection to healing"
+        },
+        "plantEncyclopedia": {
+          "title": "Plant Encyclopedia",
+          "description": "Comprehensive guide to medicinal plants and their properties"
+        },
+        "homeopathicRemedies": {
+          "title": "Homeopathic Remedies",
+          "description": "Understanding the principles of like cures like"
+        },
+        "caseStudies": {
+          "title": "Case Studies",
+          "description": "Real-world applications and healing journeys"
+        },
+        "artwork": {
+          "title": "Artwork & Illustrations",
+          "description": "Ancient and modern art enriching the spiritual journey"
+        },
+        "referenceGuide": {
+          "title": "Reference Guide",
+          "description": "Quick lookup tables and comprehensive indexes"
+        }
+      }
+    },
+    "finalCta": {
+      "title": "Begin Your Journey",
+      "subtitle": "Transform your understanding of healing, faith, and the natural world",
+      "button": "Order Your Copy Now",
+      "trust": {
+        "secure": "Secure Payment",
+        "shipping": "Fast Shipping",
+        "support": "Dedicated Support"
+      }
+    }
+  },
+  "about": {
+    "title": "About the Authors",
+    "subtitle": "Meet the visionaries behind Nes HaTamar",
+    "whyAuthors": {
+      "title": "Why These Authors",
+      "description": "Nes HaTamar emerges from a rare collaboration between two masters in their fields. Tamar Eshel brings decades of homeopathic practice and deep Torah wisdom, while Nissim Krispil contributes unparalleled ethnobotanical research and cultural anthropology. Together, they weave ancient wisdom with modern healing—a synthesis that only their combined expertise could achieve."
+    },
+    "credentials": {
+      "tamarYears": "20+",
+      "tamarYearsLabel": "Years in Homeopathy",
+      "tamarBooks": "Author",
+      "tamarBooksLabel": "Torah & Healing",
+      "nissimYears": "30+",
+      "nissimYearsLabel": "Years in Ethnobotany",
+      "nissimBooks": "Pioneer",
+      "nissimBooksLabel": "Israeli Ethnobotany"
+    },
+    "tamar": {
+      "name": "Tamar Eshel",
+      "title": "Homeopath & Torah Scholar",
+      "bio": "A lawyer by training, but her heart is devoted to the world of kindness and natural medicine. She studied homeopathy at the school of Yosef Reves, the father of homeopathy in Israel, and for over two decades has been practicing homeopathy and the connection between body, soul, and faith. A graduate of Rabbi Yitzchak Ginsburgh's School of the Soul, drawing her inspiration primarily from Chabad Chassidic writings. She studies and teaches Torah and Chassidus. Her previous book 'A Feminine Journey Through the Omer Count' has inspired many women.",
+      "highlights": {
+        "education": "Studied under Yosef Reves, father of Israeli homeopathy",
+        "practice": "Over 20 years of homeopathic practice",
+        "torah": "Graduate of Rabbi Yitzchak Ginsburgh's School of the Soul",
+        "author": "Author of 'A Feminine Journey Through the Omer Count'"
+      }
+    },
+    "nissim": {
+      "name": "Nissim Krispil",
+      "title": "Ethnobotanist & Cultural Anthropologist",
+      "bio": "A writer, researcher, and anthropologist, one of the pioneers in the field of ethnobotany in Israel. For decades, he has been documenting the healing traditions, faith, and culture of Jewish and folk communities in Israel and around the world. His books, dealing with medicinal plants, foraging, folklore, and ethnography, have become milestones in Israeli research and culture. The crown jewel among them is the comprehensive encyclopedia 'Yalkut HaTzemaḥim' (The Plant Collection). Alongside his research work, Nissim also engages in poetry and music, seeing nature and humanity as one complete unity, seeking to connect body and soul, science and faith, earth and spirit.",
+      "highlights": {
+        "pioneer": "Pioneer in Israeli ethnobotany",
+        "research": "Decades documenting Jewish healing traditions worldwide",
+        "encyclopedia": "Author of the comprehensive 'Yalkut HaTzemaḥim' encyclopedia",
+        "multidisciplinary": "Poet, musician, and cultural anthropologist"
+      }
+    },
+    "together": {
+      "title": "Together, Creating Magic",
+      "description": "Together, the two create Nes HaTamar — a book that bridges seemingly distant worlds: Torah and homeopathy, tradition and natural medicine, art and science. This is a work in which body and soul, earth and heavens, miracle and nature — unite into one healing journey."
+    },
+    "cta": {
+      "title": "Experience Their Vision",
+      "button": "Explore the Book"
+    }
+  },
+  "preview": {
+    "title": "Book Preview",
+    "subtitle": "Peek into the rich world of Nes HaTamar",
+    "highlights": {
+      "title": "What Makes This Book Special",
+      "quality": {
+        "title": "Premium Craftsmanship",
+        "description": "Hardcover binding with gold-edged pages and luxury paper"
+      },
+      "content": {
+        "title": "Rich Content",
+        "description": "500+ pages of Torah wisdom, plants, and healing knowledge"
+      },
+      "artwork": {
+        "title": "Beautiful Artwork",
+        "description": "50+ original illustrations and ancient art pieces"
+      },
+      "unique": {
+        "title": "One of a Kind",
+        "description": "The only book connecting Torah, homeopathy, and ethnobotany"
+      }
+    },
+    "gallery": {
+      "title": "Gallery",
+      "description": "Explore the beauty and craftsmanship of Nes HaTamar"
+    },
+    "sampleChapter": {
+      "title": "Sample Content",
+      "subtitle": "A glimpse into the wisdom within",
+      "excerpt": "Like a walk through an enchanted garden, the book unveils a rich world of plants, animals, minerals, and metals, revealing the hidden healing powers that operate according to the law of similars: like cures like. Each remedy carries within it not just physical properties, but spiritual dimensions that speak to the soul's journey toward wholeness."
+    },
+    "specifications": {
+      "title": "Book Specifications",
+      "subtitle": "Crafted with care and attention to detail",
+      "binding": "Hardcover",
+      "bindingValue": "Premium hardcover with gold embossing",
+      "pages": "Pages",
+      "pagesValue": "500+ pages on luxury paper",
+      "size": "Dimensions",
+      "sizeValue": "Large format for comfortable reading",
+      "edges": "Special Features",
+      "edgesValue": "Gold-edged pages, ribbon bookmark",
+      "language": "Language",
+      "languageValue": "Hebrew with extensive source citations"
+    },
+    "stats": {
+      "title": "Inside the Book",
+      "chapters": "30+",
+      "chaptersLabel": "Chapters",
+      "plants": "200+",
+      "plantsLabel": "Plants & Remedies",
+      "sources": "100+",
+      "sourcesLabel": "Torah Sources",
+      "illustrations": "50+",
+      "illustrationsLabel": "Illustrations"
+    },
+    "cta": {
+      "title": "Ready to Begin?",
+      "subtitle": "Order your copy and start your healing journey",
+      "button": "Order Now"
+    }
+  },
+  "purchase": {
+    "title": "Order Nes HaTamar",
+    "subtitle": "Secure your copy today",
+    "bookInfo": {
+      "title": "Premium Edition",
+      "price": "Contact for Price",
+      "details": {
+        "binding": "Hardcover with gold embossing",
+        "pages": "500+ pages",
+        "features": "Gold-edged pages, ribbon bookmark",
+        "language": "Hebrew"
+      }
+    },
+    "form": {
+      "title": "Order Form",
+      "subtitle": "Fill out the form and we'll contact you within 24 hours",
+      "name": "Full Name",
+      "email": "Email",
+      "phone": "Phone",
+      "quantity": "Quantity",
+      "message": "Message (optional)",
+      "submit": "Submit Order"
+    },
+    "whatsIncluded": {
+      "title": "What's Included",
+      "book": "Nes HaTamar - Premium hardcover edition",
+      "pages": "500+ pages of Torah wisdom and healing knowledge",
+      "artwork": "50+ original illustrations and ancient artwork",
+      "quality": "Gold-edged pages and luxury paper",
+      "bookmark": "Ribbon bookmark included"
+    },
+    "trust": {
+      "secure": "Secure Payment",
+      "shipping": "Fast Shipping",
+      "support": "Dedicated Support"
+    },
+    "success": "Order sent successfully! We will contact you soon.",
+    "error": "An error occurred. Please try again."
+  },
+  "footer": {
+    "rights": "All rights reserved",
+    "contact": "Contact Us"
+  }
+}
