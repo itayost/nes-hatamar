@@ -47,9 +47,9 @@ export default async function PurchasePage({ params }: { params: Promise<{ local
 
       {/* Section 2: Headstart Crowdfunding Embed */}
       <section className="relative py-16 sm:py-20">
-        <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-4xl">
+        <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-6xl">
           <AnimateOnScroll>
-            <HeadstartEmbed locale={locale} size="default" />
+            <HeadstartEmbed locale={locale} size="full" />
           </AnimateOnScroll>
         </div>
       </section>
