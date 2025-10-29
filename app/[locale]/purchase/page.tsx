@@ -47,9 +47,30 @@ export default async function PurchasePage({ params }: { params: Promise<{ local
 
       {/* Section 2: Headstart Crowdfunding Embed */}
       <section className="relative py-16 sm:py-20">
-        <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-6xl">
+        <div className="w-full mx-auto px-10 sm:px-8 lg:px-12 max-w-6xl">
           <AnimateOnScroll>
-            <HeadstartEmbed locale={locale} size="full" />
+            <HeadstartEmbed locale={locale} size="default" />
+          </AnimateOnScroll>
+
+          {/* Call-to-Action Button */}
+          <AnimateOnScroll>
+            <div className="mt-12 text-center">
+              <p className="text-dark/70 text-lg mb-6">
+                {t('headstartCta.description')}
+              </p>
+              <a
+                href="https://headstart.co.il/project/87579"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group btn-sacred-primary inline-flex items-center justify-center px-12 py-5 bg-gradient-to-r from-gold via-gold to-gold-light text-white font-bold text-xl overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-gold/50 transition-all duration-300 hover:-translate-y-1 active:scale-[0.98]"
+              >
+                <span className="relative z-10 flex items-center gap-3">
+                  {t('headstartCta.button')}
+                  <ArrowRightIcon size={24} className="transform group-hover:translate-x-1 transition-transform" />
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+              </a>
+            </div>
           </AnimateOnScroll>
         </div>
       </section>

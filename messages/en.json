@@ -197,6 +197,10 @@
   "purchase": {
     "title": "Order Nes HaTamar",
     "subtitle": "Secure your copy today",
+    "headstartCta": {
+      "button": "Back the Project on Headstart",
+      "description": "Click here to participate in the crowdfunding campaign and order your book"
+    },
     "bookInfo": {
       "title": "Premium Edition",
       "price": "Contact for Price",
