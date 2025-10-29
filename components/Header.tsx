@@ -88,12 +88,11 @@ export default function Header() {
                 <div key={item.key} className="flex items-center">
                   <Link
                     href={`/${locale}${item.path}`}
-                    className={`btn-sacred-nav px-5 py-2.5 text-base font-semibold transition-all duration-300 hover:-translate-y-0.5 active:scale-95 animate-slideDown ${
+                    className={`btn-sacred-nav px-5 py-2.5 text-base font-semibold transition-all duration-300 hover:-translate-y-0.5 active:scale-95 ${
                       isActive(item.path)
                         ? 'active bg-gold text-white shadow-lg shadow-gold/30'
                         : 'text-dark hover:bg-gold/10 hover:text-gold'
                     }`}
-                    style={{ animationDelay: `${index * 100}ms` }}
                   >
                     {t(item.key)}
                   </Link>
@@ -180,12 +179,11 @@ export default function Header() {
                   key={item.key}
                   href={`/${locale}${item.path}`}
                   onClick={closeMobileMenu}
-                  className={`btn-sacred flex items-center gap-4 px-5 py-4 text-lg font-semibold transition-all duration-300 hover:shadow-md animate-slideDown ${
+                  className={`btn-sacred flex items-center gap-4 px-5 py-4 text-lg font-semibold transition-all duration-300 hover:shadow-md ${
                     isActive(item.path)
                       ? 'bg-gold text-white shadow-lg'
                       : 'text-dark hover:bg-gold/10 hover:text-gold'
                   }`}
-                  style={{ animationDelay: `${index * 50}ms` }}
                 >
                   <Icon size={24} className="transition-transform duration-300 group-hover:scale-110" />
                   <span>{t(item.key)}</span>

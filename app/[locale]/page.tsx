@@ -34,7 +34,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl">
           <div className="grid md:grid-cols-2 gap-16 lg:gap-20 items-center">
             {/* Book Cover */}
-            <div className="relative animate-fadeIn">
+            <div className="relative">
               <div className="relative mx-auto max-w-md group">
                 {/* Animated glow effect */}
                 <div className="absolute inset-0 bg-gold/20 blur-3xl rounded-full animate-glow"></div>
@@ -79,8 +79,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
             {/* Hero Content */}
             <div className="space-y-6 md:space-y-8">
-              {/* Title with animation */}
-              <div className="animate-slideUp">
+              {/* Title */}
+              <div>
                 <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-gold leading-tight mb-4">
                   {t('title')}
                 </h1>
@@ -92,13 +92,13 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 </div>
               </div>
 
-              {/* Subtitle with animation */}
-              <p className="text-xl sm:text-2xl text-dark/80 leading-relaxed animate-slideUp delay-100">
+              {/* Subtitle */}
+              <p className="text-xl sm:text-2xl text-dark/80 leading-relaxed">
                 {t('subtitle')}
               </p>
 
               {/* Author Names */}
-              <div className="flex items-center gap-3 text-dark/70 animate-slideUp delay-200">
+              <div className="flex items-center gap-3 text-dark/70">
                 <div className="h-px w-8 bg-gradient-to-r from-transparent to-gold"></div>
                 <p className="text-lg font-medium">
                   {locale === 'he' ? 'תמר אשל • נסים קריספיל' : 'Tamar Eshel • Nissim Krispil'}
@@ -107,7 +107,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               </div>
 
               {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-5 pt-6 animate-slideUp delay-300">
+              <div className="flex flex-col sm:flex-row gap-5 pt-6">
                 <Link
                   href={`/${locale}/purchase`}
                   className="group btn-sacred-primary inline-flex items-center justify-center px-12 py-5 bg-gradient-to-r from-gold via-gold to-gold-light text-white font-bold text-xl overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-gold/50 transition-all duration-300 hover:-translate-y-1 active:scale-[0.98]"
@@ -144,15 +144,15 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-start">
             {/* Left Column - Main Description */}
             <div className="space-y-8 text-lg leading-relaxed text-dark/90">
-              <p className="text-xl font-medium first-letter:text-6xl first-letter:font-bold first-letter:text-gold first-letter:float-start first-letter:me-3 first-letter:leading-[0.8] animate-fadeIn">
+              <p className="text-xl font-medium first-letter:text-6xl first-letter:font-bold first-letter:text-gold first-letter:float-start first-letter:me-3 first-letter:leading-[0.8]">
                 {t('description')}
               </p>
 
-              <p className="animate-slideUp delay-100">
+              <p>
                 {t('journey')}
               </p>
 
-              <p className="animate-slideUp delay-200">
+              <p>
                 {t('connection')}
               </p>
 
@@ -165,7 +165,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             </div>
 
             {/* Right Column - Pull Quote / Highlight */}
-            <div className="relative animate-slideUp delay-300">
+            <div className="relative">
               {/* Ornamental frame */}
               <div className="relative p-10 bg-white/60 backdrop-blur-sm rounded-2xl border-2 border-gold/30 shadow-xl">
                 {/* Corner ornaments */}
@@ -208,7 +208,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl">
           <div className="grid md:grid-cols-3 gap-10 lg:gap-12">
             {/* Feature 1 - Plants & Minerals */}
-            <AnimateOnScroll animation="animate-scale-in" delay={100}>
+            <AnimateOnScroll>
             <div className="group relative">
               {/* Numbered badge */}
               <div className="absolute -top-4 -right-4 z-10 w-12 h-12 bg-gradient-to-br from-gold to-gold-light rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:scale-110 transition-transform duration-300">
@@ -252,7 +252,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             </AnimateOnScroll>
 
             {/* Feature 2 - Torah & Homeopathy */}
-            <AnimateOnScroll animation="animate-scale-in" delay={200}>
+            <AnimateOnScroll>
             <div className="group relative">
               {/* Numbered badge */}
               <div className="absolute -top-4 -right-4 z-10 w-12 h-12 bg-gradient-to-br from-gold to-gold-light rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:scale-110 transition-transform duration-300">
@@ -296,7 +296,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             </AnimateOnScroll>
 
             {/* Feature 3 - Art & Experience */}
-            <AnimateOnScroll animation="animate-scale-in" delay={300}>
+            <AnimateOnScroll>
             <div className="group relative">
               {/* Numbered badge */}
               <div className="absolute -top-4 -right-4 z-10 w-12 h-12 bg-gradient-to-br from-gold to-gold-light rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:scale-110 transition-transform duration-300">
@@ -353,10 +353,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl">
           {/* Section Header */}
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gold mb-4 animate-fadeIn">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gold mb-4">
               {t('whatsInside.title')}
             </h2>
-            <p className="text-xl text-dark/70 max-w-3xl mx-auto animate-slideUp delay-100">
+            <p className="text-xl text-dark/70 max-w-3xl mx-auto">
               {t('whatsInside.subtitle')}
             </p>
             {/* Decorative underline */}
@@ -370,7 +370,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           {/* Content Grid - 2x3 */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Item 1 - Torah Sources */}
-            <AnimateOnScroll animation="animate-scale-in" delay={100}>
+            <AnimateOnScroll>
             <div className="group relative">
               <div className="h-full p-8 bg-gradient-to-br from-cream/40 to-white rounded-2xl border border-gold/20 hover:border-gold/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                 <div className="flex flex-col items-center text-center space-y-4">
@@ -385,7 +385,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             </AnimateOnScroll>
 
             {/* Item 2 - Plant Encyclopedia */}
-            <AnimateOnScroll animation="animate-scale-in" delay={200}>
+            <AnimateOnScroll>
             <div className="group relative">
               <div className="h-full p-8 bg-gradient-to-br from-cream/40 to-white rounded-2xl border border-gold/20 hover:border-gold/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                 <div className="flex flex-col items-center text-center space-y-4">
@@ -400,7 +400,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             </AnimateOnScroll>
 
             {/* Item 3 - Homeopathic Remedies */}
-            <AnimateOnScroll animation="animate-scale-in" delay={300}>
+            <AnimateOnScroll>
             <div className="group relative">
               <div className="h-full p-8 bg-gradient-to-br from-cream/40 to-white rounded-2xl border border-gold/20 hover:border-gold/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                 <div className="flex flex-col items-center text-center space-y-4">
@@ -415,7 +415,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             </AnimateOnScroll>
 
             {/* Item 4 - Case Studies */}
-            <AnimateOnScroll animation="animate-scale-in" delay={400}>
+            <AnimateOnScroll>
             <div className="group relative">
               <div className="h-full p-8 bg-gradient-to-br from-cream/40 to-white rounded-2xl border border-gold/20 hover:border-gold/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                 <div className="flex flex-col items-center text-center space-y-4">
@@ -430,7 +430,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             </AnimateOnScroll>
 
             {/* Item 5 - Artwork */}
-            <AnimateOnScroll animation="animate-scale-in" delay={500}>
+            <AnimateOnScroll>
             <div className="group relative">
               <div className="h-full p-8 bg-gradient-to-br from-cream/40 to-white rounded-2xl border border-gold/20 hover:border-gold/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                 <div className="flex flex-col items-center text-center space-y-4">
@@ -445,7 +445,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             </AnimateOnScroll>
 
             {/* Item 6 - Reference Guide */}
-            <AnimateOnScroll animation="animate-scale-in" delay={600}>
+            <AnimateOnScroll>
             <div className="group relative">
               <div className="h-full p-8 bg-gradient-to-br from-cream/40 to-white rounded-2xl border border-gold/20 hover:border-gold/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                 <div className="flex flex-col items-center text-center space-y-4">
@@ -487,10 +487,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             <div className="text-center space-y-8">
               {/* Title */}
               <div className="space-y-4">
-                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent animate-fadeIn">
+                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent">
                   {t('finalCta.title')}
                 </h2>
-                <p className="text-xl sm:text-2xl text-dark/70 leading-relaxed max-w-3xl mx-auto animate-slideUp delay-100">
+                <p className="text-xl sm:text-2xl text-dark/70 leading-relaxed max-w-3xl mx-auto">
                   {t('finalCta.subtitle')}
                 </p>
               </div>
@@ -503,10 +503,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               </div>
 
               {/* CTA Button */}
-              <div className="animate-slideUp delay-200">
+              <div>
                 <Link
                   href={`/${locale}/purchase`}
-                  className="group btn-sacred-primary relative inline-flex items-center justify-center px-16 py-6 bg-gradient-to-r from-gold via-gold-light to-gold text-white font-bold text-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-300 hover:-translate-y-2 active:scale-[0.98] animate-pulse-glow"
+                  className="group btn-sacred-primary relative inline-flex items-center justify-center px-16 py-6 bg-gradient-to-r from-gold via-gold-light to-gold text-white font-bold text-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-300 hover:-translate-y-2 active:scale-[0.98]"
                 >
                   <span className="relative z-10 flex items-center gap-3">
                     {t('finalCta.button')}
@@ -518,7 +518,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               </div>
 
               {/* Trust indicators */}
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-8 pt-8 text-dark/60 animate-fadeIn delay-300">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-8 pt-8 text-dark/60">
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-8 bg-gold/20 rounded-full flex items-center justify-center">
                     <span className="text-gold">✓</span>

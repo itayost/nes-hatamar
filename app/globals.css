@@ -37,35 +37,13 @@ a:hover {
   color: #C9A961; /* gold */
 }
 
-/* Animations */
+/* Animations - Simplified for performance and consistency */
 @keyframes fadeIn {
   from {
     opacity: 0;
   }
   to {
     opacity: 1;
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
   }
 }
 
@@ -98,16 +76,7 @@ a:hover {
 
 /* Animation utility classes */
 .animate-fadeIn {
-  animation: fadeIn 1s ease-out;
-}
-
-.animate-slideUp {
-  animation: slideUp 0.8s ease-out;
-}
-
-.animate-slideDown {
-  animation: slideDown 0.5s ease-out;
-  animation-fill-mode: both;
+  animation: fadeIn 0.4s ease-out;
 }
 
 .animate-float {
@@ -116,77 +85,6 @@ a:hover {
 
 .animate-glow {
   animation: glow 3s ease-in-out infinite;
-}
-
-/* Stagger delays for sequential animations */
-.delay-100 {
-  animation-delay: 0.1s;
-}
-
-.delay-200 {
-  animation-delay: 0.2s;
-}
-
-.delay-300 {
-  animation-delay: 0.3s;
-}
-
-.delay-400 {
-  animation-delay: 0.4s;
-}
-
-.delay-500 {
-  animation-delay: 0.5s;
-}
-
-.delay-600 {
-  animation-delay: 0.6s;
-}
-
-/* New animations for homepage sections */
-@keyframes countUp {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(201, 169, 97, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(201, 169, 97, 0.6);
-  }
-}
-
-@keyframes scale-in {
-  from {
-    transform: scale(0.95);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-.animate-countUp {
-  animation: countUp 0.8s ease-out;
-  animation-fill-mode: both;
-}
-
-.animate-pulse-glow {
-  animation: pulse-glow 2s ease-in-out infinite;
-}
-
-.animate-scale-in {
-  animation: scale-in 0.6s ease-out;
-  animation-fill-mode: both;
 }
 
 /* Sacred Scroll Button Styles - Manuscript Inspired */

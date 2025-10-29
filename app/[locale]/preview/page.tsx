@@ -43,10 +43,10 @@ export default async function PreviewPage({ params }: { params: Promise<{ locale
         <CornerOrnament position="top-right" size="lg" />
 
         <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl text-center">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent mb-6 animate-fadeIn">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent mb-6">
             {t('title')}
           </h1>
-          <p className="text-xl sm:text-2xl text-dark/70 max-w-3xl mx-auto animate-slideUp delay-100">
+          <p className="text-xl sm:text-2xl text-dark/70 max-w-3xl mx-auto">
             {t('subtitle')}
           </p>
         </div>
@@ -57,7 +57,7 @@ export default async function PreviewPage({ params }: { params: Promise<{ locale
       {/* Section 2: Book Highlights */}
       <section className="relative py-20 sm:py-24">
         <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl">
-          <AnimateOnScroll animation="animate-fadeIn" delay={50}>
+          <AnimateOnScroll>
             <h2 className="text-3xl sm:text-4xl font-bold text-center bg-gradient-to-r from-gold to-gold-light bg-clip-text text-transparent mb-12">
               {t('highlights.title')}
             </h2>
@@ -65,7 +65,7 @@ export default async function PreviewPage({ params }: { params: Promise<{ locale
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Highlight 1: Premium Quality */}
-            <AnimateOnScroll animation="animate-scale-in" delay={100}>
+            <AnimateOnScroll>
               <div className="group relative">
                 <div className="relative h-full p-8 bg-gradient-to-br from-cream/50 via-white to-cream/30 backdrop-blur-sm rounded-2xl border-2 border-gold/20 hover:border-gold/40 transition-all duration-300 hover:shadow-xl">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-gold/10 rounded-full mb-6">
@@ -78,7 +78,7 @@ export default async function PreviewPage({ params }: { params: Promise<{ locale
             </AnimateOnScroll>
 
             {/* Highlight 2: Rich Content */}
-            <AnimateOnScroll animation="animate-scale-in" delay={200}>
+            <AnimateOnScroll>
               <div className="group relative">
                 <div className="relative h-full p-8 bg-gradient-to-br from-cream/50 via-white to-cream/30 backdrop-blur-sm rounded-2xl border-2 border-gold/20 hover:border-gold/40 transition-all duration-300 hover:shadow-xl">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-gold/10 rounded-full mb-6">
@@ -91,7 +91,7 @@ export default async function PreviewPage({ params }: { params: Promise<{ locale
             </AnimateOnScroll>
 
             {/* Highlight 3: Beautiful Artwork */}
-            <AnimateOnScroll animation="animate-scale-in" delay={300}>
+            <AnimateOnScroll>
               <div className="group relative">
                 <div className="relative h-full p-8 bg-gradient-to-br from-cream/50 via-white to-cream/30 backdrop-blur-sm rounded-2xl border-2 border-gold/20 hover:border-gold/40 transition-all duration-300 hover:shadow-xl">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-gold/10 rounded-full mb-6">
@@ -104,7 +104,7 @@ export default async function PreviewPage({ params }: { params: Promise<{ locale
             </AnimateOnScroll>
 
             {/* Highlight 4: One of a Kind */}
-            <AnimateOnScroll animation="animate-scale-in" delay={400}>
+            <AnimateOnScroll>
               <div className="group relative">
                 <div className="relative h-full p-8 bg-gradient-to-br from-cream/50 via-white to-cream/30 backdrop-blur-sm rounded-2xl border-2 border-gold/20 hover:border-gold/40 transition-all duration-300 hover:shadow-xl">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-gold/10 rounded-full mb-6">
@@ -122,7 +122,7 @@ export default async function PreviewPage({ params }: { params: Promise<{ locale
       {/* Section 3: Gallery */}
       <section className="relative py-20 sm:py-24 bg-gradient-to-b from-cream to-white">
         <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl">
-          <AnimateOnScroll animation="animate-fadeIn" delay={50}>
+          <AnimateOnScroll>
             <div className="text-center mb-12">
               <div className="inline-flex items-center justify-center w-20 h-20 bg-gold/10 rounded-full mb-6">
                 <GalleryIcon size={40} className="text-gold" />
@@ -138,7 +138,7 @@ export default async function PreviewPage({ params }: { params: Promise<{ locale
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
             {previewImages.map((image, index) => (
-              <AnimateOnScroll key={image.id} animation="animate-scale-in" delay={100 + index * 100}>
+              <AnimateOnScroll key={image.id}>
                 <div className="relative group">
                   <div className="relative bg-white/60 backdrop-blur-sm p-6 rounded-2xl shadow-lg border-2 border-gold/20 hover:border-gold/40 transition-all duration-300 hover:shadow-2xl overflow-hidden">
                     <div className="relative aspect-[4/5] rounded-lg overflow-hidden">
@@ -173,7 +173,7 @@ export default async function PreviewPage({ params }: { params: Promise<{ locale
       {/* Section 4: Sample Content */}
       <section className="relative py-20 sm:py-24">
         <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-5xl">
-          <AnimateOnScroll animation="animate-scale-in" delay={100}>
+          <AnimateOnScroll>
             <div className="relative bg-white/60 backdrop-blur-sm p-10 md:p-16 rounded-3xl shadow-2xl border-4 border-gold/30">
               <CornerOrnament position="top-left" size="lg" />
               <CornerOrnament position="bottom-right" size="lg" />
@@ -211,7 +211,7 @@ export default async function PreviewPage({ params }: { params: Promise<{ locale
       {/* Section 5: Book Specifications */}
       <section className="relative py-20 sm:py-24 bg-gradient-to-b from-cream to-white">
         <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-6xl">
-          <AnimateOnScroll animation="animate-fadeIn" delay={50}>
+          <AnimateOnScroll>
             <div className="text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-gold to-gold-light bg-clip-text text-transparent mb-4">
                 {t('specifications.title')}
@@ -222,7 +222,7 @@ export default async function PreviewPage({ params }: { params: Promise<{ locale
 
           <div className="grid md:grid-cols-2 gap-6">
             {/* Specification Cards */}
-            <AnimateOnScroll animation="animate-slideUp" delay={100}>
+            <AnimateOnScroll>
               <div className="bg-white/60 backdrop-blur-sm p-8 rounded-2xl border-2 border-gold/20 flex items-start gap-4">
                 <div className="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center flex-shrink-0">
                   <BookIcon size={24} className="text-gold" />
@@ -234,7 +234,7 @@ export default async function PreviewPage({ params }: { params: Promise<{ locale
               </div>
             </AnimateOnScroll>
 
-            <AnimateOnScroll animation="animate-slideUp" delay={200}>
+            <AnimateOnScroll>
               <div className="bg-white/60 backdrop-blur-sm p-8 rounded-2xl border-2 border-gold/20 flex items-start gap-4">
                 <div className="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center flex-shrink-0">
                   <BookIcon size={24} className="text-gold" />
@@ -246,7 +246,7 @@ export default async function PreviewPage({ params }: { params: Promise<{ locale
               </div>
             </AnimateOnScroll>
 
-            <AnimateOnScroll animation="animate-slideUp" delay={300}>
+            <AnimateOnScroll>
               <div className="bg-white/60 backdrop-blur-sm p-8 rounded-2xl border-2 border-gold/20 flex items-start gap-4">
                 <div className="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center flex-shrink-0">
                   <BookIcon size={24} className="text-gold" />
@@ -258,7 +258,7 @@ export default async function PreviewPage({ params }: { params: Promise<{ locale
               </div>
             </AnimateOnScroll>
 
-            <AnimateOnScroll animation="animate-slideUp" delay={400}>
+            <AnimateOnScroll>
               <div className="bg-white/60 backdrop-blur-sm p-8 rounded-2xl border-2 border-gold/20 flex items-start gap-4">
                 <div className="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center flex-shrink-0">
                   <StarIcon size={24} className="text-gold" />
@@ -276,7 +276,7 @@ export default async function PreviewPage({ params }: { params: Promise<{ locale
       {/* Section 6: Inside Look Stats */}
       <section className="relative py-20 sm:py-24">
         <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl">
-          <AnimateOnScroll animation="animate-fadeIn" delay={50}>
+          <AnimateOnScroll>
             <h2 className="text-3xl sm:text-4xl font-bold text-center bg-gradient-to-r from-gold to-gold-light bg-clip-text text-transparent mb-12">
               {t('stats.title')}
             </h2>
@@ -284,7 +284,7 @@ export default async function PreviewPage({ params }: { params: Promise<{ locale
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Stat 1: Chapters */}
-            <AnimateOnScroll animation="animate-countUp" delay={100}>
+            <AnimateOnScroll>
               <div className="group relative text-center">
                 <div className="relative p-8 bg-white/60 backdrop-blur-sm rounded-2xl border border-gold/20 hover:border-gold/40 transition-all duration-300 hover:shadow-xl">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-gold/10 rounded-full mb-4">
@@ -299,7 +299,7 @@ export default async function PreviewPage({ params }: { params: Promise<{ locale
             </AnimateOnScroll>
 
             {/* Stat 2: Plants */}
-            <AnimateOnScroll animation="animate-countUp" delay={200}>
+            <AnimateOnScroll>
               <div className="group relative text-center">
                 <div className="relative p-8 bg-white/60 backdrop-blur-sm rounded-2xl border border-gold/20 hover:border-gold/40 transition-all duration-300 hover:shadow-xl">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-gold/10 rounded-full mb-4">
@@ -314,7 +314,7 @@ export default async function PreviewPage({ params }: { params: Promise<{ locale
             </AnimateOnScroll>
 
             {/* Stat 3: Sources */}
-            <AnimateOnScroll animation="animate-countUp" delay={300}>
+            <AnimateOnScroll>
               <div className="group relative text-center">
                 <div className="relative p-8 bg-white/60 backdrop-blur-sm rounded-2xl border border-gold/20 hover:border-gold/40 transition-all duration-300 hover:shadow-xl">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-gold/10 rounded-full mb-4">
@@ -329,7 +329,7 @@ export default async function PreviewPage({ params }: { params: Promise<{ locale
             </AnimateOnScroll>
 
             {/* Stat 4: Illustrations */}
-            <AnimateOnScroll animation="animate-countUp" delay={400}>
+            <AnimateOnScroll>
               <div className="group relative text-center">
                 <div className="relative p-8 bg-white/60 backdrop-blur-sm rounded-2xl border border-gold/20 hover:border-gold/40 transition-all duration-300 hover:shadow-xl">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-gold/10 rounded-full mb-4">
@@ -352,7 +352,7 @@ export default async function PreviewPage({ params }: { params: Promise<{ locale
         <CornerOrnament position="top-right" size="lg" />
 
         <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-5xl">
-          <AnimateOnScroll animation="animate-scale-in" delay={100}>
+          <AnimateOnScroll>
             <div className="relative p-12 md:p-16 bg-white/60 backdrop-blur-md rounded-3xl border-4 border-gold/30 shadow-2xl text-center">
               {/* Corner decorations */}
               <div className="absolute -top-4 -left-4 w-16 h-16 border-t-4 border-l-4 border-gold rounded-tl-2xl"></div>

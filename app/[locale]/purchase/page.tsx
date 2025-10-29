@@ -18,10 +18,10 @@ export default async function PurchasePage({ params }: { params: Promise<{ local
         <CornerOrnament position="top-right" size="lg" />
 
         <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl text-center">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent mb-4 animate-fadeIn">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent mb-4">
             {t('title')}
           </h1>
-          <p className="text-xl sm:text-2xl text-dark/70 font-semibold animate-slideUp delay-100">
+          <p className="text-xl sm:text-2xl text-dark/70 font-semibold">
             {t('subtitle')}
           </p>
         </div>
@@ -34,7 +34,7 @@ export default async function PurchasePage({ params }: { params: Promise<{ local
         <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             {/* Left: Book Info */}
-            <AnimateOnScroll animation="animate-slideUp" delay={100}>
+            <AnimateOnScroll>
               <div className="relative">
                 <div className="bg-white/60 backdrop-blur-sm p-8 sm:p-10 rounded-3xl shadow-xl border-2 border-gold/30">
                   <CornerOrnament position="top-left" size="sm" />
@@ -83,7 +83,7 @@ export default async function PurchasePage({ params }: { params: Promise<{ local
             </AnimateOnScroll>
 
             {/* Right: Order Form - IMMEDIATE ACTION */}
-            <AnimateOnScroll animation="animate-fadeIn" delay={200}>
+            <AnimateOnScroll>
               <div className="relative bg-white/60 backdrop-blur-sm p-8 sm:p-10 rounded-3xl shadow-xl border-2 border-gold/30 sticky top-24">
                 <CornerOrnament position="top-right" size="sm" />
                 <CornerOrnament position="bottom-left" size="sm" />
@@ -115,7 +115,7 @@ export default async function PurchasePage({ params }: { params: Promise<{ local
       {/* Section 3: What's Included (Brief) */}
       <section className="relative py-16 sm:py-20 bg-gradient-to-b from-cream to-white">
         <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-5xl">
-          <AnimateOnScroll animation="animate-fadeIn" delay={50}>
+          <AnimateOnScroll>
             <h2 className="text-3xl sm:text-4xl font-bold text-center bg-gradient-to-r from-gold to-gold-light bg-clip-text text-transparent mb-12">
               {t('whatsIncluded.title')}
             </h2>
@@ -123,7 +123,7 @@ export default async function PurchasePage({ params }: { params: Promise<{ local
 
           <div className="grid sm:grid-cols-2 gap-6">
             {/* Included Item 1 */}
-            <AnimateOnScroll animation="animate-slideUp" delay={100}>
+            <AnimateOnScroll>
               <div className="flex items-start gap-4 bg-white/60 backdrop-blur-sm p-6 rounded-2xl border-2 border-gold/20">
                 <div className="w-10 h-10 bg-gold/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                   <span className="text-gold text-xl font-bold">✓</span>
@@ -133,7 +133,7 @@ export default async function PurchasePage({ params }: { params: Promise<{ local
             </AnimateOnScroll>
 
             {/* Included Item 2 */}
-            <AnimateOnScroll animation="animate-slideUp" delay={200}>
+            <AnimateOnScroll>
               <div className="flex items-start gap-4 bg-white/60 backdrop-blur-sm p-6 rounded-2xl border-2 border-gold/20">
                 <div className="w-10 h-10 bg-gold/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                   <span className="text-gold text-xl font-bold">✓</span>
@@ -143,7 +143,7 @@ export default async function PurchasePage({ params }: { params: Promise<{ local
             </AnimateOnScroll>
 
             {/* Included Item 3 */}
-            <AnimateOnScroll animation="animate-slideUp" delay={300}>
+            <AnimateOnScroll>
               <div className="flex items-start gap-4 bg-white/60 backdrop-blur-sm p-6 rounded-2xl border-2 border-gold/20">
                 <div className="w-10 h-10 bg-gold/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                   <span className="text-gold text-xl font-bold">✓</span>
@@ -153,7 +153,7 @@ export default async function PurchasePage({ params }: { params: Promise<{ local
             </AnimateOnScroll>
 
             {/* Included Item 4 */}
-            <AnimateOnScroll animation="animate-slideUp" delay={400}>
+            <AnimateOnScroll>
               <div className="flex items-start gap-4 bg-white/60 backdrop-blur-sm p-6 rounded-2xl border-2 border-gold/20">
                 <div className="w-10 h-10 bg-gold/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                   <span className="text-gold text-xl font-bold">✓</span>
@@ -163,7 +163,7 @@ export default async function PurchasePage({ params }: { params: Promise<{ local
             </AnimateOnScroll>
 
             {/* Included Item 5 */}
-            <AnimateOnScroll animation="animate-slideUp" delay={500}>
+            <AnimateOnScroll>
               <div className="flex items-start gap-4 bg-white/60 backdrop-blur-sm p-6 rounded-2xl border-2 border-gold/20 sm:col-span-2 sm:max-w-md sm:mx-auto">
                 <div className="w-10 h-10 bg-gold/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                   <span className="text-gold text-xl font-bold">✓</span>
@@ -178,7 +178,7 @@ export default async function PurchasePage({ params }: { params: Promise<{ local
       {/* Section 4: Trust Bar */}
       <section className="relative py-12 bg-white border-y-2 border-gold/10">
         <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-6xl">
-          <AnimateOnScroll animation="animate-fadeIn" delay={100}>
+          <AnimateOnScroll>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-12 text-center">
               {/* Trust 1: Secure Payment */}
               <div className="flex flex-col items-center gap-3">

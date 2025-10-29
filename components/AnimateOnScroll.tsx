@@ -4,17 +4,11 @@ import { useEffect, useRef, useState } from 'react';
 
 interface AnimateOnScrollProps {
   children: React.ReactNode;
-  animation?: string;
-  delay?: number;
-  threshold?: number;
   className?: string;
 }
 
 export default function AnimateOnScroll({
   children,
-  animation = 'animate-fadeIn',
-  delay = 0,
-  threshold = 0.1,
   className = '',
 }: AnimateOnScrollProps) {
   const [isVisible, setIsVisible] = useState(false);
@@ -35,7 +29,7 @@ export default function AnimateOnScroll({
         });
       },
       {
-        threshold,
+        threshold: 0.1,
         rootMargin: '50px', // Start animation slightly before element is fully visible
       }
     );
@@ -47,15 +41,12 @@ export default function AnimateOnScroll({
         observer.unobserve(element);
       }
     };
-  }, [threshold]);
+  }, []);
 
   return (
     <div
       ref={elementRef}
-      className={`${className} ${isVisible ? animation : 'opacity-0'}`}
-      style={{
-        animationDelay: isVisible && delay > 0 ? `${delay}ms` : undefined,
-      }}
+      className={`${className} ${isVisible ? 'animate-fadeIn' : 'opacity-0'}`}
     >
       {children}
     </div>
