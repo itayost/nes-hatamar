@@ -1,10 +1,12 @@
 import { getTranslations } from 'next-intl/server';
+import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import CornerOrnament from '@/components/ornaments/CornerOrnament';
 import Divider from '@/components/ornaments/Divider';
 import AnimateOnScroll from '@/components/AnimateOnScroll';
 import YouTubeVideo from '@/components/YouTubeVideo';
+import { generatePageMetadata } from '@/lib/og-metadata';
 import {
   LeafIcon,
   TorahScrollIcon,
@@ -15,6 +17,21 @@ import {
   AboutIcon,
   PreviewIcon
 } from '@/components/icons/Icons';
+
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'home' });
+
+  return generatePageMetadata(locale, {
+    title: `${t('title')} | Nes HaTamar`,
+    description: t('subtitle'),
+    path: '',
+  });
+}
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;

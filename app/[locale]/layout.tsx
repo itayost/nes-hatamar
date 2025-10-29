@@ -1,15 +1,26 @@
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
+import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { locales } from '@/lib/i18n';
+import { generatePageMetadata } from '@/lib/og-metadata';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
-export const metadata: Metadata = {
-  title: "נס התמר | Nes HaTamar",
-  description: "מסע בנתיבי תורתנו הקדושה אל עולם ההומאופטיה וצמחי המרפא",
-};
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'home' });
+
+  return generatePageMetadata(locale, {
+    title: `${t('title')} | Nes HaTamar`,
+    description: t('subtitle'),
+    path: '',
+  });
+}
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));

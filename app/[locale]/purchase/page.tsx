@@ -1,10 +1,27 @@
 import { getTranslations } from 'next-intl/server';
+import { Metadata } from 'next';
 import Image from 'next/image';
 import CornerOrnament from '@/components/ornaments/CornerOrnament';
 import Divider from '@/components/ornaments/Divider';
 import AnimateOnScroll from '@/components/AnimateOnScroll';
 import ContactForm from '@/components/ContactForm';
+import { generatePageMetadata } from '@/lib/og-metadata';
 import { MailIcon, StarIcon, ArrowRightIcon } from '@/components/icons/Icons';
+
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'purchase' });
+
+  return generatePageMetadata(locale, {
+    title: `${t('title')} | נס התמר - Nes HaTamar`,
+    description: t('subtitle'),
+    path: '/purchase',
+  });
+}
 
 export default async function PurchasePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
