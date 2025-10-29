@@ -1,10 +1,9 @@
 import { getTranslations } from 'next-intl/server';
 import { Metadata } from 'next';
-import Image from 'next/image';
 import CornerOrnament from '@/components/ornaments/CornerOrnament';
 import Divider from '@/components/ornaments/Divider';
 import AnimateOnScroll from '@/components/AnimateOnScroll';
-import ContactForm from '@/components/ContactForm';
+import HeadstartEmbed from '@/components/HeadstartEmbed';
 import { generatePageMetadata } from '@/lib/og-metadata';
 import { MailIcon, StarIcon, ArrowRightIcon } from '@/components/icons/Icons';
 
@@ -46,86 +45,12 @@ export default async function PurchasePage({ params }: { params: Promise<{ local
 
       <Divider />
 
-      {/* Section 2: Book Info + Order Form (Side by Side) */}
+      {/* Section 2: Headstart Crowdfunding Embed */}
       <section className="relative py-16 sm:py-20">
-        <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl">
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
-            {/* Left: Book Info */}
-            <AnimateOnScroll>
-              <div className="relative">
-                <div className="bg-white/60 backdrop-blur-sm p-8 sm:p-10 rounded-3xl shadow-xl border-2 border-gold/30">
-                  <CornerOrnament position="top-left" size="sm" />
-                  <CornerOrnament position="bottom-right" size="sm" />
-
-                  {/* Book Display */}
-                  <div className="aspect-[3/4] bg-gradient-to-br from-gold-light/30 via-white to-gold/10 rounded-2xl flex items-center justify-center mb-8 relative overflow-hidden shadow-lg">
-                    <Image
-                      src="/images/cover.png"
-                      alt="נס התמר - Nes HaTamar Book Cover"
-                      fill
-                      className="object-cover"
-                      priority
-                    />
-                  </div>
-
-                  {/* Pricing & Details */}
-                  <div className="text-center mb-6">
-                    <div className="inline-block bg-gold/10 px-6 py-3 rounded-full border-2 border-gold/30 mb-6">
-                      <h3 className="text-xl font-bold text-gold">{t('bookInfo.title')}</h3>
-                    </div>
-                    <div className="text-3xl font-bold text-dark mb-6">{t('bookInfo.price')}</div>
-                  </div>
-
-                  {/* Book Details */}
-                  <div className="space-y-3 text-center">
-                    <div className="flex items-center justify-center gap-3 text-dark/70">
-                      <span className="text-gold text-xl">✦</span>
-                      <span>{t('bookInfo.details.binding')}</span>
-                    </div>
-                    <div className="flex items-center justify-center gap-3 text-dark/70">
-                      <span className="text-gold text-xl">✦</span>
-                      <span>{t('bookInfo.details.pages')}</span>
-                    </div>
-                    <div className="flex items-center justify-center gap-3 text-dark/70">
-                      <span className="text-gold text-xl">✦</span>
-                      <span>{t('bookInfo.details.features')}</span>
-                    </div>
-                    <div className="flex items-center justify-center gap-3 text-dark/70">
-                      <span className="text-gold text-xl">✦</span>
-                      <span>{t('bookInfo.details.language')}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </AnimateOnScroll>
-
-            {/* Right: Order Form - IMMEDIATE ACTION */}
-            <AnimateOnScroll>
-              <div className="relative bg-white/60 backdrop-blur-sm p-8 sm:p-10 rounded-3xl shadow-xl border-2 border-gold/30 sticky top-24">
-                <CornerOrnament position="top-right" size="sm" />
-                <CornerOrnament position="bottom-left" size="sm" />
-
-                <div className="mb-8 text-center">
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gold/10 rounded-full mb-4">
-                    <MailIcon size={32} className="text-gold" />
-                  </div>
-                  <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-gold to-gold-light bg-clip-text text-transparent mb-2">
-                    {t('form.title')}
-                  </h2>
-                  <p className="text-dark/70">{t('form.subtitle')}</p>
-                </div>
-
-                {/* Decorative divider */}
-                <div className="flex justify-center items-center gap-4 mb-8">
-                  <div className="h-px w-20 bg-gradient-to-r from-transparent to-gold"></div>
-                  <div className="text-gold text-xl">✦</div>
-                  <div className="h-px w-20 bg-gradient-to-l from-transparent to-gold"></div>
-                </div>
-
-                <ContactForm />
-              </div>
-            </AnimateOnScroll>
-          </div>
+        <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-4xl">
+          <AnimateOnScroll>
+            <HeadstartEmbed locale={locale} size="default" />
+          </AnimateOnScroll>
         </div>
       </section>
 
