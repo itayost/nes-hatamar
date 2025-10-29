@@ -17,10 +17,10 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         <CornerOrnament position="top-right" size="lg" />
 
         <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl text-center">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent mb-6">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent mb-6 animate-fadeIn">
             {t('title')}
           </h1>
-          <p className="text-xl sm:text-2xl text-dark/70 max-w-3xl mx-auto">
+          <p className="text-xl sm:text-2xl text-dark/70 max-w-3xl mx-auto animate-fadeIn delay-100">
             {t('subtitle')}
           </p>
         </div>

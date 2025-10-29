@@ -80,7 +80,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             {/* Hero Content */}
             <div className="space-y-6 md:space-y-8">
               {/* Title */}
-              <div>
+              <div className="animate-slideUp">
                 <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-gold leading-tight mb-4">
                   {t('title')}
                 </h1>
@@ -93,12 +93,12 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               </div>
 
               {/* Subtitle */}
-              <p className="text-xl sm:text-2xl text-dark/80 leading-relaxed">
+              <p className="text-xl sm:text-2xl text-dark/80 leading-relaxed animate-slideUp delay-100">
                 {t('subtitle')}
               </p>
 
               {/* Author Names */}
-              <div className="flex items-center gap-3 text-dark/70">
+              <div className="flex items-center gap-3 text-dark/70 animate-slideUp delay-200">
                 <div className="h-px w-8 bg-gradient-to-r from-transparent to-gold"></div>
                 <p className="text-lg font-medium">
                   {locale === 'he' ? 'תמר אשל • נסים קריספיל' : 'Tamar Eshel • Nissim Krispil'}
@@ -107,7 +107,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               </div>
 
               {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-5 pt-6">
+              <div className="flex flex-col sm:flex-row gap-5 pt-6 animate-slideUp delay-300">
                 <Link
                   href={`/${locale}/purchase`}
                   className="group btn-sacred-primary inline-flex items-center justify-center px-12 py-5 bg-gradient-to-r from-gold via-gold to-gold-light text-white font-bold text-xl overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-gold/50 transition-all duration-300 hover:-translate-y-1 active:scale-[0.98]"

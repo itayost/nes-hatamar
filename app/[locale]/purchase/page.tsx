@@ -18,10 +18,10 @@ export default async function PurchasePage({ params }: { params: Promise<{ local
         <CornerOrnament position="top-right" size="lg" />
 
         <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl text-center">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent mb-4">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent mb-4 animate-fadeIn">
             {t('title')}
           </h1>
-          <p className="text-xl sm:text-2xl text-dark/70 font-semibold">
+          <p className="text-xl sm:text-2xl text-dark/70 font-semibold animate-fadeIn delay-100">
             {t('subtitle')}
           </p>
         </div>
