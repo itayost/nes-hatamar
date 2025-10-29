@@ -29,8 +29,8 @@ export default function AnimateOnScroll({
         });
       },
       {
-        threshold: 0.1,
-        rootMargin: '50px', // Start animation slightly before element is fully visible
+        threshold: 0.2,
+        rootMargin: '0px', // Start animation when element enters viewport
       }
     );
 
