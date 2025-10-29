@@ -4,6 +4,7 @@ import Image from 'next/image';
 import CornerOrnament from '@/components/ornaments/CornerOrnament';
 import Divider from '@/components/ornaments/Divider';
 import AnimateOnScroll from '@/components/AnimateOnScroll';
+import YouTubeVideo from '@/components/YouTubeVideo';
 import {
   LeafIcon,
   TorahScrollIcon,
@@ -194,6 +195,82 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               <div className="absolute -bottom-6 -right-6 text-gold/40 text-4xl animate-float" style={{ animationDelay: '0.5s' }}>✦</div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <Divider />
+
+      {/* Video Section */}
+      <section className="relative py-20 bg-cream overflow-hidden">
+        {/* Floating ornaments in background */}
+        <div className="absolute top-20 left-1/4 text-gold/5 text-6xl pointer-events-none animate-float">✦</div>
+        <div className="absolute bottom-20 right-1/4 text-gold/5 text-6xl pointer-events-none animate-float" style={{ animationDelay: '1s' }}>✦</div>
+
+        <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-6xl">
+          {/* Section Header */}
+          <AnimateOnScroll>
+            <div className="text-center mb-12">
+              <h2 className="text-4xl sm:text-5xl font-bold text-gold mb-4">
+                {t('video.title')}
+              </h2>
+              <p className="text-xl text-dark/70 max-w-3xl mx-auto">
+                {t('video.subtitle')}
+              </p>
+              {/* Decorative underline */}
+              <div className="flex justify-center items-center gap-3 mt-6">
+                <div className="h-px w-20 bg-gradient-to-r from-transparent to-gold"></div>
+                <div className="text-gold text-2xl">✦</div>
+                <div className="h-px w-20 bg-gradient-to-l from-transparent to-gold"></div>
+              </div>
+            </div>
+          </AnimateOnScroll>
+
+          {/* Video Container with Ornamental Frame */}
+          <AnimateOnScroll>
+            <div className="relative">
+              <div className="relative p-6 md:p-8 bg-white/60 backdrop-blur-sm rounded-2xl border-2 border-gold/30 shadow-xl">
+                {/* Corner ornaments */}
+                <div className="absolute -top-3 -left-3 w-12 h-12 border-t-4 border-l-4 border-gold/60 rounded-tl-2xl"></div>
+                <div className="absolute -top-3 -right-3 w-12 h-12 border-t-4 border-r-4 border-gold/60 rounded-tr-2xl"></div>
+                <div className="absolute -bottom-3 -left-3 w-12 h-12 border-b-4 border-l-4 border-gold/60 rounded-bl-2xl"></div>
+                <div className="absolute -bottom-3 -right-3 w-12 h-12 border-b-4 border-r-4 border-gold/60 rounded-br-2xl"></div>
+
+                {/* YouTube Video */}
+                <YouTubeVideo
+                  videoId="xP7-L3CsCQ4"
+                  title={t('video.title')}
+                  autoplay={true}
+                />
+              </div>
+
+              {/* Floating ornament */}
+              <div className="absolute -bottom-6 -right-6 text-gold/40 text-4xl animate-float" style={{ animationDelay: '0.5s' }}>✦</div>
+            </div>
+          </AnimateOnScroll>
+
+          {/* Call-to-Action Buttons */}
+          <AnimateOnScroll>
+            <div className="flex flex-col sm:flex-row gap-5 justify-center mt-12">
+              <Link
+                href={`/${locale}/purchase`}
+                className="group btn-sacred-primary inline-flex items-center justify-center px-10 py-4 bg-gradient-to-r from-gold via-gold to-gold-light text-white font-bold text-lg overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-gold/50 transition-all duration-300 hover:-translate-y-1 active:scale-[0.98]"
+              >
+                <span className="relative z-10 flex items-center gap-3">
+                  {t('video.ctaPrimary')}
+                  <ArrowRightIcon size={20} className="transform group-hover:translate-x-1 transition-transform" />
+                </span>
+                {/* Shimmer effect on hover */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+              </Link>
+
+              <Link
+                href={`/${locale}/preview`}
+                className="group btn-sacred inline-flex items-center justify-center px-10 py-4 border-2 border-gold text-gold font-bold text-lg bg-white/50 backdrop-blur-sm hover:bg-gold hover:text-white hover:border-gold transition-all duration-300 hover:shadow-xl hover:-translate-y-1 active:scale-[0.98]"
+              >
+                {t('video.ctaSecondary')}
+              </Link>
+            </div>
+          </AnimateOnScroll>
         </div>
       </section>
 

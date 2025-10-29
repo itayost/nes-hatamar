@@ -67,6 +67,12 @@
         }
       }
     },
+    "video": {
+      "title": "See the Book in Action",
+      "subtitle": "Discover the magic and depth of Nes HaTamar through this special presentation",
+      "ctaPrimary": "Order the Book",
+      "ctaSecondary": "Preview the Book"
+    },
     "finalCta": {
       "title": "Begin Your Journey",
       "subtitle": "Transform your understanding of healing, faith, and the natural world",
