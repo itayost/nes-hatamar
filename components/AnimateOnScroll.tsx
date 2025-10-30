@@ -5,11 +5,13 @@ import { useEffect, useRef, useState } from 'react';
 interface AnimateOnScrollProps {
   children: React.ReactNode;
   className?: string;
+  animation?: 'fadeIn' | 'slideUp' | 'slideInLeft' | 'slideInRight' | 'slideInDown' | 'scaleIn' | 'rotateIn' | 'zoomIn';
 }
 
 export default function AnimateOnScroll({
   children,
   className = '',
+  animation = 'fadeIn',
 }: AnimateOnScrollProps) {
   const [isVisible, setIsVisible] = useState(false);
   const elementRef = useRef<HTMLDivElement>(null);
@@ -43,10 +45,12 @@ export default function AnimateOnScroll({
     };
   }, []);
 
+  const animationClass = `animate-${animation}`;
+
   return (
     <div
       ref={elementRef}
-      className={`${className} ${isVisible ? 'animate-fadeIn' : 'opacity-0'}`}
+      className={`${className} ${isVisible ? animationClass : 'opacity-0'}`}
     >
       {children}
     </div>

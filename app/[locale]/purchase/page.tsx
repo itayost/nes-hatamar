@@ -48,12 +48,12 @@ export default async function PurchasePage({ params }: { params: Promise<{ local
       {/* Section 2: Headstart Crowdfunding Embed */}
       <section className="relative py-16 sm:py-20">
         <div className="w-full mx-auto px-10 sm:px-8 lg:px-12 max-w-6xl">
-          <AnimateOnScroll>
+          <AnimateOnScroll animation="slideUp">
             <HeadstartEmbed locale={locale} size="default" />
           </AnimateOnScroll>
 
           {/* Call-to-Action Button */}
-          <AnimateOnScroll>
+          <AnimateOnScroll animation="scaleIn">
             <div className="mt-12 text-center">
               <p className="text-dark/70 text-lg mb-6">
                 {t('headstartCta.description')}
@@ -78,7 +78,7 @@ export default async function PurchasePage({ params }: { params: Promise<{ local
       {/* Section 3: What's Included (Brief) */}
       <section className="relative py-16 sm:py-20 bg-gradient-to-b from-cream to-white">
         <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-5xl">
-          <AnimateOnScroll>
+          <AnimateOnScroll animation="slideUp">
             <h2 className="text-3xl sm:text-4xl font-bold text-center bg-gradient-to-r from-gold to-gold-light bg-clip-text text-transparent mb-12">
               {t('whatsIncluded.title')}
             </h2>
@@ -86,7 +86,7 @@ export default async function PurchasePage({ params }: { params: Promise<{ local
 
           <div className="grid sm:grid-cols-2 gap-6">
             {/* Included Item 1 */}
-            <AnimateOnScroll>
+            <AnimateOnScroll animation="slideUp">
               <div className="flex items-start gap-4 bg-white/60 backdrop-blur-sm p-6 rounded-2xl border-2 border-gold/20">
                 <div className="w-10 h-10 bg-gold/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                   <span className="text-gold text-xl font-bold">✓</span>
@@ -96,7 +96,7 @@ export default async function PurchasePage({ params }: { params: Promise<{ local
             </AnimateOnScroll>
 
             {/* Included Item 2 */}
-            <AnimateOnScroll>
+            <AnimateOnScroll animation="slideUp">
               <div className="flex items-start gap-4 bg-white/60 backdrop-blur-sm p-6 rounded-2xl border-2 border-gold/20">
                 <div className="w-10 h-10 bg-gold/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                   <span className="text-gold text-xl font-bold">✓</span>
@@ -106,7 +106,7 @@ export default async function PurchasePage({ params }: { params: Promise<{ local
             </AnimateOnScroll>
 
             {/* Included Item 3 */}
-            <AnimateOnScroll>
+            <AnimateOnScroll animation="slideUp">
               <div className="flex items-start gap-4 bg-white/60 backdrop-blur-sm p-6 rounded-2xl border-2 border-gold/20">
                 <div className="w-10 h-10 bg-gold/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                   <span className="text-gold text-xl font-bold">✓</span>
@@ -116,7 +116,7 @@ export default async function PurchasePage({ params }: { params: Promise<{ local
             </AnimateOnScroll>
 
             {/* Included Item 4 */}
-            <AnimateOnScroll>
+            <AnimateOnScroll animation="slideUp">
               <div className="flex items-start gap-4 bg-white/60 backdrop-blur-sm p-6 rounded-2xl border-2 border-gold/20">
                 <div className="w-10 h-10 bg-gold/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                   <span className="text-gold text-xl font-bold">✓</span>
@@ -126,7 +126,7 @@ export default async function PurchasePage({ params }: { params: Promise<{ local
             </AnimateOnScroll>
 
             {/* Included Item 5 */}
-            <AnimateOnScroll>
+            <AnimateOnScroll animation="slideUp">
               <div className="flex items-start gap-4 bg-white/60 backdrop-blur-sm p-6 rounded-2xl border-2 border-gold/20 sm:col-span-2 sm:max-w-md sm:mx-auto">
                 <div className="w-10 h-10 bg-gold/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                   <span className="text-gold text-xl font-bold">✓</span>
@@ -141,7 +141,7 @@ export default async function PurchasePage({ params }: { params: Promise<{ local
       {/* Section 4: Trust Bar */}
       <section className="relative py-12 bg-white border-y-2 border-gold/10">
         <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-6xl">
-          <AnimateOnScroll>
+          <AnimateOnScroll animation="slideUp">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-12 text-center">
               {/* Trust 1: Secure Payment */}
               <div className="flex flex-col items-center gap-3">

@@ -85,6 +85,72 @@ a:hover {
   }
 }
 
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes rotateIn {
+  from {
+    opacity: 0;
+    transform: perspective(400px) rotateX(-15deg);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(400px) rotateX(0deg);
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 /* Animation utility classes */
 .animate-fadeIn {
   animation: fadeIn 0.8s ease-out;
@@ -102,6 +168,36 @@ a:hover {
 
 .animate-glow {
   animation: glow 3s ease-in-out infinite;
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 1.0s ease-out;
+  animation-fill-mode: backwards;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 1.0s ease-out;
+  animation-fill-mode: backwards;
+}
+
+.animate-slideInDown {
+  animation: slideInDown 1.0s ease-out;
+  animation-fill-mode: backwards;
+}
+
+.animate-scaleIn {
+  animation: scaleIn 1.0s ease-out;
+  animation-fill-mode: backwards;
+}
+
+.animate-rotateIn {
+  animation: rotateIn 1.0s ease-out;
+  animation-fill-mode: backwards;
+}
+
+.animate-zoomIn {
+  animation: zoomIn 1.0s ease-out;
+  animation-fill-mode: backwards;
 }
 
 /* Stagger delays for sequential animations */

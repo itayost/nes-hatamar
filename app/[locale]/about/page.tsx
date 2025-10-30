@@ -48,7 +48,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       {/* Section 2: Why These Authors */}
       <section className="relative py-20 sm:py-24">
         <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-6xl">
-          <AnimateOnScroll>
+          <AnimateOnScroll animation="slideUp">
             <div className="relative bg-white/60 backdrop-blur-sm p-10 md:p-16 rounded-3xl shadow-2xl border-4 border-gold/30">
               <CornerOrnament position="top-left" size="md" />
               <CornerOrnament position="bottom-right" size="md" />
@@ -110,7 +110,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Author Card */}
-            <AnimateOnScroll>
+            <AnimateOnScroll animation="slideInRight">
               <div className="relative group">
                 <div className="relative bg-white/60 backdrop-blur-sm p-8 sm:p-10 rounded-3xl shadow-xl border-2 border-gold/30 transition-all duration-300 hover:shadow-2xl hover:border-gold/50">
                   <div className="aspect-[3/4] bg-gradient-to-br from-gold-light/30 via-white to-gold/10 rounded-2xl flex flex-col items-center justify-center relative overflow-hidden p-8">
@@ -131,7 +131,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             </AnimateOnScroll>
 
             {/* Bio Content */}
-            <AnimateOnScroll>
+            <AnimateOnScroll animation="slideInLeft">
               <div className="space-y-6">
                 <div className="prose prose-lg max-w-none text-dark/90 leading-relaxed">
                   <p className="first-letter:text-6xl first-letter:font-bold first-letter:text-gold first-letter:float-start first-letter:me-3 first-letter:leading-none first-letter:mt-1">
@@ -177,7 +177,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Bio Content (Reversed Order on Desktop) */}
-            <AnimateOnScroll>
+            <AnimateOnScroll animation="slideInRight">
               <div className="space-y-6 lg:order-1 order-2">
                 <div className="prose prose-lg max-w-none text-dark/90 leading-relaxed">
                   <p className="first-letter:text-6xl first-letter:font-bold first-letter:text-gold first-letter:float-start first-letter:me-3 first-letter:leading-none first-letter:mt-1">
@@ -214,7 +214,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             </AnimateOnScroll>
 
             {/* Author Card */}
-            <AnimateOnScroll>
+            <AnimateOnScroll animation="slideInLeft">
               <div className="relative group lg:order-2 order-1">
                 <div className="relative bg-white/60 backdrop-blur-sm p-8 sm:p-10 rounded-3xl shadow-xl border-2 border-gold/30 transition-all duration-300 hover:shadow-2xl hover:border-gold/50">
                   <div className="aspect-[3/4] bg-gradient-to-br from-gold-light/30 via-white to-gold/10 rounded-2xl flex flex-col items-center justify-center relative overflow-hidden p-8">
@@ -240,7 +240,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       {/* Section 5: Together Section */}
       <section className="relative py-20 sm:py-24 bg-gradient-to-b from-white to-cream">
         <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-6xl">
-          <AnimateOnScroll>
+          <AnimateOnScroll animation="scaleIn">
             <div className="relative bg-white/60 backdrop-blur-sm p-10 md:p-16 lg:p-20 rounded-3xl shadow-2xl border-4 border-gold/30">
               <CornerOrnament position="top-left" size="lg" />
               <CornerOrnament position="bottom-right" size="lg" />
@@ -287,7 +287,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       {/* Section 6: Final CTA */}
       <section className="relative py-20 sm:py-28 bg-gradient-to-b from-cream to-white">
         <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-5xl text-center">
-          <AnimateOnScroll>
+          <AnimateOnScroll animation="slideUp">
             <div className="space-y-8">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent">
                 {t('cta.title')}

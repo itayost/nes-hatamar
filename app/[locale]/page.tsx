@@ -225,7 +225,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
         <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-6xl">
           {/* Section Header */}
-          <AnimateOnScroll>
+          <AnimateOnScroll animation="slideUp">
             <div className="text-center mb-12">
               <h2 className="text-4xl sm:text-5xl font-bold text-gold mb-4">
                 {t('video.title')}
@@ -243,7 +243,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           </AnimateOnScroll>
 
           {/* Video Container with Ornamental Frame */}
-          <AnimateOnScroll>
+          <AnimateOnScroll animation="slideUp">
             <div className="relative">
               <div className="relative p-6 md:p-8 bg-white/60 backdrop-blur-sm rounded-2xl border-2 border-gold/30 shadow-xl">
                 {/* Corner ornaments */}
@@ -266,7 +266,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           </AnimateOnScroll>
 
           {/* Call-to-Action Buttons */}
-          <AnimateOnScroll>
+          <AnimateOnScroll animation="slideUp">
             <div className="flex flex-col sm:flex-row gap-5 justify-center mt-12">
               <Link
                 href={`/${locale}/purchase`}
@@ -302,7 +302,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl">
           <div className="grid md:grid-cols-3 gap-10 lg:gap-12">
             {/* Feature 1 - Plants & Minerals */}
-            <AnimateOnScroll>
+            <AnimateOnScroll animation="slideUp">
             <div className="group relative">
               {/* Numbered badge */}
               <div className="absolute -top-4 -right-4 z-10 w-12 h-12 bg-gradient-to-br from-gold to-gold-light rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:scale-110 transition-transform duration-300">
@@ -346,7 +346,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             </AnimateOnScroll>
 
             {/* Feature 2 - Torah & Homeopathy */}
-            <AnimateOnScroll>
+            <AnimateOnScroll animation="slideUp">
             <div className="group relative">
               {/* Numbered badge */}
               <div className="absolute -top-4 -right-4 z-10 w-12 h-12 bg-gradient-to-br from-gold to-gold-light rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:scale-110 transition-transform duration-300">
@@ -390,7 +390,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             </AnimateOnScroll>
 
             {/* Feature 3 - Art & Experience */}
-            <AnimateOnScroll>
+            <AnimateOnScroll animation="slideUp">
             <div className="group relative">
               {/* Numbered badge */}
               <div className="absolute -top-4 -right-4 z-10 w-12 h-12 bg-gradient-to-br from-gold to-gold-light rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:scale-110 transition-transform duration-300">
@@ -464,7 +464,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           {/* Content Grid - 2x3 */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Item 1 - Torah Sources */}
-            <AnimateOnScroll>
+            <AnimateOnScroll animation="slideUp">
             <div className="group relative">
               <div className="h-full p-8 bg-gradient-to-br from-cream/40 to-white rounded-2xl border border-gold/20 hover:border-gold/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                 <div className="flex flex-col items-center text-center space-y-4">
@@ -479,7 +479,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             </AnimateOnScroll>
 
             {/* Item 2 - Plant Encyclopedia */}
-            <AnimateOnScroll>
+            <AnimateOnScroll animation="slideUp">
             <div className="group relative">
               <div className="h-full p-8 bg-gradient-to-br from-cream/40 to-white rounded-2xl border border-gold/20 hover:border-gold/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                 <div className="flex flex-col items-center text-center space-y-4">
@@ -494,7 +494,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             </AnimateOnScroll>
 
             {/* Item 3 - Homeopathic Remedies */}
-            <AnimateOnScroll>
+            <AnimateOnScroll animation="slideUp">
             <div className="group relative">
               <div className="h-full p-8 bg-gradient-to-br from-cream/40 to-white rounded-2xl border border-gold/20 hover:border-gold/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                 <div className="flex flex-col items-center text-center space-y-4">
@@ -509,7 +509,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             </AnimateOnScroll>
 
             {/* Item 4 - Case Studies */}
-            <AnimateOnScroll>
+            <AnimateOnScroll animation="slideUp">
             <div className="group relative">
               <div className="h-full p-8 bg-gradient-to-br from-cream/40 to-white rounded-2xl border border-gold/20 hover:border-gold/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                 <div className="flex flex-col items-center text-center space-y-4">
@@ -524,7 +524,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             </AnimateOnScroll>
 
             {/* Item 5 - Artwork */}
-            <AnimateOnScroll>
+            <AnimateOnScroll animation="slideUp">
             <div className="group relative">
               <div className="h-full p-8 bg-gradient-to-br from-cream/40 to-white rounded-2xl border border-gold/20 hover:border-gold/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                 <div className="flex flex-col items-center text-center space-y-4">
@@ -539,7 +539,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             </AnimateOnScroll>
 
             {/* Item 6 - Reference Guide */}
-            <AnimateOnScroll>
+            <AnimateOnScroll animation="slideUp">
             <div className="group relative">
               <div className="h-full p-8 bg-gradient-to-br from-cream/40 to-white rounded-2xl border border-gold/20 hover:border-gold/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                 <div className="flex flex-col items-center text-center space-y-4">
