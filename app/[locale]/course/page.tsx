@@ -6,7 +6,7 @@ import CornerOrnament from '@/components/ornaments/CornerOrnament';
 import Divider from '@/components/ornaments/Divider';
 import AnimateOnScroll from '@/components/AnimateOnScroll';
 import { generatePageMetadata } from '@/lib/og-metadata';
-import { BookIcon, LeafIcon, ArrowRightIcon, CheckCircleIcon } from '@/components/icons/Icons';
+import { BookIcon, LeafIcon, ArrowRightIcon, CheckCircleIcon, AnimalIcon, GemIcon, CalendarIcon, ClockIcon, CoinIcon } from '@/components/icons/Icons';
 
 export async function generateMetadata({
   params
@@ -130,7 +130,7 @@ export default async function CoursePage({ params }: { params: Promise<{ locale:
             <AnimateOnScroll animation="slideUp">
               <div className="bg-white/60 backdrop-blur-sm p-8 rounded-2xl border-2 border-gold/20 shadow-lg hover:shadow-xl hover:border-gold/40 transition-all duration-300 hover:-translate-y-1">
                 <div className="w-16 h-16 bg-gradient-to-br from-gold to-gold-light rounded-xl flex items-center justify-center mb-6 mx-auto">
-                  <div className="text-3xl">🌿</div>
+                  <LeafIcon size={40} className="text-white" />
                 </div>
                 <h3 className="text-xl font-bold text-gold mb-3 text-center">{t('about.features.plant.title')}</h3>
                 <p className="text-dark/70 text-center leading-relaxed">{t('about.features.plant.description')}</p>
@@ -140,7 +140,7 @@ export default async function CoursePage({ params }: { params: Promise<{ locale:
             <AnimateOnScroll animation="slideUp">
               <div className="bg-white/60 backdrop-blur-sm p-8 rounded-2xl border-2 border-gold/20 shadow-lg hover:shadow-xl hover:border-gold/40 transition-all duration-300 hover:-translate-y-1">
                 <div className="w-16 h-16 bg-gradient-to-br from-gold to-gold-light rounded-xl flex items-center justify-center mb-6 mx-auto">
-                  <div className="text-3xl">🦁</div>
+                  <AnimalIcon size={40} className="text-white" />
                 </div>
                 <h3 className="text-xl font-bold text-gold mb-3 text-center">{t('about.features.animal.title')}</h3>
                 <p className="text-dark/70 text-center leading-relaxed">{t('about.features.animal.description')}</p>
@@ -150,7 +150,7 @@ export default async function CoursePage({ params }: { params: Promise<{ locale:
             <AnimateOnScroll animation="slideUp">
               <div className="bg-white/60 backdrop-blur-sm p-8 rounded-2xl border-2 border-gold/20 shadow-lg hover:shadow-xl hover:border-gold/40 transition-all duration-300 hover:-translate-y-1">
                 <div className="w-16 h-16 bg-gradient-to-br from-gold to-gold-light rounded-xl flex items-center justify-center mb-6 mx-auto">
-                  <div className="text-3xl">💎</div>
+                  <GemIcon size={40} className="text-white" />
                 </div>
                 <h3 className="text-xl font-bold text-gold mb-3 text-center">{t('about.features.mineral.title')}</h3>
                 <p className="text-dark/70 text-center leading-relaxed">{t('about.features.mineral.description')}</p>
@@ -270,28 +270,28 @@ export default async function CoursePage({ params }: { params: Promise<{ locale:
               <div className="grid md:grid-cols-2 gap-8 mb-10">
                 {/* Duration */}
                 <div className="bg-gold/5 p-6 rounded-2xl border-2 border-gold/20">
-                  <div className="text-4xl mb-3">📅</div>
+                  <CalendarIcon size={48} className="text-gold mb-3" />
                   <h3 className="text-xl font-bold text-gold mb-2">{t('details.duration.title')}</h3>
                   <p className="text-dark/70">{t('details.duration.value')}</p>
                 </div>
 
                 {/* Schedule */}
                 <div className="bg-gold/5 p-6 rounded-2xl border-2 border-gold/20">
-                  <div className="text-4xl mb-3">⏰</div>
+                  <ClockIcon size={48} className="text-gold mb-3" />
                   <h3 className="text-xl font-bold text-gold mb-2">{t('details.schedule.title')}</h3>
                   <p className="text-dark/70">{t('details.schedule.value')}</p>
                 </div>
 
                 {/* Start Date */}
                 <div className="bg-gold/5 p-6 rounded-2xl border-2 border-gold/20">
-                  <div className="text-4xl mb-3">📆</div>
+                  <CalendarIcon size={48} className="text-gold mb-3" />
                   <h3 className="text-xl font-bold text-gold mb-2">{t('details.startDate.title')}</h3>
                   <p className="text-dark/70">{t('details.startDate.value')}</p>
                 </div>
 
                 {/* Price */}
                 <div className="bg-gradient-to-br from-gold/20 to-gold-light/20 p-6 rounded-2xl border-2 border-gold/40">
-                  <div className="text-4xl mb-3">💰</div>
+                  <CoinIcon size={48} className="text-gold mb-3" />
                   <h3 className="text-xl font-bold text-gold mb-2">{t('details.price.title')}</h3>
                   <p className="text-2xl font-bold text-dark mb-2">{t('details.price.value')}</p>
                   <p className="text-sm text-dark/60">{t('details.price.includes')}</p>

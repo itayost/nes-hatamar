@@ -449,3 +449,153 @@ export const CheckCircleIcon: React.FC<IconProps> = ({ className = '', size = 24
     <circle cx="12" cy="12" r="6" opacity="0.1" fill="currentColor" />
   </svg>
 );
+
+// Animal Icon - For animals and living creatures
+export const AnimalIcon: React.FC<IconProps> = ({ className = '', size = 24 }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    {/* Animal paw print - main pad */}
+    <ellipse cx="12" cy="14" rx="3.5" ry="4" />
+    {/* Top left toe */}
+    <ellipse cx="7" cy="9" rx="1.8" ry="2.2" />
+    {/* Top center toe */}
+    <ellipse cx="12" cy="7" rx="1.8" ry="2.2" />
+    {/* Top right toe */}
+    <ellipse cx="17" cy="9" rx="1.8" ry="2.2" />
+    {/* Decorative dots */}
+    <circle cx="12" cy="14" r="1" fill="currentColor" opacity="0.3" />
+    <circle cx="7" cy="9" r="0.6" fill="currentColor" opacity="0.4" />
+    <circle cx="12" cy="7" r="0.6" fill="currentColor" opacity="0.4" />
+    <circle cx="17" cy="9" r="0.6" fill="currentColor" opacity="0.4" />
+  </svg>
+);
+
+// Gem Icon - For minerals, gems, and precious stones
+export const GemIcon: React.FC<IconProps> = ({ className = '', size = 24 }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    {/* Diamond/gem shape */}
+    <path d="M6 3h12l4 6-10 12L2 9l4-6z" />
+    {/* Top facets */}
+    <path d="M6 3l6 6m6-6l-6 6m-6 0h12" opacity="0.5" />
+    {/* Side facets */}
+    <path d="M2 9l10 3m10-3L12 12" opacity="0.4" />
+    {/* Center facets */}
+    <path d="M6 9l6 3m6-3l-6 3" opacity="0.3" />
+    {/* Sparkle effect */}
+    <circle cx="12" cy="7" r="0.8" fill="currentColor" opacity="0.6" />
+    <circle cx="8" cy="9" r="0.5" fill="currentColor" opacity="0.5" />
+    <circle cx="16" cy="9" r="0.5" fill="currentColor" opacity="0.5" />
+  </svg>
+);
+
+// Calendar Icon - For dates and scheduling
+export const CalendarIcon: React.FC<IconProps> = ({ className = '', size = 24 }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    {/* Calendar frame */}
+    <rect x="3" y="4" width="18" height="18" rx="2" />
+    {/* Top binding */}
+    <path d="M3 9h18" strokeWidth="2" />
+    {/* Hanging loops */}
+    <path d="M8 3v4m8-4v4" strokeWidth="2" />
+    {/* Date dots/marks */}
+    <circle cx="8" cy="13" r="0.8" fill="currentColor" />
+    <circle cx="12" cy="13" r="0.8" fill="currentColor" />
+    <circle cx="16" cy="13" r="0.8" fill="currentColor" />
+    <circle cx="8" cy="17" r="0.8" fill="currentColor" />
+    <circle cx="12" cy="17" r="0.8" fill="currentColor" />
+    <circle cx="16" cy="17" r="0.8" fill="currentColor" />
+    {/* Decorative highlight */}
+    <circle cx="12" cy="13" r="1.5" opacity="0.2" />
+  </svg>
+);
+
+// Clock Icon - For time and duration
+export const ClockIcon: React.FC<IconProps> = ({ className = '', size = 24 }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    {/* Clock circle */}
+    <circle cx="12" cy="12" r="9" />
+    {/* Clock hands - showing 10:10 (classic watch advertisement time) */}
+    <path d="M12 6v6l4 2" strokeWidth="2" />
+    {/* Hour markers */}
+    <circle cx="12" cy="5" r="0.8" fill="currentColor" />
+    <circle cx="17" cy="7" r="0.8" fill="currentColor" />
+    <circle cx="19" cy="12" r="0.8" fill="currentColor" />
+    <circle cx="17" cy="17" r="0.8" fill="currentColor" />
+    <circle cx="12" cy="19" r="0.8" fill="currentColor" />
+    <circle cx="7" cy="17" r="0.8" fill="currentColor" />
+    <circle cx="5" cy="12" r="0.8" fill="currentColor" />
+    <circle cx="7" cy="7" r="0.8" fill="currentColor" />
+    {/* Center dot */}
+    <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+  </svg>
+);
+
+// Coin Icon - For money, pricing, and currency
+export const CoinIcon: React.FC<IconProps> = ({ className = '', size = 24 }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    {/* Main coin */}
+    <circle cx="12" cy="12" r="9" />
+    {/* Inner decorative circle */}
+    <circle cx="12" cy="12" r="6.5" opacity="0.3" />
+    {/* Currency symbol - Shekel ₪ */}
+    <path d="M10 8v8m4-8v4c0 1.1-.9 2-2 2" strokeWidth="2" />
+    {/* Coin shine/highlight effect */}
+    <path d="M8 6c2-1.5 6-1.5 8 0" opacity="0.4" />
+    <circle cx="9" cy="8" r="1" fill="currentColor" opacity="0.3" />
+    {/* Decorative dots around edge */}
+    <circle cx="12" cy="4" r="0.6" fill="currentColor" opacity="0.4" />
+    <circle cx="18" cy="8" r="0.6" fill="currentColor" opacity="0.4" />
+    <circle cx="18" cy="16" r="0.6" fill="currentColor" opacity="0.4" />
+    <circle cx="6" cy="8" r="0.6" fill="currentColor" opacity="0.4" />
+    <circle cx="6" cy="16" r="0.6" fill="currentColor" opacity="0.4" />
+  </svg>
+);
