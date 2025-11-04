@@ -6,6 +6,7 @@ import { locales } from '@/lib/i18n';
 import { generatePageMetadata } from '@/lib/og-metadata';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import WhatsAppFAB from '@/components/WhatsAppFAB';
 
 export async function generateMetadata({
   params
@@ -54,6 +55,7 @@ export default async function LocaleLayout({
             </main>
             <Footer />
           </div>
+          <WhatsAppFAB />
         </NextIntlClientProvider>
       </body>
     </html>
