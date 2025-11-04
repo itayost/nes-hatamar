@@ -12,7 +12,6 @@ import {
   TorahScrollIcon,
   PaletteIcon,
   ArrowRightIcon,
-  BookIcon,
   OrnamentIcon,
   AboutIcon,
   PreviewIcon

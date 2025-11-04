@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import LanguageSwitcher from './LanguageSwitcher';
-import { HomeIcon, AboutIcon, PreviewIcon, PurchaseIcon } from './icons/Icons';
+import { HomeIcon, AboutIcon, PreviewIcon, PurchaseIcon, LeafIcon } from './icons/Icons';
 
 export default function Header() {
   const t = useTranslations('navigation');
@@ -43,6 +43,7 @@ export default function Header() {
 
   const navItems = [
     { key: 'home', path: '', Icon: HomeIcon },
+    { key: 'course', path: '/course', Icon: LeafIcon },
     { key: 'about', path: '/about', Icon: AboutIcon },
     { key: 'preview', path: '/preview', Icon: PreviewIcon },
     { key: 'purchase', path: '/purchase', Icon: PurchaseIcon },

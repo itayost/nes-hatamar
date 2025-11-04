@@ -1,6 +1,7 @@
 {
   "navigation": {
     "home": "Home",
+    "course": "Homeopathy Course",
     "about": "About the Authors",
     "preview": "Book Preview",
     "purchase": "Purchase"
@@ -236,6 +237,93 @@
     },
     "success": "Order sent successfully! We will contact you soon.",
     "error": "An error occurred. Please try again."
+  },
+  "course": {
+    "title": "Introduction to Homeopathy Course",
+    "subtitle": "With Tamar Eshel - Attorney, Veteran Homeopath, and Teacher of Homeopathy and the Inner Wisdom of Torah",
+    "stats": {
+      "sessions": "Sessions",
+      "hours": "Hours per Session",
+      "price": "Cost",
+      "priceValue": "2,000 ₪"
+    },
+    "about": {
+      "title": "About the Course",
+      "description": "The course will include 8 fascinating 2-hour sessions in the morning hours, once a week starting in February. It will expose students to the healing powers inherent in the three kingdoms - plant, animal, and mineral. The course will pave the way to sustainable, robust health through the long and short path, with a special connection to the Holy Torah and Jewish thought throughout the generations.",
+      "features": {
+        "plant": {
+          "title": "Plant Kingdom",
+          "description": "Discovering the healing powers inherent in the world of plants and remedies based on them"
+        },
+        "animal": {
+          "title": "Animal Kingdom",
+          "description": "Understanding remedies derived from animals and their healing effects"
+        },
+        "mineral": {
+          "title": "Mineral Kingdom",
+          "description": "Learning the healing power in minerals, metals, and elements"
+        }
+      }
+    },
+    "receive": {
+      "title": "What You'll Receive",
+      "items": {
+        "course": {
+          "title": "8 Fascinating Sessions",
+          "description": "2-hour sessions with Tamar Eshel, in morning hours, once a week"
+        },
+        "book": {
+          "title": "The Book 'Nes HaTamar' Included",
+          "description": "A premium 500+ page book with Torah wisdom and ancient healing knowledge"
+        },
+        "knowledge": {
+          "title": "Ancient and Root Knowledge",
+          "description": "Natural medicine that connects wonderfully with the Holy Torah and Jewish thought"
+        }
+      }
+    },
+    "instructor": {
+      "name": "Tamar Eshel",
+      "title": "Veteran Homeopath and Teacher",
+      "sectionTitle": "About the Instructor",
+      "bio": "An attorney, veteran homeopath, and teacher of homeopathy and the inner wisdom of Torah. Tamar is the author of the book 'Nes HaTamar' and 'A Feminine Journey Through the Omer Count'. In this course, Tamar will transmit ancient knowledge about natural and root medicine that connects wonderfully with the Holy Torah and Jewish thought throughout the generations.",
+      "highlights": {
+        "experience": "Over 20 years practicing homeopathy",
+        "books": "Author of 'Nes HaTamar' and 'A Feminine Journey Through the Omer Count'",
+        "expertise": "Teacher of homeopathy and the inner wisdom of Torah",
+        "connection": "Bridges natural medicine with the wisdom of Torah"
+      }
+    },
+    "details": {
+      "title": "Course Details",
+      "duration": {
+        "title": "Course Duration",
+        "value": "8 sessions of 2 hours each, once a week"
+      },
+      "schedule": {
+        "title": "Day and Time",
+        "value": "To be arranged according to participants' preferences, in morning hours"
+      },
+      "startDate": {
+        "title": "Start Date",
+        "value": "Starting in February"
+      },
+      "price": {
+        "title": "Cost",
+        "value": "2,000 ₪",
+        "includes": "Includes the book 'Nes HaTamar'"
+      }
+    },
+    "cta": {
+      "title": "Join the Course",
+      "subtitle": "A rare opportunity to learn homeopathy from its roots with Tamar Eshel",
+      "button": "Register via Headstart",
+      "trust": {
+        "includes": "Book Included",
+        "expert": "Expert Teacher",
+        "support": "Personal Guidance"
+      }
+    }
   },
   "footer": {
     "rights": "All rights reserved",

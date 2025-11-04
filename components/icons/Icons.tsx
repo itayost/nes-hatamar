@@ -427,3 +427,25 @@ export const StarIcon: React.FC<IconProps> = ({ className = '', size = 24 }) => 
     <circle cx="2" cy="9.27" r="0.6" fill="currentColor" opacity="0.4" />
   </svg>
 );
+
+// Check Circle Icon - For confirmations and checkmarks
+export const CheckCircleIcon: React.FC<IconProps> = ({ className = '', size = 24 }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    {/* Circle */}
+    <circle cx="12" cy="12" r="10" />
+    {/* Check mark */}
+    <path d="M9 12l2 2 4-4" strokeWidth="2.5" />
+    {/* Decorative inner circle */}
+    <circle cx="12" cy="12" r="6" opacity="0.1" fill="currentColor" />
+  </svg>
+);
