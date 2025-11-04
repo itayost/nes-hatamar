@@ -21,7 +21,7 @@ export default function WhatsAppFAB() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={ariaLabel}
-      className={`fixed bottom-5 ${isRTL ? 'left-5' : 'right-5'} md:${isRTL ? 'left-8' : 'right-8'} md:bottom-8
+      className={`fixed bottom-5 ${isRTL ? 'right-5' : 'left-5'} md:${isRTL ? 'right-8' : 'left-8'} md:bottom-8
         w-14 h-14 md:w-16 md:h-16
         bg-[#25D366] hover:bg-[#128C7E]
         rounded-full
