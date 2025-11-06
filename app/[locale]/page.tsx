@@ -320,9 +320,16 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gold/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 transform -translate-x-full group-hover:translate-x-full" style={{ transitionDuration: '1.5s' }}></div>
 
                 <div className="relative text-center space-y-5">
-                  {/* Icon with animation */}
-                  <div className="inline-flex items-center justify-center w-20 h-20 bg-gold/10 rounded-full group-hover:bg-gold/20 transition-colors duration-300">
-                    <LeafIcon size={48} className="text-gold transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
+                  {/* Image with animation */}
+                  <div className="inline-flex items-center justify-center w-20 h-20 bg-gold/10 rounded-full group-hover:bg-gold/20 transition-colors duration-300 overflow-hidden">
+                    <div className="relative w-full h-full">
+                      <Image
+                        src="/images/preview/plants.jpeg"
+                        alt={t('features.plants.title')}
+                        fill
+                        className="object-cover transform group-hover:scale-110 transition-all duration-300"
+                      />
+                    </div>
                   </div>
 
                   <h3 className="text-2xl font-bold text-gold group-hover:text-gold-light transition-colors duration-300">
@@ -364,9 +371,16 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gold/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 transform -translate-x-full group-hover:translate-x-full" style={{ transitionDuration: '1.5s' }}></div>
 
                 <div className="relative text-center space-y-5">
-                  {/* Icon with animation */}
-                  <div className="inline-flex items-center justify-center w-20 h-20 bg-gold/10 rounded-full group-hover:bg-gold/20 transition-colors duration-300">
-                    <TorahScrollIcon size={48} className="text-gold transform group-hover:scale-110 group-hover:-rotate-6 transition-all duration-300" />
+                  {/* Image with animation */}
+                  <div className="inline-flex items-center justify-center w-20 h-20 bg-gold/10 rounded-full group-hover:bg-gold/20 transition-colors duration-300 overflow-hidden">
+                    <div className="relative w-full h-full">
+                      <Image
+                        src="/images/preview/homeopathia.jpeg"
+                        alt={t('features.torah.title')}
+                        fill
+                        className="object-cover transform group-hover:scale-110 transition-all duration-300"
+                      />
+                    </div>
                   </div>
 
                   <h3 className="text-2xl font-bold text-gold group-hover:text-gold-light transition-colors duration-300">
@@ -408,9 +422,16 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gold/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 transform -translate-x-full group-hover:translate-x-full" style={{ transitionDuration: '1.5s' }}></div>
 
                 <div className="relative text-center space-y-5">
-                  {/* Icon with animation */}
-                  <div className="inline-flex items-center justify-center w-20 h-20 bg-gold/10 rounded-full group-hover:bg-gold/20 transition-colors duration-300">
-                    <PaletteIcon size={48} className="text-gold transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" />
+                  {/* Image with animation */}
+                  <div className="inline-flex items-center justify-center w-20 h-20 bg-gold/10 rounded-full group-hover:bg-gold/20 transition-colors duration-300 overflow-hidden">
+                    <div className="relative w-full h-full">
+                      <Image
+                        src="/images/preview/art.jpeg"
+                        alt={t('features.art.title')}
+                        fill
+                        className="object-cover transform group-hover:scale-110 transition-all duration-300"
+                      />
+                    </div>
                   </div>
 
                   <h3 className="text-2xl font-bold text-gold group-hover:text-gold-light transition-colors duration-300">
