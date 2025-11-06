@@ -2,6 +2,7 @@
 
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import LanguageSwitcher from './LanguageSwitcher';
@@ -76,10 +77,16 @@ export default function Header() {
               <div className="text-2xl text-purple group-hover:rotate-12 transition-transform duration-300">
                 ✦
               </div>
-              <div className={`font-bold bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent transition-all duration-300 ${
-                isScrolled ? 'text-2xl sm:text-3xl' : 'text-3xl sm:text-4xl'
+              <div className={`relative transition-all duration-300 ${
+                isScrolled ? 'h-10 w-28 sm:h-12 sm:w-32' : 'h-12 w-32 sm:h-14 sm:w-36'
               }`}>
-                נס התמר
+                <Image
+                  src="/images/logo.png"
+                  alt="נס התמר"
+                  fill
+                  className="object-contain"
+                  priority
+                />
               </div>
             </Link>
 
@@ -165,8 +172,13 @@ export default function Header() {
           <div className="p-6 border-b border-gold/20 bg-gradient-to-r from-cream to-white">
             <div className="flex items-center gap-3">
               <div className="text-2xl text-purple">✦</div>
-              <div className="text-2xl font-bold bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent">
-                נס התמר
+              <div className="relative h-10 w-28">
+                <Image
+                  src="/images/logo.png"
+                  alt="נס התמר"
+                  fill
+                  className="object-contain"
+                />
               </div>
             </div>
           </div>

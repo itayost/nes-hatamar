@@ -2,6 +2,7 @@
 
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import {
   HomeIcon,
@@ -67,8 +68,13 @@ export default function Footer() {
                 <div className="text-2xl text-purple group-hover:rotate-12 transition-transform duration-300">
                   ✦
                 </div>
-                <div className="text-2xl font-bold bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent">
-                  נס התמר
+                <div className="relative h-10 w-28">
+                  <Image
+                    src="/images/logo.png"
+                    alt="נס התמר"
+                    fill
+                    className="object-contain"
+                  />
                 </div>
               </div>
               <p className="text-sm text-dark/70 leading-relaxed">
