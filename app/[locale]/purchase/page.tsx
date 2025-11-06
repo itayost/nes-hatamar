@@ -124,16 +124,6 @@ export default async function PurchasePage({ params }: { params: Promise<{ local
                 <p className="text-dark/80 leading-relaxed">{t('whatsIncluded.quality')}</p>
               </div>
             </AnimateOnScroll>
-
-            {/* Included Item 5 */}
-            <AnimateOnScroll animation="slideUp">
-              <div className="flex items-start gap-4 bg-white/60 backdrop-blur-sm p-6 rounded-2xl border-2 border-gold/20 sm:col-span-2 sm:max-w-md sm:mx-auto">
-                <div className="w-10 h-10 bg-gold/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                  <span className="text-gold text-xl font-bold">✓</span>
-                </div>
-                <p className="text-dark/80 leading-relaxed">{t('whatsIncluded.bookmark')}</p>
-              </div>
-            </AnimateOnScroll>
           </div>
         </div>
       </section>
