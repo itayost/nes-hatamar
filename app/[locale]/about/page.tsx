@@ -202,54 +202,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         </div>
       </section>
 
-      {/* Section 5: Together Section */}
-      <section className="relative py-20 sm:py-24 bg-gradient-to-b from-white to-cream">
-        <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-6xl">
-          <AnimateOnScroll animation="scaleIn">
-            <div className="relative bg-white/60 backdrop-blur-sm p-10 md:p-16 lg:p-20 rounded-3xl shadow-2xl border-4 border-gold/30">
-              <CornerOrnament position="top-left" size="lg" />
-              <CornerOrnament position="bottom-right" size="lg" />
-
-              {/* Decorative corner brackets */}
-              <div className="absolute -top-4 -left-4 w-20 h-20 border-t-4 border-l-4 border-gold rounded-tl-2xl"></div>
-              <div className="absolute -bottom-4 -right-4 w-20 h-20 border-b-4 border-r-4 border-gold rounded-br-2xl"></div>
-
-              <div className="max-w-4xl mx-auto">
-                <div className="text-center mb-8">
-                  {/* Collaboration icon using two UserIcons */}
-                  <div className="flex items-center justify-center gap-6 mb-8">
-                    <div className="relative">
-                      <UserIcon size={56} className="text-gold" />
-                      <div className="absolute -top-1 -right-1 w-4 h-4 bg-gold rounded-full animate-pulse"></div>
-                    </div>
-                    <div className="text-gold text-4xl">✦</div>
-                    <div className="relative">
-                      <UserIcon size={56} className="text-gold" />
-                      <div className="absolute -top-1 -right-1 w-4 h-4 bg-gold rounded-full animate-pulse delay-100"></div>
-                    </div>
-                  </div>
-                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent mb-6">
-                    {t('together.title')}
-                  </h2>
-                </div>
-
-                {/* Decorative divider */}
-                <div className="flex justify-center items-center gap-4 mb-8">
-                  <div className="h-px w-24 bg-gradient-to-r from-transparent to-gold"></div>
-                  <div className="text-gold text-2xl">✦</div>
-                  <div className="h-px w-24 bg-gradient-to-l from-transparent to-gold"></div>
-                </div>
-
-                <p className="text-xl sm:text-2xl text-dark/90 leading-relaxed text-center mb-8">
-                  {t('together.description')}
-                </p>
-              </div>
-            </div>
-          </AnimateOnScroll>
-        </div>
-      </section>
-
-      {/* Section 6: Final CTA */}
+      {/* Section 5: Final CTA */}
       <section className="relative py-20 sm:py-28 bg-gradient-to-b from-cream to-white">
         <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-5xl text-center">
           <AnimateOnScroll animation="slideUp">
