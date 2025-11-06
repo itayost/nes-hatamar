@@ -13,8 +13,6 @@ import {
   LinksIcon,
   BookIcon,
   ArrowUpIcon,
-  FacebookIcon,
-  InstagramIcon,
   WhatsAppIcon
 } from './icons/Icons';
 
@@ -121,34 +119,22 @@ export default function Footer() {
               </h3>
               <div className="space-y-3">
                 <a
-                  href="mailto:contact@neshatamar.com"
+                  href="mailto:Nissimkrispiltamar@gmail.com"
                   className="group flex items-center gap-3 text-dark/70 hover:text-gold transition-colors duration-300 justify-center md:justify-start"
                 >
                   <EmailIcon size={18} className="group-hover:scale-110 transition-transform duration-300" />
                   <span className="text-sm font-medium">
-                    contact@neshatamar.com
+                    Nissimkrispiltamar@gmail.com
                   </span>
                 </a>
 
                 {/* Social Media Icons */}
                 <div className="flex gap-4 justify-center md:justify-start pt-2">
                   <a
-                    href="#"
-                    className="w-10 h-10 rounded-full bg-gold/10 hover:bg-gold flex items-center justify-center text-gold hover:text-white transition-all duration-300 hover:scale-110 hover:shadow-lg"
-                    aria-label="Facebook"
-                  >
-                    <FacebookIcon size={18} />
-                  </a>
-                  <a
-                    href="#"
-                    className="w-10 h-10 rounded-full bg-gold/10 hover:bg-gold flex items-center justify-center text-gold hover:text-white transition-all duration-300 hover:scale-110 hover:shadow-lg"
-                    aria-label="Instagram"
-                  >
-                    <InstagramIcon size={18} />
-                  </a>
-                  <a
-                    href="#"
-                    className="w-10 h-10 rounded-full bg-gold/10 hover:bg-gold flex items-center justify-center text-gold hover:text-white transition-all duration-300 hover:scale-110 hover:shadow-lg"
+                    href="https://wa.me/972547709201?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%9F%2F%D7%AA%20%D7%9C%D7%A7%D7%91%D7%9C%20%D7%9E%D7%99%D7%93%D7%A2%20%D7%A2%D7%9C%20%D7%A7%D7%95%D7%A8%D7%A1%20%D7%94%D7%94%D7%95%D7%9E%D7%90%D7%95%D7%A4%D7%AA%D7%99%D7%94"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 rounded-full bg-[#25D366]/10 hover:bg-[#25D366] flex items-center justify-center text-[#25D366] hover:text-white transition-all duration-300 hover:scale-110 hover:shadow-lg"
                     aria-label="WhatsApp"
                   >
                     <WhatsAppIcon size={18} />
