@@ -64,7 +64,7 @@ export default function Footer() {
             {/* Column 1: Branding */}
             <div className="space-y-4 text-center md:text-start">
               <div className="flex items-center gap-3 justify-center md:justify-start group">
-                <div className="text-2xl group-hover:rotate-12 transition-transform duration-300">
+                <div className="text-2xl text-purple group-hover:rotate-12 transition-transform duration-300">
                   ✦
                 </div>
                 <div className="text-2xl font-bold bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent">

@@ -73,7 +73,7 @@ export default function Header() {
               className="flex items-center gap-3 group transition-transform hover:scale-105 duration-300"
             >
               {/* Decorative ornament */}
-              <div className="text-2xl group-hover:rotate-12 transition-transform duration-300">
+              <div className="text-2xl text-purple group-hover:rotate-12 transition-transform duration-300">
                 ✦
               </div>
               <div className={`font-bold bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent transition-all duration-300 ${
@@ -164,7 +164,7 @@ export default function Header() {
           {/* Drawer Header */}
           <div className="p-6 border-b border-gold/20 bg-gradient-to-r from-cream to-white">
             <div className="flex items-center gap-3">
-              <div className="text-2xl">✦</div>
+              <div className="text-2xl text-purple">✦</div>
               <div className="text-2xl font-bold bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent">
                 נס התמר
               </div>

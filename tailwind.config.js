@@ -15,6 +15,7 @@ module.exports = {
         cream: '#FFFEF7',
         dark: '#2C2416',
         accent: '#E8B4D9',
+        purple: '#8B5CF6',
         border: 'rgba(201, 169, 97, 0.3)',
       },
       fontFamily: {
