@@ -88,19 +88,15 @@
   "about": {
     "title": "About the Authors",
     "subtitle": "Meet the visionaries behind Nes HaTamar",
-    "whyAuthors": {
-      "title": "Why These Authors",
-      "description": "Nes HaTamar emerges from a rare collaboration between two masters in their fields. Tamar Eshel brings decades of homeopathic practice and deep Torah wisdom, while Nissim Krispil contributes unparalleled ethnobotanical research and cultural anthropology. Together, they weave ancient wisdom with modern healing—a synthesis that only their combined expertise could achieve."
-    },
-    "credentials": {
-      "tamarYears": "20+",
-      "tamarYearsLabel": "Years in Homeopathy",
-      "tamarBooks": "Author",
-      "tamarBooksLabel": "Torah & Healing",
-      "nissimYears": "30+",
-      "nissimYearsLabel": "Years in Ethnobotany",
-      "nissimBooks": "Pioneer",
-      "nissimBooksLabel": "Israeli Ethnobotany"
+    "authorCards": {
+      "tamar": {
+        "name": "Tamar Eshel",
+        "bio": "A lawyer by training, but her heart is devoted to the world of kindness and natural medicine. She studied homeopathy at the school of Yosef Reves, the father of homeopathy in Israel, and for over two decades has been practicing homeopathy and the connection between body, soul, and faith. A graduate of Rabbi Yitzchak Ginsburgh's School of the Soul, drawing her inspiration primarily from Chabad Chassidic writings. She studies and teaches Torah and Chassidus. Her previous book 'A Feminine Journey Through the Omer Count' has inspired many women."
+      },
+      "nissim": {
+        "name": "Nissim Krispil",
+        "bio": "A writer, researcher, and anthropologist, one of the pioneers in the field of ethnobotany in Israel. For decades, he has been documenting the healing traditions, faith, and culture of Jewish and folk communities in Israel and around the world. His books, dealing with medicinal plants, foraging, folklore, and ethnography, have become milestones in Israeli research and culture. The crown jewel among them is the comprehensive encyclopedia 'Yalkut HaTzemaḥim' (The Plant Collection). Alongside his research work, Nissim also engages in poetry and music, seeing nature and humanity as one complete unity, seeking to connect body and soul, science and faith, earth and spirit."
+      }
     },
     "tamar": {
       "name": "Tamar Eshel",

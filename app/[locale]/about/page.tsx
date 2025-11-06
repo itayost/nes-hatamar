@@ -46,63 +46,58 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
       <Divider />
 
-      {/* Section 2: Why These Authors */}
+      {/* Section 2: Author Cards */}
       <section className="relative py-20 sm:py-24">
-        <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-6xl">
-          <AnimateOnScroll animation="slideUp">
-            <div className="relative bg-white/60 backdrop-blur-sm p-10 md:p-16 rounded-3xl shadow-2xl border-4 border-gold/30">
-              <CornerOrnament position="top-left" size="md" />
-              <CornerOrnament position="bottom-right" size="md" />
+        <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
+            {/* Tamar Card */}
+            <AnimateOnScroll animation="slideInRight">
+              <div className="relative bg-white/60 backdrop-blur-sm p-8 md:p-10 rounded-3xl shadow-xl border-2 border-gold/30 transition-all duration-300 hover:shadow-2xl hover:border-gold/50">
+                <CornerOrnament position="top-left" size="sm" />
+                <CornerOrnament position="bottom-right" size="sm" />
 
-              {/* Decorative corner brackets */}
-              <div className="absolute -top-4 -left-4 w-16 h-16 border-t-4 border-l-4 border-gold rounded-tl-2xl"></div>
-              <div className="absolute -bottom-4 -right-4 w-16 h-16 border-b-4 border-r-4 border-gold rounded-br-2xl"></div>
-
-              <div className="max-w-4xl mx-auto text-center space-y-8">
-                <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent">
-                  {t('whyAuthors.title')}
+                <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent mb-6">
+                  {t('authorCards.tamar.name')}
                 </h2>
 
                 {/* Decorative divider */}
-                <div className="flex justify-center items-center gap-4">
-                  <div className="h-px w-24 bg-gradient-to-r from-transparent to-gold"></div>
-                  <div className="text-gold text-2xl">✦</div>
-                  <div className="h-px w-24 bg-gradient-to-l from-transparent to-gold"></div>
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="h-px flex-1 bg-gradient-to-r from-gold to-transparent"></div>
+                  <div className="text-gold text-xl">✦</div>
                 </div>
 
-                <p className="text-lg sm:text-xl text-dark/90 leading-relaxed">
-                  {t('whyAuthors.description')}
-                </p>
-
-                {/* Credentials Grid */}
-                <div className="grid sm:grid-cols-2 gap-8 pt-6">
-                  {/* Tamar's Credentials */}
-                  <div className="bg-gold/10 p-6 rounded-xl border-2 border-gold/30">
-                    <div className="text-5xl font-bold bg-gradient-to-br from-gold to-gold-light bg-clip-text text-transparent mb-2">
-                      {t('credentials.tamarYears')}
-                    </div>
-                    <div className="text-dark/70 font-medium mb-4">{t('credentials.tamarYearsLabel')}</div>
-                    <div className="text-2xl font-bold text-gold mb-1">
-                      {t('credentials.tamarBooks')}
-                    </div>
-                    <div className="text-sm text-dark/60">{t('credentials.tamarBooksLabel')}</div>
-                  </div>
-
-                  {/* Nissim's Credentials */}
-                  <div className="bg-gold/10 p-6 rounded-xl border-2 border-gold/30">
-                    <div className="text-5xl font-bold bg-gradient-to-br from-gold to-gold-light bg-clip-text text-transparent mb-2">
-                      {t('credentials.nissimYears')}
-                    </div>
-                    <div className="text-dark/70 font-medium mb-4">{t('credentials.nissimYearsLabel')}</div>
-                    <div className="text-2xl font-bold text-gold mb-1">
-                      {t('credentials.nissimBooks')}
-                    </div>
-                    <div className="text-sm text-dark/60">{t('credentials.nissimBooksLabel')}</div>
-                  </div>
+                <div className="prose prose-lg max-w-none text-dark/90 leading-relaxed">
+                  <p className="first-letter:text-5xl first-letter:font-bold first-letter:text-gold first-letter:float-start first-letter:me-3 first-letter:leading-none first-letter:mt-1">
+                    {t('authorCards.tamar.bio')}
+                  </p>
                 </div>
               </div>
-            </div>
-          </AnimateOnScroll>
+            </AnimateOnScroll>
+
+            {/* Nissim Card */}
+            <AnimateOnScroll animation="slideInLeft">
+              <div className="relative bg-white/60 backdrop-blur-sm p-8 md:p-10 rounded-3xl shadow-xl border-2 border-gold/30 transition-all duration-300 hover:shadow-2xl hover:border-gold/50">
+                <CornerOrnament position="top-left" size="sm" />
+                <CornerOrnament position="bottom-right" size="sm" />
+
+                <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent mb-6">
+                  {t('authorCards.nissim.name')}
+                </h2>
+
+                {/* Decorative divider */}
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="h-px flex-1 bg-gradient-to-r from-gold to-transparent"></div>
+                  <div className="text-gold text-xl">✦</div>
+                </div>
+
+                <div className="prose prose-lg max-w-none text-dark/90 leading-relaxed">
+                  <p className="first-letter:text-5xl first-letter:font-bold first-letter:text-gold first-letter:float-start first-letter:me-3 first-letter:leading-none first-letter:mt-1">
+                    {t('authorCards.nissim.bio')}
+                  </p>
+                </div>
+              </div>
+            </AnimateOnScroll>
+          </div>
         </div>
       </section>
 
