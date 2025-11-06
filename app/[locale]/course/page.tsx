@@ -77,17 +77,6 @@ export default async function CoursePage({ params }: { params: Promise<{ locale:
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       quality={80}
                     />
-                    {/* Dark gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
-
-                    {/* Text overlay */}
-                    <div className="absolute inset-0 flex flex-col items-center justify-end p-8 z-10">
-                      <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2 text-center drop-shadow-lg">
-                        {t('instructor.name')}
-                      </h3>
-                      <p className="text-base text-white/90 text-center drop-shadow-md">{t('instructor.title')}</p>
-                    </div>
-
                     {/* Decorative corner brackets */}
                     <div className="absolute top-3 left-3 w-10 h-10 border-t-2 border-l-2 border-white/60 rounded-tl-xl z-10"></div>
                     <div className="absolute bottom-3 right-3 w-10 h-10 border-b-2 border-r-2 border-white/60 rounded-br-xl z-10"></div>
