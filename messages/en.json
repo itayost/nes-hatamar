@@ -189,6 +189,11 @@
       "title": "Ready to Begin?",
       "subtitle": "Order your copy and start your healing journey",
       "button": "Order Now"
+    },
+    "flipbook": {
+      "title": "Browse the Book",
+      "subtitle": "Flip through the pages interactively",
+      "loading": "Loading the book..."
     }
   },
   "purchase": {
