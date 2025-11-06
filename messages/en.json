@@ -29,13 +29,13 @@
       }
     },
     "stats": {
-      "pages": "500+",
+      "pages": "700+",
       "pagesLabel": "Pages",
       "plants": "200+",
       "plantsLabel": "Plants & Remedies",
       "sources": "100+",
       "sourcesLabel": "Torah Sources",
-      "illustrations": "50+",
+      "illustrations": "500+",
       "illustrationsLabel": "Illustrations"
     },
     "whatsInside": {
@@ -140,11 +140,11 @@
       },
       "content": {
         "title": "Rich Content",
-        "description": "500+ pages of Torah wisdom, plants, and healing knowledge"
+        "description": "700+ pages of Torah wisdom, plants, and healing knowledge"
       },
       "artwork": {
         "title": "Beautiful Artwork",
-        "description": "50+ original illustrations and ancient art pieces"
+        "description": "500+ original illustrations and ancient art pieces"
       },
       "unique": {
         "title": "One of a Kind",
@@ -166,7 +166,7 @@
       "binding": "Hardcover",
       "bindingValue": "Premium hardcover with gold embossing",
       "pages": "Pages",
-      "pagesValue": "500+ pages on luxury paper",
+      "pagesValue": "700+ pages on luxury paper",
       "size": "Dimensions",
       "sizeValue": "Large format for comfortable reading",
       "edges": "Special Features",
@@ -182,7 +182,7 @@
       "plantsLabel": "Plants & Remedies",
       "sources": "100+",
       "sourcesLabel": "Torah Sources",
-      "illustrations": "50+",
+      "illustrations": "500+",
       "illustrationsLabel": "Illustrations"
     },
     "cta": {
@@ -203,7 +203,7 @@
       "price": "Contact for Price",
       "details": {
         "binding": "Hardcover with gold embossing",
-        "pages": "500+ pages",
+        "pages": "700+ pages",
         "features": "Gold-edged pages, ribbon bookmark",
         "language": "Hebrew"
       }
@@ -269,7 +269,7 @@
         },
         "book": {
           "title": "The Book 'Nes HaTamar' Included",
-          "description": "A premium 500+ page book with Torah wisdom and ancient healing knowledge"
+          "description": "A premium 700+ page book with Torah wisdom and ancient healing knowledge"
         },
         "knowledge": {
           "title": "Ancient and Root Knowledge",
