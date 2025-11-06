@@ -72,7 +72,43 @@ export default async function PreviewPage({ params }: { params: Promise<{ locale
 
       <Divider />
 
-      {/* Section 2: Book Highlights */}
+      {/* Section 2: Interactive Flipbook */}
+      <section className="relative py-20 sm:py-24 bg-gradient-to-b from-white to-cream">
+        <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl">
+          <AnimateOnScroll>
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-gold/10 rounded-full mb-6">
+                <BookIcon size={40} className="text-gold" />
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-gold to-gold-light bg-clip-text text-transparent mb-4">
+                {t('flipbook.title')}
+              </h2>
+              <p className="text-xl text-dark/70 max-w-2xl mx-auto">
+                {t('flipbook.subtitle')}
+              </p>
+              <p className="text-lg text-gold/80 font-medium mt-3 max-w-2xl mx-auto">
+                {t('flipbook.teaser')}
+              </p>
+            </div>
+          </AnimateOnScroll>
+
+          <AnimateOnScroll>
+            <div className="relative bg-white/60 backdrop-blur-sm p-6 md:p-10 rounded-3xl shadow-2xl border-4 border-gold/30 hover:border-gold/40 transition-all duration-300">
+              <CornerOrnament position="top-left" size="md" />
+              <CornerOrnament position="bottom-right" size="md" />
+
+              <FlipbookEmbed
+                hash="NkU4QjdDQThCN0ErdnozYmZxcW04eQ=="
+                className="w-full"
+              />
+            </div>
+          </AnimateOnScroll>
+        </div>
+      </section>
+
+      <Divider />
+
+      {/* Section 3: Book Highlights */}
       <section className="relative py-20 sm:py-24">
         <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl">
           <AnimateOnScroll>
@@ -137,7 +173,7 @@ export default async function PreviewPage({ params }: { params: Promise<{ locale
         </div>
       </section>
 
-      {/* Section 3: Gallery */}
+      {/* Section 4: Gallery */}
       <section className="relative py-20 sm:py-24 bg-gradient-to-b from-cream to-white">
         <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl">
           <AnimateOnScroll>
@@ -188,43 +224,7 @@ export default async function PreviewPage({ params }: { params: Promise<{ locale
 
       <Divider />
 
-      {/* Section 3.5: Interactive Flipbook */}
-      <section className="relative py-20 sm:py-24 bg-gradient-to-b from-white to-cream">
-        <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl">
-          <AnimateOnScroll>
-            <div className="text-center mb-12">
-              <div className="inline-flex items-center justify-center w-20 h-20 bg-gold/10 rounded-full mb-6">
-                <BookIcon size={40} className="text-gold" />
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-gold to-gold-light bg-clip-text text-transparent mb-4">
-                {t('flipbook.title')}
-              </h2>
-              <p className="text-xl text-dark/70 max-w-2xl mx-auto">
-                {t('flipbook.subtitle')}
-              </p>
-              <p className="text-lg text-gold/80 font-medium mt-3 max-w-2xl mx-auto">
-                {t('flipbook.teaser')}
-              </p>
-            </div>
-          </AnimateOnScroll>
-
-          <AnimateOnScroll>
-            <div className="relative bg-white/60 backdrop-blur-sm p-6 md:p-10 rounded-3xl shadow-2xl border-4 border-gold/30 hover:border-gold/40 transition-all duration-300">
-              <CornerOrnament position="top-left" size="md" />
-              <CornerOrnament position="bottom-right" size="md" />
-
-              <FlipbookEmbed
-                hash="NkU4QjdDQThCN0ErdnozYmZxcW04eQ=="
-                className="w-full"
-              />
-            </div>
-          </AnimateOnScroll>
-        </div>
-      </section>
-
-      <Divider />
-
-      {/* Section 4: Book Specifications */}
+      {/* Section 5: Book Specifications */}
       <section className="relative py-20 sm:py-24 bg-gradient-to-b from-cream to-white">
         <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-6xl">
           <AnimateOnScroll>
@@ -289,7 +289,7 @@ export default async function PreviewPage({ params }: { params: Promise<{ locale
         </div>
       </section>
 
-      {/* Section 5: Inside Look Stats */}
+      {/* Section 6: Inside Look Stats */}
       <section className="relative py-20 sm:py-24">
         <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl">
           <AnimateOnScroll>
@@ -362,7 +362,7 @@ export default async function PreviewPage({ params }: { params: Promise<{ locale
         </div>
       </section>
 
-      {/* Section 6: Final CTA */}
+      {/* Section 7: Final CTA */}
       <section className="relative py-20 sm:py-28 bg-gradient-to-b from-white to-cream">
         <CornerOrnament position="top-left" size="lg" />
         <CornerOrnament position="top-right" size="lg" />
