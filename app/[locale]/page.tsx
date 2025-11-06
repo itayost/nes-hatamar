@@ -8,9 +8,6 @@ import AnimateOnScroll from '@/components/AnimateOnScroll';
 import YouTubeVideo from '@/components/YouTubeVideo';
 import { generatePageMetadata } from '@/lib/og-metadata';
 import {
-  LeafIcon,
-  TorahScrollIcon,
-  PaletteIcon,
   ArrowRightIcon,
   OrnamentIcon,
   AboutIcon,
