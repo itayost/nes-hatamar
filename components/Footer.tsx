@@ -9,6 +9,7 @@ import {
   AboutIcon,
   PreviewIcon,
   PurchaseIcon,
+  LeafIcon,
   EmailIcon,
   LinksIcon,
   BookIcon,
@@ -38,6 +39,7 @@ export default function Footer() {
 
   const navItems = [
     { key: 'home', path: '', Icon: HomeIcon },
+    { key: 'course', path: '/course', Icon: LeafIcon },
     { key: 'about', path: '/about', Icon: AboutIcon },
     { key: 'preview', path: '/preview', Icon: PreviewIcon },
     { key: 'purchase', path: '/purchase', Icon: PurchaseIcon },
@@ -190,6 +192,17 @@ export default function Footer() {
                   {locale === 'he' ? 'תנאי שימוש' : 'Terms of Use'}
                 </a>
               </div>
+            </div>
+            <div className="text-center mt-4 text-cream/60 text-xs">
+              {locale === 'he' ? 'נבנה על ידי' : 'Built by'}{' '}
+              <a
+                href="https://itayost.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-gold transition-colors duration-300 underline"
+              >
+                ItayOst
+              </a>
             </div>
           </div>
           {/* Bottom gradient accent */}
