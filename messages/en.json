@@ -193,6 +193,7 @@
     "flipbook": {
       "title": "Browse the Book",
       "subtitle": "Flip through the pages interactively",
+      "teaser": "A taste of selected pages from the book",
       "loading": "Loading the book..."
     }
   },

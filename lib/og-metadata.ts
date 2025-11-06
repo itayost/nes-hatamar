@@ -13,7 +13,7 @@ export function generatePageMetadata(
   const isHebrew = locale === 'he';
   const ogLocale = isHebrew ? 'he_IL' : 'en_US';
   const alternateLocale = isHebrew ? 'en_US' : 'he_IL';
-  const baseUrl = 'https://neshatamar.com';
+  const baseUrl = 'https://www.neshatamar.com';
   const fullUrl = `${baseUrl}/${locale}${page.path}`;
   const ogImageUrl = `${baseUrl}/og-image.png`;
 

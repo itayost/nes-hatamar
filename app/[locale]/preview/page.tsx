@@ -202,6 +202,9 @@ export default async function PreviewPage({ params }: { params: Promise<{ locale
               <p className="text-xl text-dark/70 max-w-2xl mx-auto">
                 {t('flipbook.subtitle')}
               </p>
+              <p className="text-lg text-gold/80 font-medium mt-3 max-w-2xl mx-auto">
+                {t('flipbook.teaser')}
+              </p>
             </div>
           </AnimateOnScroll>
 
@@ -359,7 +362,7 @@ export default async function PreviewPage({ params }: { params: Promise<{ locale
         </div>
       </section>
 
-      {/* Section 7: Final CTA */}
+      {/* Section 6: Final CTA */}
       <section className="relative py-20 sm:py-28 bg-gradient-to-b from-white to-cream">
         <CornerOrnament position="top-left" size="lg" />
         <CornerOrnament position="top-right" size="lg" />
