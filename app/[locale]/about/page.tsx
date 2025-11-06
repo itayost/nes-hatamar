@@ -44,64 +44,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         </div>
       </section>
 
-      <Divider />
-
-      {/* Section 2: Author Cards */}
-      <section className="relative py-20 sm:py-24">
-        <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
-            {/* Tamar Card */}
-            <AnimateOnScroll animation="slideInRight">
-              <div className="relative bg-white/60 backdrop-blur-sm p-8 md:p-10 rounded-3xl shadow-xl border-2 border-gold/30 transition-all duration-300 hover:shadow-2xl hover:border-gold/50">
-                <CornerOrnament position="top-left" size="sm" />
-                <CornerOrnament position="bottom-right" size="sm" />
-
-                <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent mb-6">
-                  {t('authorCards.tamar.name')}
-                </h2>
-
-                {/* Decorative divider */}
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="h-px flex-1 bg-gradient-to-r from-gold to-transparent"></div>
-                  <div className="text-gold text-xl">✦</div>
-                </div>
-
-                <div className="prose prose-lg max-w-none text-dark/90 leading-relaxed">
-                  <p className="first-letter:text-5xl first-letter:font-bold first-letter:text-gold first-letter:float-start first-letter:me-3 first-letter:leading-none first-letter:mt-1">
-                    {t('authorCards.tamar.bio')}
-                  </p>
-                </div>
-              </div>
-            </AnimateOnScroll>
-
-            {/* Nissim Card */}
-            <AnimateOnScroll animation="slideInLeft">
-              <div className="relative bg-white/60 backdrop-blur-sm p-8 md:p-10 rounded-3xl shadow-xl border-2 border-gold/30 transition-all duration-300 hover:shadow-2xl hover:border-gold/50">
-                <CornerOrnament position="top-left" size="sm" />
-                <CornerOrnament position="bottom-right" size="sm" />
-
-                <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent mb-6">
-                  {t('authorCards.nissim.name')}
-                </h2>
-
-                {/* Decorative divider */}
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="h-px flex-1 bg-gradient-to-r from-gold to-transparent"></div>
-                  <div className="text-gold text-xl">✦</div>
-                </div>
-
-                <div className="prose prose-lg max-w-none text-dark/90 leading-relaxed">
-                  <p className="first-letter:text-5xl first-letter:font-bold first-letter:text-gold first-letter:float-start first-letter:me-3 first-letter:leading-none first-letter:mt-1">
-                    {t('authorCards.nissim.bio')}
-                  </p>
-                </div>
-              </div>
-            </AnimateOnScroll>
-          </div>
-        </div>
-      </section>
-
-      {/* Section 3: Tamar Eshel Profile */}
+      {/* Section 2: Tamar Eshel Profile */}
       <section className="relative py-20 sm:py-24 bg-gradient-to-b from-cream to-white">
         <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
