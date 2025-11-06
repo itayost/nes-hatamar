@@ -70,7 +70,7 @@ export default async function CoursePage({ params }: { params: Promise<{ locale:
                 <div className="relative bg-white/60 backdrop-blur-sm p-8 sm:p-10 rounded-3xl shadow-xl border-2 border-gold/30 transition-all duration-300 hover:shadow-2xl hover:border-gold/50">
                   <div className="aspect-[3/4] rounded-2xl relative overflow-hidden">
                     <Image
-                      src="/images/authors/Tamar.webp"
+                      src="/images/preview/course-hero.jpeg"
                       alt={t('instructor.name')}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -157,6 +157,40 @@ export default async function CoursePage({ params }: { params: Promise<{ locale:
               </div>
             </AnimateOnScroll>
           </div>
+        </div>
+      </section>
+
+      <Divider />
+
+      {/* Course Syllabus Section */}
+      <section className="relative py-20 sm:py-24 bg-white">
+        <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-4xl">
+          <AnimateOnScroll animation="scaleIn">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent mb-4">
+                {t('syllabus.title')}
+              </h2>
+            </div>
+          </AnimateOnScroll>
+
+          <AnimateOnScroll animation="slideUp">
+            <div className="relative group">
+              <div className="relative bg-white/60 backdrop-blur-sm p-6 sm:p-8 rounded-3xl shadow-xl border-2 border-gold/30 transition-all duration-300 hover:shadow-2xl hover:border-gold/50">
+                <div className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden">
+                  <Image
+                    src="/images/preview/course-silabus.jpeg"
+                    alt={t('syllabus.title')}
+                    fill
+                    className="object-contain group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
+                    quality={90}
+                  />
+                </div>
+              </div>
+              <CornerOrnament position="top-left" size="md" />
+              <CornerOrnament position="bottom-right" size="md" />
+            </div>
+          </AnimateOnScroll>
         </div>
       </section>
 

@@ -464,90 +464,114 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Item 1 - Torah Sources */}
             <AnimateOnScroll animation="slideUp">
-            <div className="group relative">
-              <div className="h-full p-8 bg-gradient-to-br from-cream/40 to-white rounded-2xl border border-gold/20 hover:border-gold/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                <div className="flex flex-col items-center text-center space-y-4">
-                  <div className="w-14 h-14 bg-gold/10 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <TorahScrollIcon size={32} className="text-gold" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-gold">{t('whatsInside.items.torahSources.title')}</h3>
-                  <p className="text-dark/70 leading-relaxed">{t('whatsInside.items.torahSources.description')}</p>
-                </div>
+            <div className="group relative overflow-hidden rounded-2xl border border-gold/20 hover:border-gold/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+              <div className="relative h-64 overflow-hidden">
+                <Image
+                  src="/images/preview/references.jpeg"
+                  alt={t('whatsInside.items.torahSources.title')}
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/40 to-transparent"></div>
+              </div>
+              <div className="p-6 bg-gradient-to-br from-cream/40 to-white">
+                <h3 className="text-xl font-bold text-gold mb-2">{t('whatsInside.items.torahSources.title')}</h3>
+                <p className="text-dark/70 text-sm leading-relaxed">{t('whatsInside.items.torahSources.description')}</p>
               </div>
             </div>
             </AnimateOnScroll>
 
-            {/* Item 2 - Plant Encyclopedia */}
+            {/* Item 2 - Homeopathy & Chassidut */}
             <AnimateOnScroll animation="slideUp">
-            <div className="group relative">
-              <div className="h-full p-8 bg-gradient-to-br from-cream/40 to-white rounded-2xl border border-gold/20 hover:border-gold/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                <div className="flex flex-col items-center text-center space-y-4">
-                  <div className="w-14 h-14 bg-gold/10 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <LeafIcon size={32} className="text-gold" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-gold">{t('whatsInside.items.plantEncyclopedia.title')}</h3>
-                  <p className="text-dark/70 leading-relaxed">{t('whatsInside.items.plantEncyclopedia.description')}</p>
-                </div>
+            <div className="group relative overflow-hidden rounded-2xl border border-gold/20 hover:border-gold/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+              <div className="relative h-64 overflow-hidden">
+                <Image
+                  src="/images/preview/homeopathia.jpeg"
+                  alt={t('whatsInside.items.homeopathyChassidut.title')}
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/40 to-transparent"></div>
+              </div>
+              <div className="p-6 bg-gradient-to-br from-cream/40 to-white">
+                <h3 className="text-xl font-bold text-gold mb-2">{t('whatsInside.items.homeopathyChassidut.title')}</h3>
+                <p className="text-dark/70 text-sm leading-relaxed">{t('whatsInside.items.homeopathyChassidut.description')}</p>
               </div>
             </div>
             </AnimateOnScroll>
 
-            {/* Item 3 - Homeopathic Remedies */}
+            {/* Item 3 - Plant Remedies */}
             <AnimateOnScroll animation="slideUp">
-            <div className="group relative">
-              <div className="h-full p-8 bg-gradient-to-br from-cream/40 to-white rounded-2xl border border-gold/20 hover:border-gold/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                <div className="flex flex-col items-center text-center space-y-4">
-                  <div className="w-14 h-14 bg-gold/10 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <OrnamentIcon size={32} className="text-gold" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-gold">{t('whatsInside.items.homeopathicRemedies.title')}</h3>
-                  <p className="text-dark/70 leading-relaxed">{t('whatsInside.items.homeopathicRemedies.description')}</p>
-                </div>
+            <div className="group relative overflow-hidden rounded-2xl border border-gold/20 hover:border-gold/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+              <div className="relative h-64 overflow-hidden">
+                <Image
+                  src="/images/preview/preview1.jpeg"
+                  alt={t('whatsInside.items.plantRemedies.title')}
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/40 to-transparent"></div>
+              </div>
+              <div className="p-6 bg-gradient-to-br from-cream/40 to-white">
+                <h3 className="text-xl font-bold text-gold mb-2">{t('whatsInside.items.plantRemedies.title')}</h3>
+                <p className="text-dark/70 text-sm leading-relaxed">{t('whatsInside.items.plantRemedies.description')}</p>
               </div>
             </div>
             </AnimateOnScroll>
 
-            {/* Item 4 - Case Studies */}
+            {/* Item 4 - Animal Remedies */}
             <AnimateOnScroll animation="slideUp">
-            <div className="group relative">
-              <div className="h-full p-8 bg-gradient-to-br from-cream/40 to-white rounded-2xl border border-gold/20 hover:border-gold/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                <div className="flex flex-col items-center text-center space-y-4">
-                  <div className="w-14 h-14 bg-gold/10 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <AboutIcon size={32} className="text-gold" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-gold">{t('whatsInside.items.caseStudies.title')}</h3>
-                  <p className="text-dark/70 leading-relaxed">{t('whatsInside.items.caseStudies.description')}</p>
-                </div>
+            <div className="group relative overflow-hidden rounded-2xl border border-gold/20 hover:border-gold/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+              <div className="relative h-64 overflow-hidden">
+                <Image
+                  src="/images/preview/animals-kingdom.jpeg"
+                  alt={t('whatsInside.items.animalRemedies.title')}
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/40 to-transparent"></div>
+              </div>
+              <div className="p-6 bg-gradient-to-br from-cream/40 to-white">
+                <h3 className="text-xl font-bold text-gold mb-2">{t('whatsInside.items.animalRemedies.title')}</h3>
+                <p className="text-dark/70 text-sm leading-relaxed">{t('whatsInside.items.animalRemedies.description')}</p>
               </div>
             </div>
             </AnimateOnScroll>
 
-            {/* Item 5 - Artwork */}
+            {/* Item 5 - Mineral Remedies */}
             <AnimateOnScroll animation="slideUp">
-            <div className="group relative">
-              <div className="h-full p-8 bg-gradient-to-br from-cream/40 to-white rounded-2xl border border-gold/20 hover:border-gold/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                <div className="flex flex-col items-center text-center space-y-4">
-                  <div className="w-14 h-14 bg-gold/10 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <PaletteIcon size={32} className="text-gold" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-gold">{t('whatsInside.items.artwork.title')}</h3>
-                  <p className="text-dark/70 leading-relaxed">{t('whatsInside.items.artwork.description')}</p>
-                </div>
+            <div className="group relative overflow-hidden rounded-2xl border border-gold/20 hover:border-gold/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+              <div className="relative h-64 overflow-hidden">
+                <Image
+                  src="/images/preview/minerals-kingdom.jpeg"
+                  alt={t('whatsInside.items.mineralRemedies.title')}
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/40 to-transparent"></div>
+              </div>
+              <div className="p-6 bg-gradient-to-br from-cream/40 to-white">
+                <h3 className="text-xl font-bold text-gold mb-2">{t('whatsInside.items.mineralRemedies.title')}</h3>
+                <p className="text-dark/70 text-sm leading-relaxed">{t('whatsInside.items.mineralRemedies.description')}</p>
               </div>
             </div>
             </AnimateOnScroll>
 
-            {/* Item 6 - Reference Guide */}
+            {/* Item 6 - Seven Metals */}
             <AnimateOnScroll animation="slideUp">
-            <div className="group relative">
-              <div className="h-full p-8 bg-gradient-to-br from-cream/40 to-white rounded-2xl border border-gold/20 hover:border-gold/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                <div className="flex flex-col items-center text-center space-y-4">
-                  <div className="w-14 h-14 bg-gold/10 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <PreviewIcon size={32} className="text-gold" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-gold">{t('whatsInside.items.referenceGuide.title')}</h3>
-                  <p className="text-dark/70 leading-relaxed">{t('whatsInside.items.referenceGuide.description')}</p>
-                </div>
+            <div className="group relative overflow-hidden rounded-2xl border border-gold/20 hover:border-gold/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+              <div className="relative h-64 overflow-hidden">
+                <Image
+                  src="/images/preview/metal-kingdom.jpeg"
+                  alt={t('whatsInside.items.sevenMetals.title')}
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/40 to-transparent"></div>
+              </div>
+              <div className="p-6 bg-gradient-to-br from-cream/40 to-white">
+                <h3 className="text-xl font-bold text-gold mb-2">{t('whatsInside.items.sevenMetals.title')}</h3>
+                <p className="text-dark/70 text-sm leading-relaxed">{t('whatsInside.items.sevenMetals.description')}</p>
               </div>
             </div>
             </AnimateOnScroll>

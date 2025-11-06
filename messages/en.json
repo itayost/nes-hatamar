@@ -43,33 +43,33 @@
       "subtitle": "Discover the rich content waiting for you within these pages",
       "items": {
         "torahSources": {
-          "title": "Torah Sources",
-          "description": "Deep exploration of sacred texts and their connection to healing"
+          "title": "Torah Sources and Its Inner Wisdom",
+          "description": "The development of medicine from a Jewish perspective"
         },
-        "plantEncyclopedia": {
-          "title": "Plant Encyclopedia",
-          "description": "Comprehensive guide to medicinal plants and their properties"
+        "homeopathyChassidut": {
+          "title": "Homeopathy and Chassidic Thought",
+          "description": "The parallel between homeopathic principles and fundamental ideas in Chassidic philosophy"
         },
-        "homeopathicRemedies": {
-          "title": "Homeopathic Remedies",
-          "description": "Understanding the principles of like cures like"
+        "plantRemedies": {
+          "title": "Medicinal Plants and Homeopathy",
+          "description": "18 healing remedies with deep understanding from herbal medicine and homeopathy"
         },
-        "caseStudies": {
-          "title": "Case Studies",
-          "description": "Real-world applications and healing journeys"
+        "animalRemedies": {
+          "title": "Remedies from the Animal Kingdom",
+          "description": "6 healing remedies from the animal world in deep investigation"
         },
-        "artwork": {
-          "title": "Artwork & Illustrations",
-          "description": "Ancient and modern art enriching the spiritual journey"
+        "mineralRemedies": {
+          "title": "Remedies from Minerals",
+          "description": "5 minerals used in traditional medicine and homeopathy"
         },
-        "referenceGuide": {
-          "title": "Reference Guide",
-          "description": "Quick lookup tables and comprehensive indexes"
+        "sevenMetals": {
+          "title": "Remedies from the Seven Metals",
+          "description": "The 7 metals in deep investigation, and their parallel to the seven attributes in the Kabbalistic Tree of Life sefirot and the seven species"
         }
       }
     },
     "video": {
-      "title": "See the Book in Action",
+      "title": "Words from the Authors",
       "subtitle": "Discover the magic and depth of Nes HaTamar through this special presentation",
       "ctaPrimary": "Order the Book",
       "ctaSecondary": "Preview the Book"
@@ -313,6 +313,9 @@
         "value": "2,000 ₪",
         "includes": "Includes the book 'Nes HaTamar'"
       }
+    },
+    "syllabus": {
+      "title": "Course Syllabus"
     },
     "cta": {
       "title": "Join the Course",
