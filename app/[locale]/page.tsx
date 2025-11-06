@@ -505,7 +505,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             <div className="group relative overflow-hidden rounded-2xl border border-gold/20 hover:border-gold/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
               <div className="relative h-64 overflow-hidden">
                 <Image
-                  src="/images/preview/preview1.jpeg"
+                  src="/images/preview/plants.jpeg"
                   alt={t('whatsInside.items.plantRemedies.title')}
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-500"
