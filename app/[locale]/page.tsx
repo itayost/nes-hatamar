@@ -7,6 +7,8 @@ import Divider from '@/components/ornaments/Divider';
 import AnimateOnScroll from '@/components/AnimateOnScroll';
 import YouTubeVideo from '@/components/YouTubeVideo';
 import { generatePageMetadata } from '@/lib/og-metadata';
+import { generateProductSchema } from '@/lib/structured-data';
+import StructuredData from '@/components/StructuredData';
 import {
   LeafIcon,
   TorahScrollIcon,
@@ -36,8 +38,19 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   const t = await getTranslations('home');
 
+  // Generate Product schema for the book
+  const productSchema = generateProductSchema({
+    locale,
+    name: t('title'),
+    description: t('subtitle'),
+    image: '/images/cover.png',
+    authors: locale === 'he' ? ['תמר אשל', 'נסים קריספיל'] : ['Tamar Eshel', 'Nissim Krispil'],
+  });
+
   return (
-    <div className="min-h-screen">
+    <>
+      <StructuredData data={productSchema} />
+      <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-b from-white via-cream/30 to-cream py-20 md:py-32 overflow-hidden">
         {/* Decorative background pattern */}
@@ -748,5 +761,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <CornerOrnament position="bottom-right" size="md" />
       </div>
     </div>
+    </>
   );
 }

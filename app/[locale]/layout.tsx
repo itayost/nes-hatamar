@@ -4,6 +4,8 @@ import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { locales } from '@/lib/i18n';
 import { generatePageMetadata } from '@/lib/og-metadata';
+import { generateWebSiteSchema, generateOrganizationSchema } from '@/lib/structured-data';
+import StructuredData from '@/components/StructuredData';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import WhatsAppFAB from '@/components/WhatsAppFAB';
@@ -43,9 +45,23 @@ export default async function LocaleLayout({
 
   // Get messages for the current locale
   const messages = await getMessages();
+  const t = await getTranslations('home');
+
+  // Generate structured data for SEO
+  const websiteSchema = generateWebSiteSchema({
+    locale,
+    name: t('title'),
+    description: t('subtitle'),
+  });
+
+  const organizationSchema = generateOrganizationSchema({ locale });
 
   return (
     <html lang={locale} dir={locale === 'he' ? 'rtl' : 'ltr'}>
+      <head>
+        <StructuredData data={websiteSchema} />
+        <StructuredData data={organizationSchema} />
+      </head>
       <body className="antialiased bg-cream text-dark">
         <NextIntlClientProvider messages={messages}>
           <div className="flex flex-col min-h-screen">
