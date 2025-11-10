@@ -91,6 +91,20 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                   </p>
                 </div>
 
+                {/* Website Link Button */}
+                <div className="flex justify-start">
+                  <a
+                    href="https://www.tamareshel.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-3 px-6 py-3 bg-white/80 hover:bg-white border-2 border-gold/40 hover:border-gold text-gold rounded-full transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98]"
+                  >
+                    <span className="text-2xl">🌐</span>
+                    <span className="font-semibold">{t('tamar.websiteLabel')}</span>
+                    <ArrowRightIcon size={18} className="transform group-hover:translate-x-1 transition-transform" />
+                  </a>
+                </div>
+
                 {/* Highlights */}
                 <div className="bg-white/60 backdrop-blur-sm p-6 sm:p-8 rounded-2xl border-2 border-gold/20 space-y-3">
                   <h4 className="text-xl font-bold text-gold mb-4 flex items-center gap-2">

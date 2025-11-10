@@ -74,6 +74,12 @@
       "ctaPrimary": "Order the Book",
       "ctaSecondary": "Preview the Book"
     },
+    "video2": {
+      "title": "More from the Book's World",
+      "subtitle": "Another glimpse into the depth and spiritual journey of Nes HaTamar",
+      "ctaPrimary": "Order the Book",
+      "ctaSecondary": "Preview the Book"
+    },
     "finalCta": {
       "title": "Begin Your Journey",
       "subtitle": "Transform your understanding of healing, faith, and the natural world",
@@ -102,6 +108,7 @@
       "name": "Tamar Eshel",
       "title": "Homeopath & Torah Scholar",
       "bio": "A lawyer by training, but her heart is devoted to the world of kindness and natural medicine. She studied homeopathy at the school of Yosef Reves, the father of homeopathy in Israel, and for over two decades has been practicing homeopathy and the connection between body, soul, and faith. A graduate of Rabbi Yitzchak Ginsburgh's School of the Soul, drawing her inspiration primarily from Chabad Chassidic writings. She studies and teaches Torah and Chassidus. Her previous book 'A Feminine Journey Through the Omer Count' has inspired many women.",
+      "websiteLabel": "Visit Personal Website",
       "highlights": {
         "education": "Studied under Yosef Reves, father of Israeli homeopathy",
         "practice": "Over 20 years of homeopathic practice",
