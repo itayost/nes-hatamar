@@ -22,13 +22,6 @@ const nextConfig: NextConfig = {
         destination: 'https://www.neshatamar.com/:path*',
         permanent: true,
       },
-
-      // Remove trailing slashes (URL normalization for SEO)
-      {
-        source: '/:path*/',
-        destination: '/:path*',
-        permanent: true,
-      },
     ];
   },
 };

@@ -41,18 +41,5 @@
         }
       ]
     }
-  ],
-  "redirects": [
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "neshatamar.com"
-        }
-      ],
-      "destination": "https://www.neshatamar.com/:path*",
-      "permanent": true
-    }
   ]
 }
