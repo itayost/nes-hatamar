@@ -2,7 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.neshatamar.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.neshatamar.com'),
   robots: {
     index: true,
     follow: true,

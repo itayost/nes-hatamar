@@ -3,7 +3,7 @@
  * These functions generate Schema.org structured data for different page types
  */
 
-const BASE_URL = 'https://www.neshatamar.com';
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.neshatamar.com';
 
 interface WebSiteSchemaParams {
   locale: string;
