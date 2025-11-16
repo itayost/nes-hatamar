@@ -77,7 +77,7 @@ export function generateOrganizationSchema({ locale }: OrganizationSchemaParams)
       {
         '@type': 'Person',
         name: isHebrew ? 'תמר אשל' : 'Tamar Eshel',
-        jobTitle: isHebrew ? 'הומאופתית וחוקרת תורה' : 'Homeopath & Torah Scholar',
+        jobTitle: isHebrew ? 'הומאופתית, לומדת ומלמדת מפנימיות התורה' : 'Homeopath, Student and Teacher of Inner Torah',
         url: 'https://www.tamareshel.com',
         sameAs: [],
       },
