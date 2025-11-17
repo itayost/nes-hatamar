@@ -142,9 +142,43 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <section className="relative py-20 sm:py-24">
         <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* Author Card */}
+            <AnimateOnScroll animation="slideInLeft">
+              <div className="relative group lg:order-2">
+                <div className="relative bg-white/60 backdrop-blur-sm p-8 sm:p-10 rounded-3xl shadow-xl border-2 border-gold/30 transition-all duration-300 hover:shadow-2xl hover:border-gold/50">
+                  <div className="aspect-[3/4] rounded-2xl relative overflow-hidden group">
+                    <Image
+                      src="/images/authors/Nisim.webp"
+                      alt={t('nissim.name')}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      quality={80}
+                    />
+                    {/* Dark gradient overlay for text readability */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+
+                    {/* Text overlay */}
+                    <div className="absolute inset-0 flex flex-col items-center justify-end p-8 z-10">
+                      <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2 text-center drop-shadow-lg">
+                        {t('nissim.name')}
+                      </h3>
+                      <p className="text-base text-white/90 text-center drop-shadow-md">{t('nissim.title')}</p>
+                    </div>
+
+                    {/* Decorative corner brackets inside */}
+                    <div className="absolute top-3 left-3 w-10 h-10 border-t-2 border-l-2 border-white/60 rounded-tl-xl z-10"></div>
+                    <div className="absolute bottom-3 right-3 w-10 h-10 border-b-2 border-r-2 border-white/60 rounded-br-xl z-10"></div>
+                  </div>
+                </div>
+                <CornerOrnament position="top-right" size="md" />
+                <CornerOrnament position="bottom-left" size="md" />
+              </div>
+            </AnimateOnScroll>
+
             {/* Bio Content (Reversed Order on Desktop) */}
             <AnimateOnScroll animation="slideInRight">
-              <div className="space-y-6 lg:order-1 order-2">
+              <div className="space-y-6 lg:order-1">
                 <div className="prose prose-lg max-w-none text-dark/90 leading-relaxed">
                   <p className="first-letter:text-6xl first-letter:font-bold first-letter:text-gold first-letter:float-start first-letter:me-3 first-letter:leading-none first-letter:mt-1">
                     {t('nissim.bio')}
@@ -176,40 +210,6 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                     </li>
                   </ul>
                 </div>
-              </div>
-            </AnimateOnScroll>
-
-            {/* Author Card */}
-            <AnimateOnScroll animation="slideInLeft">
-              <div className="relative group lg:order-2 order-1">
-                <div className="relative bg-white/60 backdrop-blur-sm p-8 sm:p-10 rounded-3xl shadow-xl border-2 border-gold/30 transition-all duration-300 hover:shadow-2xl hover:border-gold/50">
-                  <div className="aspect-[3/4] rounded-2xl relative overflow-hidden group">
-                    <Image
-                      src="/images/authors/Nisim.webp"
-                      alt={t('nissim.name')}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      quality={80}
-                    />
-                    {/* Dark gradient overlay for text readability */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
-
-                    {/* Text overlay */}
-                    <div className="absolute inset-0 flex flex-col items-center justify-end p-8 z-10">
-                      <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2 text-center drop-shadow-lg">
-                        {t('nissim.name')}
-                      </h3>
-                      <p className="text-base text-white/90 text-center drop-shadow-md">{t('nissim.title')}</p>
-                    </div>
-
-                    {/* Decorative corner brackets inside */}
-                    <div className="absolute top-3 left-3 w-10 h-10 border-t-2 border-l-2 border-white/60 rounded-tl-xl z-10"></div>
-                    <div className="absolute bottom-3 right-3 w-10 h-10 border-b-2 border-r-2 border-white/60 rounded-br-xl z-10"></div>
-                  </div>
-                </div>
-                <CornerOrnament position="top-right" size="md" />
-                <CornerOrnament position="bottom-left" size="md" />
               </div>
             </AnimateOnScroll>
           </div>
