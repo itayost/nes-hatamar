@@ -8,11 +8,11 @@ export default createMiddleware({
   // Used when no locale matches
   defaultLocale,
 
-  // Always use locale prefix
-  localePrefix: 'always'
+  // Use locale prefix only for non-default locales (better for SEO)
+  localePrefix: 'as-needed'
 });
 
 export const config = {
-  // Match only internationalized pathnames
-  matcher: ['/', '/(he|en)/:path*']
+  // Match all pathnames except Next.js internals and static files
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)']
 };

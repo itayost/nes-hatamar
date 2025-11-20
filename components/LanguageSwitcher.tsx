@@ -1,7 +1,7 @@
 'use client';
 
 import { useLocale } from 'next-intl';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter } from '@/lib/navigation';
 import { locales } from '@/lib/i18n';
 
 export default function LanguageSwitcher() {
@@ -11,8 +11,8 @@ export default function LanguageSwitcher() {
 
   const switchLocale = () => {
     const newLocale = locale === 'he' ? 'en' : 'he';
-    const newPath = pathname.replace(`/${locale}`, `/${newLocale}`);
-    router.push(newPath);
+    // Use next-intl router which handles localePrefix: 'as-needed' correctly
+    router.replace(pathname, { locale: newLocale });
   };
 
   return (
