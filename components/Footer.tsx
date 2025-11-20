@@ -16,6 +16,7 @@ import {
   ArrowUpIcon,
   WhatsAppIcon
 } from './icons/Icons';
+import LeadCaptureForm from './LeadCaptureForm';
 
 export default function Footer() {
   const navT = useTranslations('navigation');
@@ -141,6 +142,14 @@ export default function Footer() {
                   >
                     <WhatsAppIcon size={18} />
                   </a>
+                </div>
+
+                {/* Lead Capture Form */}
+                <div className="pt-4">
+                  <h4 className="text-base font-semibold text-gold mb-3">
+                    {locale === 'he' ? 'הישארו מעודכנים' : 'Stay Informed'}
+                  </h4>
+                  <LeadCaptureForm />
                 </div>
               </div>
             </div>

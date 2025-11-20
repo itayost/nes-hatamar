@@ -4,7 +4,8 @@
     "course": "קורס הומאופתיה",
     "about": "על המחברים",
     "preview": "הצצה לספר",
-    "purchase": "רכישה"
+    "purchase": "רכישה",
+    "contact": "צור קשר"
   },
   "home": {
     "title": "נס התמר",
@@ -336,8 +337,43 @@
       }
     }
   },
+  "contact": {
+    "title": "צור קשר",
+    "subtitle": "נשמח לשמוע ממך ולענות על כל שאלה",
+    "info": {
+      "title": "פרטי יצירת קשר",
+      "email": {
+        "label": "דואר אלקטרוני",
+        "value": "Nissimkrispiltamar@gmail.com"
+      },
+      "whatsapp": {
+        "label": "וואטסאפ",
+        "value": "+972-54-770-9201"
+      }
+    },
+    "form": {
+      "title": "שלח לנו הודעה",
+      "description": "מלא את הטופס ונחזור אליך בהקדם"
+    }
+  },
   "footer": {
     "rights": "כל הזכויות שמורות",
-    "contact": "צרו קשר"
+    "contact": "צרו קשר",
+    "leadForm": {
+      "email": "דוא״ל",
+      "emailPlaceholder": "your@email.com",
+      "phone": "טלפון",
+      "phonePlaceholder": "050-123-4567",
+      "bookInterest": "מעוניין/ת לקבל תוכן על הספר",
+      "courseInterest": "מעוניין/ת לקבל מידע על הקורס",
+      "submit": "שלח",
+      "submitting": "שולח...",
+      "success": "תודה! פרטיך התקבלו בהצלחה. ניצור קשר בקרוב.",
+      "error": "אופס! משהו השתבש. אנא נסה שוב.",
+      "errorEmailOrPhone": "אנא הזן/י דוא״ל או טלפון",
+      "errorCheckbox": "אנא בחר/י לפחות תחום עניין אחד",
+      "errorEmailFormat": "כתובת הדוא״ל אינה תקינה",
+      "errorPhoneFormat": "מספר הטלפון אינו תקין (פורמט: 050-123-4567)"
+    }
   }
 }

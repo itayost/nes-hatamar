@@ -4,7 +4,8 @@
     "course": "Homeopathy Course",
     "about": "About the Authors",
     "preview": "Book Preview",
-    "purchase": "Purchase"
+    "purchase": "Purchase",
+    "contact": "Contact Us"
   },
   "home": {
     "title": "Nes HaTamar",
@@ -336,8 +337,43 @@
       }
     }
   },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "We'd love to hear from you and answer any questions",
+    "info": {
+      "title": "Contact Information",
+      "email": {
+        "label": "Email",
+        "value": "Nissimkrispiltamar@gmail.com"
+      },
+      "whatsapp": {
+        "label": "WhatsApp",
+        "value": "+972-54-770-9201"
+      }
+    },
+    "form": {
+      "title": "Send Us a Message",
+      "description": "Fill out the form and we'll get back to you soon"
+    }
+  },
   "footer": {
     "rights": "All rights reserved",
-    "contact": "Contact Us"
+    "contact": "Contact Us",
+    "leadForm": {
+      "email": "Email",
+      "emailPlaceholder": "your@email.com",
+      "phone": "Phone",
+      "phonePlaceholder": "050-123-4567",
+      "bookInterest": "Interested in receiving book content",
+      "courseInterest": "Interested in course information",
+      "submit": "Submit",
+      "submitting": "Sending...",
+      "success": "Thank you! Your details have been received. We'll be in touch soon.",
+      "error": "Oops! Something went wrong. Please try again.",
+      "errorEmailOrPhone": "Please enter email or phone",
+      "errorCheckbox": "Please select at least one area of interest",
+      "errorEmailFormat": "Email address is invalid",
+      "errorPhoneFormat": "Phone number is invalid (format: 050-123-4567)"
+    }
   }
 }
