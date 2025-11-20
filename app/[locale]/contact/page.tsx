@@ -83,7 +83,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                       <WhatsAppIcon size={40} className="text-[#25D366]" />
                     </div>
                     <h3 className="text-2xl font-bold text-gold mb-3">{t('info.whatsapp.label')}</h3>
-                    <p className="text-dark text-lg font-semibold" dir="ltr">{t('info.whatsapp.value')}</p>
+                    <p className="text-dark/80 text-lg break-all" dir="ltr">{t('info.whatsapp.value')}</p>
                   </div>
                 </a>
               </div>
