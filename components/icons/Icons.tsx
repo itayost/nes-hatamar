@@ -595,3 +595,30 @@ export const CoinIcon: React.FC<IconProps> = ({ className = '', size = 24 }) => 
     <circle cx="6" cy="16" r="0.6" fill="currentColor" opacity="0.4" />
   </svg>
 );
+
+// Media Icon - For media appearances, videos, and broadcasts
+export const MediaIcon: React.FC<IconProps> = ({ className = '', size = 24 }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    {/* TV/Screen frame */}
+    <rect x="3" y="4" width="18" height="14" rx="2" />
+    {/* Play button triangle */}
+    <path d="M10 9l5 3-5 3V9z" fill="currentColor" opacity="0.6" />
+    {/* Stand */}
+    <path d="M8 21h8M12 18v3" strokeWidth="2" />
+    {/* Decorative antenna dots */}
+    <circle cx="7" cy="2" r="1" fill="currentColor" opacity="0.4" />
+    <circle cx="17" cy="2" r="1" fill="currentColor" opacity="0.4" />
+    {/* Screen reflection */}
+    <path d="M5 6l2 2" opacity="0.3" />
+  </svg>
+);

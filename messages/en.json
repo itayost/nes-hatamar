@@ -4,6 +4,7 @@
     "course": "Homeopathy Course",
     "about": "About the Authors",
     "preview": "Book Preview",
+    "media": "In the Media",
     "purchase": "Purchase",
     "contact": "Contact Us"
   },
@@ -72,12 +73,6 @@
     "video": {
       "title": "Words from the Authors",
       "subtitle": "Discover the magic and depth of Nes HaTamar through this special presentation",
-      "ctaPrimary": "Order the Book",
-      "ctaSecondary": "Preview the Book"
-    },
-    "video2": {
-      "title": "Tamar Eshel Talks About the Book",
-      "subtitle": "A special interview with Tamar Eshel about the spiritual journey and wisdom in Nes HaTamar",
       "ctaPrimary": "Order the Book",
       "ctaSecondary": "Preview the Book"
     },
@@ -374,6 +369,36 @@
       "errorCheckbox": "Please select at least one area of interest",
       "errorEmailFormat": "Email address is invalid",
       "errorPhoneFormat": "Phone number is invalid (format: 050-123-4567)"
+    }
+  },
+  "media": {
+    "title": "Nes HaTamar in the Media",
+    "subtitle": "Interviews and special appearances about the book and authors",
+    "videosSection": {
+      "title": "Videos & Interviews",
+      "subtitle": "Watch our media appearances and interviews"
+    },
+    "videos": {
+      "channel13": {
+        "title": "Tamar Eshel on Channel 13 talks about the book 'Nes HaTamar'"
+      },
+      "channel14": {
+        "title": "Interview on Channel 14 about the release of 'Nes HaTamar'"
+      },
+      "kolchai": {
+        "title": "Interview on Kol Chai Radio about the book 'Nes HaTamar'"
+      }
+    },
+    "podcastSection": {
+      "title": "Podcast",
+      "subtitle": "Listen to in-depth conversations about the book and its message",
+      "episodeTitle": "Do Not Despise the Birthright",
+      "podcastName": "Rabbanit Yemima"
+    },
+    "cta": {
+      "title": "Ready to Begin Your Journey?",
+      "subtitle": "Order your copy and start your healing journey",
+      "button": "Order Now"
     }
   }
 }
