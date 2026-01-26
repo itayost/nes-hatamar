@@ -1,3 +1,5 @@
+export type ProductType = 'book' | 'course';
+
 export interface Coupon {
   id: string;
   code: string;
@@ -8,6 +10,7 @@ export interface Coupon {
   currentUses: number;
   active: boolean;
   createdAt: string; // ISO 8601 timestamp
+  applicableProducts?: ProductType[]; // Empty/undefined = all products
 }
 
 export interface CouponValidationResult {
@@ -18,7 +21,7 @@ export interface CouponValidationResult {
     finalPrice: number;
   };
   error?: string;
-  errorCode?: 'INVALID_CODE' | 'EXPIRED' | 'MAX_USES_REACHED' | 'INACTIVE';
+  errorCode?: 'INVALID_CODE' | 'EXPIRED' | 'MAX_USES_REACHED' | 'INACTIVE' | 'PRODUCT_NOT_APPLICABLE';
 }
 
 export interface CouponCreateInput {
@@ -27,6 +30,7 @@ export interface CouponCreateInput {
   discountValue: number;
   expirationDate: string;
   maxUses: number;
+  applicableProducts?: ProductType[];
 }
 
 export interface CouponUpdateInput extends Partial<CouponCreateInput> {

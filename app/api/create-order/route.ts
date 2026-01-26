@@ -4,6 +4,7 @@ import { validateCoupon, applyCoupon, getProductPrice, ProductType } from '@/lib
 import { generateOrderEmailHTML, generateOrderSubject } from '@/lib/email-templates';
 import { createPaymePayment } from '@/lib/payme-payment';
 import { CreateOrderInput, OrderData } from '@/types/order';
+import { isValidBookQuantity } from '@/lib/book-pricing';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -94,13 +95,22 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Valid Israeli phone number is required' }, { status: 400 });
     }
 
-    // Calculate price with coupon
-    let originalPrice = getProductPrice(product);
+    // Validate and extract quantity (for books only - fixed packages: 1, 2, 5, 10)
+    let quantity = 1;
+    if (product === 'book' && input.quantity) {
+      quantity = Math.round(input.quantity);
+      if (!isValidBookQuantity(quantity)) {
+        return NextResponse.json({ error: 'Invalid quantity. Available packages: 1, 2, 5, or 10 books' }, { status: 400 });
+      }
+    }
+
+    // Calculate price with coupon (quantity is passed to getProductPrice for books)
+    let originalPrice = getProductPrice(product, quantity);
     let discountAmount = 0;
     let finalPrice = originalPrice;
 
     if (input.couponCode) {
-      const couponValidation = await validateCoupon(input.couponCode, product);
+      const couponValidation = await validateCoupon(input.couponCode, product, quantity);
 
       if (!couponValidation.valid) {
         return NextResponse.json({ error: couponValidation.error || 'Invalid coupon' }, { status: 400 });
@@ -111,7 +121,7 @@ export async function POST(request: NextRequest) {
         discountAmount = originalPrice - finalPrice;
 
         // Apply coupon (increment usage)
-        await applyCoupon(input.couponCode, product);
+        await applyCoupon(input.couponCode, product, quantity);
       }
     }
 
@@ -125,6 +135,7 @@ export async function POST(request: NextRequest) {
         phone: phone.trim(),
       },
       couponCode: input.couponCode?.trim().toUpperCase(),
+      quantity: product === 'book' ? quantity : undefined,
       originalPrice,
       discountAmount,
       finalPrice,

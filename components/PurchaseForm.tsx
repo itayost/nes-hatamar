@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
+import { calculateBookPrice, BOOK_PACKAGES } from '@/lib/book-pricing';
 
 type ProductType = 'book' | 'course';
 
@@ -20,6 +21,8 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
     couponCode: '',
   });
 
+  const [quantity, setQuantity] = useState(1);
+
   const [couponState, setCouponState] = useState<{
     validated: boolean;
     valid: boolean;
@@ -31,11 +34,21 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
 
+  // Calculate price based on quantity (for books only)
+  const priceInfo = useMemo(() => {
+    if (product === 'book') {
+      return calculateBookPrice(quantity);
+    }
+    return { totalPrice: basePrice, unitPrice: basePrice, savings: 0, quantity: 1 };
+  }, [product, quantity, basePrice]);
+
+  const currentBasePrice = priceInfo.totalPrice;
+
   const finalPrice = couponState.valid && couponState.discount
     ? couponState.discount.finalPrice
-    : basePrice;
+    : currentBasePrice;
 
-  const discountAmount = basePrice - finalPrice;
+  const discountAmount = currentBasePrice - finalPrice;
 
   const validateCoupon = async () => {
     if (!formData.couponCode.trim()) return;
@@ -47,7 +60,11 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
       const res = await fetch('/api/validate-coupon', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code: formData.couponCode, product }),
+        body: JSON.stringify({
+          code: formData.couponCode,
+          product,
+          quantity: product === 'book' ? quantity : undefined,
+        }),
       });
 
       const data = await res.json();
@@ -76,6 +93,15 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
     }
   };
 
+  // Re-validate coupon when quantity changes (for books)
+  const handleQuantityChange = (newQuantity: number) => {
+    setQuantity(newQuantity);
+    // Reset coupon state when quantity changes
+    if (couponState.validated) {
+      setCouponState({ validated: false, valid: false });
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -93,6 +119,7 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
             phone: formData.phone,
           },
           couponCode: couponState.valid ? formData.couponCode : undefined,
+          quantity: product === 'book' ? quantity : undefined,
         }),
       });
 
@@ -118,6 +145,36 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      {/* Quantity Selector (Books only) */}
+      {product === 'book' && (
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-dark mb-2">
+            {t('form.quantity')} <span className="text-red-500">*</span>
+          </label>
+          <select
+            value={quantity}
+            onChange={(e) => handleQuantityChange(Number(e.target.value))}
+            className="w-full px-4 py-3 border-2 border-gold/20 rounded-xl focus:border-gold focus:outline-none transition-colors bg-white"
+          >
+            {BOOK_PACKAGES.map((pkg) => {
+              const price = calculateBookPrice(pkg.quantity);
+              const label = pkg.quantity === 1 ? t('form.quantityOne') : t('form.quantityMany', { count: pkg.quantity });
+              return (
+                <option key={pkg.quantity} value={pkg.quantity}>
+                  {label} - ₪{price.totalPrice.toLocaleString()}
+                  {price.savings > 0 && ` (${t('form.savings')} ₪${price.savings.toLocaleString()})`}
+                </option>
+              );
+            })}
+          </select>
+          {priceInfo.savings > 0 && (
+            <p className="text-sm text-green-600">
+              {t('form.volumeDiscount', { savings: priceInfo.savings.toLocaleString() })}
+            </p>
+          )}
+        </div>
+      )}
+
       {/* Customer Info */}
       <div className="space-y-4">
         <div>
@@ -211,14 +268,33 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
 
       {/* Price Summary */}
       <div className="bg-gold/5 rounded-xl p-6 space-y-3">
-        <div className="flex justify-between text-dark">
-          <span>{product === 'book' ? t('summary.bookPrice') : t('summary.coursePrice')}</span>
-          <span>₪{basePrice.toLocaleString()}</span>
-        </div>
+        {product === 'book' && quantity > 1 ? (
+          <>
+            <div className="flex justify-between text-dark">
+              <span>{t('summary.unitPrice')}</span>
+              <span>₪{priceInfo.unitPrice.toLocaleString()} × {quantity}</span>
+            </div>
+            <div className="flex justify-between text-dark">
+              <span>{t('summary.subtotal')}</span>
+              <span>₪{currentBasePrice.toLocaleString()}</span>
+            </div>
+            {priceInfo.savings > 0 && (
+              <div className="flex justify-between text-green-600">
+                <span>{t('summary.volumeSavings')}</span>
+                <span>-₪{priceInfo.savings.toLocaleString()}</span>
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="flex justify-between text-dark">
+            <span>{product === 'book' ? t('summary.bookPrice') : t('summary.coursePrice')}</span>
+            <span>₪{currentBasePrice.toLocaleString()}</span>
+          </div>
+        )}
 
         {discountAmount > 0 && (
           <div className="flex justify-between text-green-600">
-            <span>{t('summary.discount')}</span>
+            <span>{t('summary.couponDiscount')}</span>
             <span>-₪{discountAmount.toLocaleString()}</span>
           </div>
         )}

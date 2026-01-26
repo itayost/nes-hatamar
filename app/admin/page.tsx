@@ -1,10 +1,20 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { Coupon, CouponCreateInput } from '@/types/coupon';
-import CouponTable from '@/components/admin/CouponTable';
+import CouponTable, { SortField } from '@/components/admin/CouponTable';
 import CouponForm from '@/components/admin/CouponForm';
+import CouponFilters, { StatusFilter, ProductFilter } from '@/components/admin/CouponFilters';
+
+type CouponStatus = 'active' | 'inactive' | 'expired' | 'exhausted';
+
+function getCouponStatus(coupon: Coupon): CouponStatus {
+  if (!coupon.active) return 'inactive';
+  if (new Date(coupon.expirationDate) < new Date()) return 'expired';
+  if (coupon.maxUses !== -1 && coupon.currentUses >= coupon.maxUses) return 'exhausted';
+  return 'active';
+}
 
 export default function AdminDashboard() {
   const router = useRouter();
@@ -15,6 +25,13 @@ export default function AdminDashboard() {
   const [editingCoupon, setEditingCoupon] = useState<Coupon | null>(null);
   const [deleteConfirm, setDeleteConfirm] = useState<Coupon | null>(null);
   const [error, setError] = useState('');
+
+  // Search, filter, sort state
+  const [searchQuery, setSearchQuery] = useState('');
+  const [statusFilter, setStatusFilter] = useState<StatusFilter>('all');
+  const [productFilter, setProductFilter] = useState<ProductFilter>('all');
+  const [sortField, setSortField] = useState<SortField>('createdAt');
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
 
   useEffect(() => {
     checkAuth();
@@ -32,10 +49,10 @@ export default function AdminDashboard() {
       const data = await res.json();
       setIsAuthenticated(data.authenticated);
       if (!data.authenticated) {
-        router.push('/admin-nes-hatamar-2025/login');
+        router.push('/admin/login');
       }
     } catch {
-      router.push('/admin-nes-hatamar-2025/login');
+      router.push('/admin/login');
     }
   };
 
@@ -56,9 +73,9 @@ export default function AdminDashboard() {
   const handleLogout = async () => {
     try {
       await fetch('/api/admin/auth', { method: 'DELETE' });
-      router.push('/admin-nes-hatamar-2025/login');
+      router.push('/admin/login');
     } catch {
-      router.push('/admin-nes-hatamar-2025/login');
+      router.push('/admin/login');
     }
   };
 
@@ -118,6 +135,60 @@ export default function AdminDashboard() {
     }
   };
 
+  const handleSort = (field: SortField) => {
+    if (sortField === field) {
+      setSortDirection(prev => prev === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortField(field);
+      setSortDirection('asc');
+    }
+  };
+
+  // Filtered and sorted coupons
+  const filteredCoupons = useMemo(() => {
+    return coupons
+      .filter(coupon => {
+        // Search filter
+        if (searchQuery && !coupon.code.toLowerCase().includes(searchQuery.toLowerCase())) {
+          return false;
+        }
+        // Status filter
+        if (statusFilter !== 'all') {
+          const status = getCouponStatus(coupon);
+          if (status !== statusFilter) return false;
+        }
+        // Product filter
+        if (productFilter !== 'all') {
+          // If coupon has no product restrictions, it applies to all products
+          if (!coupon.applicableProducts || coupon.applicableProducts.length === 0) {
+            return true;
+          }
+          if (!coupon.applicableProducts.includes(productFilter)) {
+            return false;
+          }
+        }
+        return true;
+      })
+      .sort((a, b) => {
+        let comparison = 0;
+        switch (sortField) {
+          case 'code':
+            comparison = a.code.localeCompare(b.code);
+            break;
+          case 'createdAt':
+            comparison = new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+            break;
+          case 'expirationDate':
+            comparison = new Date(a.expirationDate).getTime() - new Date(b.expirationDate).getTime();
+            break;
+          case 'currentUses':
+            comparison = a.currentUses - b.currentUses;
+            break;
+        }
+        return sortDirection === 'asc' ? comparison : -comparison;
+      });
+  }, [coupons, searchQuery, statusFilter, productFilter, sortField, sortDirection]);
+
   if (isAuthenticated === null) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -175,16 +246,36 @@ export default function AdminDashboard() {
           </div>
 
           <div className="p-6">
+            {/* Filters */}
+            <CouponFilters
+              searchQuery={searchQuery}
+              onSearchChange={setSearchQuery}
+              statusFilter={statusFilter}
+              onStatusFilterChange={setStatusFilter}
+              productFilter={productFilter}
+              onProductFilterChange={setProductFilter}
+            />
+
             {loading ? (
               <div className="flex justify-center py-12">
                 <div className="animate-spin rounded-full h-8 w-8 border-4 border-gold border-t-transparent"></div>
               </div>
             ) : (
-              <CouponTable
-                coupons={coupons}
-                onEdit={(coupon) => setEditingCoupon(coupon)}
-                onDelete={(coupon) => setDeleteConfirm(coupon)}
-              />
+              <>
+                {filteredCoupons.length !== coupons.length && (
+                  <div className="mb-4 text-sm text-gray-500">
+                    מציג {filteredCoupons.length} מתוך {coupons.length} קופונים
+                  </div>
+                )}
+                <CouponTable
+                  coupons={filteredCoupons}
+                  onEdit={(coupon) => setEditingCoupon(coupon)}
+                  onDelete={(coupon) => setDeleteConfirm(coupon)}
+                  sortField={sortField}
+                  sortDirection={sortDirection}
+                  onSort={handleSort}
+                />
+              </>
             )}
           </div>
         </div>

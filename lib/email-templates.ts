@@ -11,14 +11,21 @@ function escapeHtml(unsafe: string): string {
 }
 
 export function generateOrderEmailHTML(order: OrderData): string {
-  const { customerInfo, product, originalPrice, discountAmount, finalPrice, couponCode, createdAt } = order;
+  const { customerInfo, product, originalPrice, discountAmount, finalPrice, couponCode, createdAt, quantity } = order;
 
   const safeEmail = escapeHtml(customerInfo.email);
   const safeName = escapeHtml(customerInfo.name);
   const safePhone = escapeHtml(customerInfo.phone);
   const safeCoupon = couponCode ? escapeHtml(couponCode) : null;
 
-  const productName = product === 'course' ? 'קורס מבוא להומאופטיה' : 'ספר נס התמר';
+  // Generate product name with quantity for books
+  let productName: string;
+  if (product === 'course') {
+    productName = 'קורס מבוא להומאופטיה';
+  } else {
+    const qty = quantity || 1;
+    productName = qty === 1 ? 'ספר נס התמר' : `ספר נס התמר (×${qty})`;
+  }
 
   const formattedDate = new Date(createdAt).toLocaleString('he-IL', {
     dateStyle: 'full',
@@ -158,15 +165,21 @@ export function generateOrderEmailHTML(order: OrderData): string {
       </div>
 
       <div class="price-section">
+        ${product === 'book' && (quantity || 1) > 1 ? `
         <div class="price-row">
-          <span>מחיר מקורי</span>
+          <span>כמות</span>
+          <span>${quantity} ספרים</span>
+        </div>
+        ` : ''}
+        <div class="price-row">
+          <span>${product === 'book' && (quantity || 1) > 1 ? 'סכום ביניים' : 'מחיר'}</span>
           <span>₪${originalPrice.toLocaleString()}</span>
         </div>
         ${discountAmount > 0 ? `
         <div class="price-row" style="color: #22c55e;">
           <span>
-            <span class="discount-tag">קופון</span>
-            ${safeCoupon || 'הנחה'}
+            <span class="discount-tag">${safeCoupon ? 'קופון' : 'הנחה'}</span>
+            ${safeCoupon || 'הנחת כמות'}
           </span>
           <span>-₪${discountAmount.toLocaleString()}</span>
         </div>
@@ -205,6 +218,12 @@ export function generateOrderEmailHTML(order: OrderData): string {
 }
 
 export function generateOrderSubject(order: OrderData): string {
-  const productName = order.product === 'course' ? 'קורס מבוא להומאופטיה' : 'ספר נס התמר';
+  let productName: string;
+  if (order.product === 'course') {
+    productName = 'קורס מבוא להומאופטיה';
+  } else {
+    const qty = order.quantity || 1;
+    productName = qty === 1 ? 'ספר נס התמר' : `${qty} ספרים`;
+  }
   return `הזמנה חדשה - ${productName} - ${order.customerInfo.name}`;
 }

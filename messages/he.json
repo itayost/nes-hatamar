@@ -229,6 +229,11 @@
     },
     "form": {
       "title": "פרטי הזמנה ותשלום",
+      "quantity": "כמות ספרים",
+      "quantityOne": "ספר אחד",
+      "quantityMany": "{count} ספרים",
+      "savings": "חיסכון",
+      "volumeDiscount": "חסכתם ₪{savings} בהזמנה מרובה!",
       "name": "שם מלא",
       "namePlaceholder": "הזינו את שמכם המלא",
       "email": "דוא״ל",
@@ -250,6 +255,10 @@
     "summary": {
       "bookPrice": "מחיר הספר",
       "coursePrice": "מחיר הקורס",
+      "unitPrice": "מחיר ליחידה",
+      "subtotal": "סכום ביניים",
+      "volumeSavings": "הנחת כמות",
+      "couponDiscount": "הנחת קופון",
       "discount": "הנחה",
       "total": "סה״כ לתשלום"
     },

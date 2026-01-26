@@ -6,7 +6,7 @@ import {
   updateCoupon,
   deleteCoupon,
 } from '@/lib/coupon-validator';
-import { CouponCreateInput, CouponUpdateInput } from '@/types/coupon';
+import { CouponCreateInput, CouponUpdateInput, ProductType } from '@/types/coupon';
 
 // Check authentication middleware
 async function requireAuth(): Promise<NextResponse | null> {
@@ -15,6 +15,20 @@ async function requireAuth(): Promise<NextResponse | null> {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
   return null;
+}
+
+// Validate product types
+function validateProductTypes(products: unknown): ProductType[] | undefined {
+  if (!products || !Array.isArray(products)) return undefined;
+  if (products.length === 0) return undefined;
+
+  const validProducts: ProductType[] = [];
+  for (const p of products) {
+    if (p === 'book' || p === 'course') {
+      validProducts.push(p);
+    }
+  }
+  return validProducts.length > 0 ? validProducts : undefined;
 }
 
 // Validate coupon input
@@ -70,6 +84,7 @@ export async function POST(request: NextRequest) {
       discountValue: Number(body.discountValue),
       expirationDate: body.expirationDate,
       maxUses: Number(body.maxUses),
+      applicableProducts: validateProductTypes(body.applicableProducts),
     };
 
     const validationError = validateCouponInput(input);
@@ -107,6 +122,9 @@ export async function PUT(request: NextRequest) {
     if (updateData.expirationDate !== undefined) input.expirationDate = updateData.expirationDate;
     if (updateData.maxUses !== undefined) input.maxUses = Number(updateData.maxUses);
     if (updateData.active !== undefined) input.active = Boolean(updateData.active);
+    if (updateData.applicableProducts !== undefined) {
+      input.applicableProducts = validateProductTypes(updateData.applicableProducts);
+    }
 
     // Validate if full input is provided
     if (input.code && input.discountType && input.discountValue && input.expirationDate && input.maxUses) {
@@ -131,8 +149,18 @@ export async function DELETE(request: NextRequest) {
   if (authError) return authError;
 
   try {
+    // Support both query param and body for ID
     const { searchParams } = new URL(request.url);
-    const id = searchParams.get('id');
+    let id = searchParams.get('id');
+
+    if (!id) {
+      try {
+        const body = await request.json();
+        id = body.id;
+      } catch {
+        // No body provided
+      }
+    }
 
     if (!id) {
       return NextResponse.json({ error: 'Coupon ID is required' }, { status: 400 });

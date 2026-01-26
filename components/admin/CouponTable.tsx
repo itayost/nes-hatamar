@@ -2,13 +2,25 @@
 
 import { Coupon } from '@/types/coupon';
 
+export type SortField = 'code' | 'createdAt' | 'expirationDate' | 'currentUses';
+
 interface CouponTableProps {
   coupons: Coupon[];
   onEdit: (coupon: Coupon) => void;
   onDelete: (coupon: Coupon) => void;
+  sortField?: SortField;
+  sortDirection?: 'asc' | 'desc';
+  onSort?: (field: SortField) => void;
 }
 
-export default function CouponTable({ coupons, onEdit, onDelete }: CouponTableProps) {
+export default function CouponTable({
+  coupons,
+  onEdit,
+  onDelete,
+  sortField,
+  sortDirection,
+  onSort
+}: CouponTableProps) {
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('he-IL', {
       year: 'numeric',
@@ -34,6 +46,41 @@ export default function CouponTable({ coupons, onEdit, onDelete }: CouponTablePr
     return <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-600 rounded-full">פעיל</span>;
   };
 
+  const getProductsText = (coupon: Coupon) => {
+    if (!coupon.applicableProducts || coupon.applicableProducts.length === 0) {
+      return 'הכל';
+    }
+    return coupon.applicableProducts
+      .map(p => p === 'book' ? 'ספר' : 'קורס')
+      .join(', ');
+  };
+
+  const SortHeader = ({ field, children }: { field: SortField; children: React.ReactNode }) => {
+    const isActive = sortField === field;
+    return (
+      <th
+        onClick={() => onSort?.(field)}
+        className={`text-right py-3 px-4 text-sm font-semibold text-dark cursor-pointer hover:bg-gold/5 transition-colors select-none ${
+          onSort ? 'cursor-pointer' : ''
+        }`}
+      >
+        <span className="inline-flex items-center gap-1">
+          {children}
+          {isActive && (
+            <svg
+              className={`w-4 h-4 transition-transform ${sortDirection === 'desc' ? 'rotate-180' : ''}`}
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+            </svg>
+          )}
+        </span>
+      </th>
+    );
+  };
+
   if (coupons.length === 0) {
     return (
       <div className="text-center py-12 text-gray-500">
@@ -51,10 +98,11 @@ export default function CouponTable({ coupons, onEdit, onDelete }: CouponTablePr
       <table className="w-full">
         <thead>
           <tr className="border-b border-gold/20">
-            <th className="text-right py-3 px-4 text-sm font-semibold text-dark">קוד</th>
+            <SortHeader field="code">קוד</SortHeader>
             <th className="text-right py-3 px-4 text-sm font-semibold text-dark">הנחה</th>
-            <th className="text-right py-3 px-4 text-sm font-semibold text-dark">תוקף</th>
-            <th className="text-right py-3 px-4 text-sm font-semibold text-dark">שימושים</th>
+            <th className="text-right py-3 px-4 text-sm font-semibold text-dark">מוצרים</th>
+            <SortHeader field="expirationDate">תוקף</SortHeader>
+            <SortHeader field="currentUses">שימושים</SortHeader>
             <th className="text-right py-3 px-4 text-sm font-semibold text-dark">סטטוס</th>
             <th className="text-right py-3 px-4 text-sm font-semibold text-dark">פעולות</th>
           </tr>
@@ -69,6 +117,15 @@ export default function CouponTable({ coupons, onEdit, onDelete }: CouponTablePr
                 {coupon.discountType === 'percentage'
                   ? `${coupon.discountValue}%`
                   : `₪${coupon.discountValue}`}
+              </td>
+              <td className="py-3 px-4 text-sm">
+                <span className={`px-2 py-1 text-xs rounded-full ${
+                  !coupon.applicableProducts || coupon.applicableProducts.length === 0
+                    ? 'bg-blue-100 text-blue-700'
+                    : 'bg-purple-100 text-purple-700'
+                }`}>
+                  {getProductsText(coupon)}
+                </span>
               </td>
               <td className="py-3 px-4 text-sm">
                 <span className={isExpired(coupon.expirationDate) ? 'text-red-500' : ''}>

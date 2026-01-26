@@ -9,6 +9,7 @@ export interface OrderData {
   product: 'course' | 'book';
   customerInfo: CustomerInfo;
   couponCode?: string;
+  quantity?: number; // For book orders (default: 1)
   originalPrice: number;
   discountAmount: number;
   finalPrice: number;
@@ -21,6 +22,7 @@ export interface CreateOrderInput {
   product: 'course' | 'book';
   customerInfo: CustomerInfo;
   couponCode?: string;
+  quantity?: number; // For book orders (default: 1)
 }
 
 export interface CreateOrderResult {

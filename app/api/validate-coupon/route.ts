@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { validateCoupon, getProductPrice, ProductType } from '@/lib/coupon-validator';
+import { isValidBookQuantity } from '@/lib/book-pricing';
 
 // Rate limiting for coupon validation
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
@@ -37,7 +38,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { code, product = 'course' } = body;
+    const { code, product = 'course', quantity = 1 } = body;
 
     if (!code || typeof code !== 'string') {
       return NextResponse.json({ error: 'Coupon code is required' }, { status: 400 });
@@ -47,13 +48,22 @@ export async function POST(request: NextRequest) {
     const validProducts: ProductType[] = ['book', 'course'];
     const productType: ProductType = validProducts.includes(product) ? product : 'course';
 
-    const result = await validateCoupon(code.trim(), productType);
+    // Validate quantity (for books - fixed packages: 1, 2, 5, 10)
+    let qty = 1;
+    if (productType === 'book' && quantity) {
+      qty = Math.round(quantity);
+      if (!isValidBookQuantity(qty)) {
+        qty = 1; // Default to 1 if invalid
+      }
+    }
+
+    const result = await validateCoupon(code.trim(), productType, qty);
 
     return NextResponse.json({
       valid: result.valid,
       discount: result.discount,
       error: result.error,
-      originalPrice: getProductPrice(productType),
+      originalPrice: getProductPrice(productType, qty),
     });
   } catch (error) {
     console.error('Coupon validation error:', error);

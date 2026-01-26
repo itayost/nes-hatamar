@@ -65,7 +65,14 @@ export async function createPaymePayment(order: OrderData): Promise<PaymePayment
   // PayMe expects price in agorot (cents) - multiply by 100
   const priceInAgorot = Math.round(order.finalPrice * 100);
 
-  const productName = PRODUCT_NAMES[order.product] || PRODUCT_NAMES.book;
+  // Generate product name with quantity for books
+  let productName: string;
+  if (order.product === 'course') {
+    productName = PRODUCT_NAMES.course;
+  } else {
+    const qty = order.quantity || 1;
+    productName = qty === 1 ? PRODUCT_NAMES.book : `${PRODUCT_NAMES.book} (×${qty})`;
+  }
 
   const requestBody = {
     seller_payme_id: sellerId,
