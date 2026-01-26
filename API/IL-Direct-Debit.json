@@ -1,0 +1,347 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "IL Direct Debit Internal",
+        "version": "1.0",
+        "description": ""
+    },
+    "servers": [
+        {
+            "url": "https://sandbox.payme.io/api/",
+            "description": "Sandbox"
+        },
+        {
+            "description": "Production",
+            "url": "https://live.payme.io/api/"
+        }
+    ],
+    "paths": {
+        "/generate-sale": {
+            "post": {
+                "summary": "Generate New Authorization",
+                "operationId": "post-generate-sale",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "status_code": 0,
+                                            "sale_url": "https://sandbox.payme.io/sale/generate/SALETEST-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+                                            "payme_sale_id": "SALE1687-957072WX-0MEX63QM-GMHDMGNU",
+                                            "payme_sale_code": 1234567,
+                                            "price": 1000,
+                                            "transaction_id": "12345",
+                                            "currency": "ILS",
+                                            "sale_payment_method": "il-direct-debit"
+                                        }
+                                    },
+                                    "properties": {
+                                        "status_code": {
+                                            "description": "Status of the request (0 - success, 1 - error)",
+                                            "type": "string",
+                                            "example": "0"
+                                        },
+                                        "sale_url": {
+                                            "type": "string",
+                                            "description": "The URL of the IFRAME secured payment form to display to the buyer",
+                                            "example": "https://preprod.paymeservice.com/sale/generate/XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX"
+                                        },
+                                        "payme_sale_id": {
+                                            "type": "string",
+                                            "pattern": "XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+                                            "description": "Our unique sale ID"
+                                        },
+                                        "payme_sale_code": {
+                                            "type": "integer",
+                                            "description": "Our unique sale code (for display purposes only)",
+                                            "example": 12345
+                                        },
+                                        "price": {
+                                            "type": "integer",
+                                            "description": "Sale final price. For example, if the price is 50.75 (max 2 decimal points) the value that needs to be sent is 5075",
+                                            "example": 10000
+                                        },
+                                        "transaction_id": {
+                                            "type": "string",
+                                            "example": "123456",
+                                            "description": "Transaction ID"
+                                        },
+                                        "currency": {
+                                            "type": "string",
+                                            "example": "ILS"
+                                        },
+                                        "sale_payment_method": {
+                                            "type": "string",
+                                            "example": "il-direct-debit",
+                                            "description": "The sale payment method. Must be il-direct-debit for the authorization setup process"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Example 1": {
+                                        "value": {
+                                            "status_code": 0,
+                                            "sale_url": "https://sandbox.payme.io/sale/generate/SALETEST-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+                                            "payme_sale_id": "SALE1687-957072WX-0MEX63QM-GMHDMGNU",
+                                            "payme_sale_code": 1234567,
+                                            "price": 1000,
+                                            "transaction_id": "12345",
+                                            "currency": "ILS",
+                                            "sale_payment_method": "il-direct-debit"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "## Overview\n\nThe Israeli Direct Debit alternative payment method works in a two-phase setup:\n1. Setting up the bank authorization <- **You are here**\n2. Completing the payment using the bank authorization\n\n### Bank Authorization Setup\n\nIn order to setup the bank Authorization, you will need to use our generate-sale endpoint, using a few specific parameters.\n1. `sale_type = token`\n2. `sale_payment_method = il-direct-debit`\n\nThe authorization page is based on our `hosted-payment-page` and will collect information regarding the buyer's identity and bank account.\n\nAfter the buyer completes the setup, the authorization will be sent to the bank and will be `inactive` until we receive an update (takes up to 96 hours).\n\n### Callbacks\n\nYou will get two callbacks:\n1. **Callback that indicates that the sale complete** - Not relevant, as the `sale_type` is from type \"token\" and not sale.<br />* You can find all the sale types [here](https://payme.stoplight.io/docs/guides/okab0oj46ivn7-sale-types)<br />* You can find all the sale callbacks [here](https://payme.stoplight.io/docs/guides/i90qmmbdut067-sale-callbacks)\n\n2. **Callback that inditates the authorization status** - You can find all the bank authorization statuses [here](https://payme.stoplight.io/docs/guides/branches/main/6biuxzskacuhb-bank-authorization-statuses).\n\n```\n{\n\"status\": 1,\n\"error_code\": \"11\",\n\"internal_reference_id\": 10000,\n\"customer_name\": \"Test test\",\n\"charge_limit\": 200\n}\n```\n\n### Testing\n\nInformation for testing can be found here - [Israeli Direct Debit Testing Information](https://payme.stoplight.io/docs/payments/branches/V1.6/v781p5enpoq9x-test-cards-and-payment-methods#israeli-direct-debit-testing-information).\n\nPlease note that in our sandbox environment you will receive only bank authorization statuses from type 1 or 2 (Success/failure). \nYou can find all the bank authorization statuses [here](https://payme.stoplight.io/docs/guides/branches/main/6biuxzskacuhb-bank-authorization-statuses).\n\n",
+                "x-internal": false,
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "x-examples": {
+                                    "example-1": {
+                                        "seller_payme_id": "MPL16370-57351SJQ-0DTLUQXA-NJ916MXU",
+                                        "sale_price": "1000",
+                                        "currency": "ILS",
+                                        "product_name": "Shirt",
+                                        "language": "en",
+                                        "sale_type": "token",
+                                        "sale_payment_method": "il-direct-debit",
+                                        "sale_return_url": "https://sport5.co.il"
+                                    }
+                                },
+                                "properties": {
+                                    "seller_payme_id": {
+                                        "type": "string",
+                                        "description": "The MPL the authorization will be given for",
+                                        "example": "MPLDEMO-MPLDEMO-MPLDEMO-MPLDEMO"
+                                    },
+                                    "sale_price": {
+                                        "type": "string",
+                                        "example": "1000",
+                                        "description": "Must be included, won't be charged as a part of the authorization setup"
+                                    },
+                                    "currency": {
+                                        "type": "string",
+                                        "description": "Sale currency. [3-letter ISO 4217 name](https://en.wikipedia.org/wiki/ISO_4217).",
+                                        "example": "ILS"
+                                    },
+                                    "product_name": {
+                                        "type": "string",
+                                        "description": "Use a generic value here (will not affect the authorization setup process)",
+                                        "example": "test"
+                                    },
+                                    "language": {
+                                        "type": "string",
+                                        "description": "The language the page will be presented in",
+                                        "example": "he"
+                                    },
+                                    "sale_type": {
+                                        "type": "string",
+                                        "description": "The sale type. For authorization setup, use `token` by default",
+                                        "enum": [
+                                            "token"
+                                        ]
+                                    },
+                                    "sale_payment_method": {
+                                        "type": "string",
+                                        "description": "The sale payment method. Must be `il-direct-debit` for the authorization setup process",
+                                        "enum": [
+                                            "il-direct-debit"
+                                        ]
+                                    },
+                                    "sale_return_url": {
+                                        "type": "string",
+                                        "description": "The URL the user will be redirected to after completing the authorization setup process",
+                                        "example": "https://payme.io"
+                                    }
+                                },
+                                "required": [
+                                    "seller_payme_id",
+                                    "sale_price",
+                                    "currency",
+                                    "product_name",
+                                    "sale_type",
+                                    "sale_payment_method"
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/generate-sale - copy": {
+            "post": {
+                "summary": "Generate New Payment",
+                "operationId": "post-generate-sale",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "status_code": 0,
+                                            "sale_url": "https://sandbox.payme.io/sale/generate/SALETEST-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+                                            "payme_sale_id": "SALE1687-957072WX-0MEX63QM-GMHDMGNU",
+                                            "payme_sale_code": 1234567,
+                                            "price": 1000,
+                                            "transaction_id": "12345",
+                                            "currency": "ILS",
+                                            "sale_payment_method": "il-direct-debit"
+                                        }
+                                    },
+                                    "properties": {
+                                        "status_code": {
+                                            "description": "Status of the request (0 - success, 1 - error)",
+                                            "type": "string",
+                                            "example": "0"
+                                        },
+                                        "sale_url": {
+                                            "type": "string",
+                                            "description": "The URL of the IFRAME secured payment form to display to the buyer",
+                                            "example": "https://preprod.paymeservice.com/sale/generate/XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX"
+                                        },
+                                        "payme_sale_id": {
+                                            "type": "string",
+                                            "pattern": "XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+                                            "description": "Our unique sale ID"
+                                        },
+                                        "payme_sale_code": {
+                                            "type": "integer",
+                                            "description": "Our unique sale code (for display purposes only)",
+                                            "example": 12345
+                                        },
+                                        "price": {
+                                            "type": "integer",
+                                            "description": "Sale final price. For example, if the price is 50.75 (max 2 decimal points) the value that needs to be sent is 5075",
+                                            "example": 10000
+                                        },
+                                        "transaction_id": {
+                                            "type": "string",
+                                            "example": "123456",
+                                            "description": "Transaction ID"
+                                        },
+                                        "currency": {
+                                            "type": "string",
+                                            "example": "ILS"
+                                        },
+                                        "sale_payment_method": {
+                                            "type": "string",
+                                            "example": "il-direct-debit",
+                                            "description": "The sale payment method. Must be il-direct-debit for the authorization setup process"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Example 1": {
+                                        "value": {
+                                            "status_code": 0,
+                                            "sale_url": "https://sandbox.payme.io/sale/generate/SALETEST-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+                                            "payme_sale_id": "SALE1687-957072WX-0MEX63QM-GMHDMGNU",
+                                            "payme_sale_code": 1234567,
+                                            "price": 1000,
+                                            "transaction_id": "12345",
+                                            "currency": "ILS",
+                                            "sale_payment_method": "il-direct-debit"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "## Overview\n\nThe Israeli Direct Debit alternative payment method works in a two-phase setup:\n1. Setting up the bank authorization \n2. Completing the payment using the bank authorization <- **You are here**\n\n### Generate a new payment using Israeli Direct Debit\n\nIn order to setup a new payment using the Israeli Direct Debit alternative payment method, you will need to use our `generate-sale` endpoint, using a few specific parameters.\n1. `sale_type = sale`\n2. `sale_payment_method = il-direct-debit`\n3. include a `buyer-key` parameter as a part of your `generate-sale` request in order to initiate the payment flow\n\n### Callbacks\nStatus | Description\n---- | ----\nSuccess | In case the payment was successful, you won't get any callback. Please note that the payment process can take up to 8 days.\nFailure | In case that payment failed, you will get a callback indicates on failure.\n\n### Testing\n\nInformation for testing can be found here - [Israeli Direct Debit Testing Information](https://payme.stoplight.io/docs/payments/branches/V1.6/v781p5enpoq9x-test-cards-and-payment-methods#israeli-direct-debit-testing-information).",
+                "x-internal": false,
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "x-examples": {
+                                    "example-1": {
+                                        "seller_payme_id": "MPL16370-57351SJQ-0DTLUQXA-NJ916MXU",
+                                        "sale_price": "1000",
+                                        "currency": "ILS",
+                                        "product_name": "Shirt",
+                                        "language": "en",
+                                        "sale_type": "token",
+                                        "sale_payment_method": "il-direct-debit",
+                                        "sale_return_url": "https://sport5.co.il"
+                                    }
+                                },
+                                "properties": {
+                                    "seller_payme_id": {
+                                        "type": "string",
+                                        "description": "The MPL the authorization will be given for",
+                                        "example": "MPLDEMO-MPLDEMO-MPLDEMO-MPLDEMO"
+                                    },
+                                    "sale_price": {
+                                        "type": "string",
+                                        "example": "1000",
+                                        "description": "Must be included, won't be charged as a part of the authorization setup"
+                                    },
+                                    "currency": {
+                                        "type": "string",
+                                        "description": "Sale currency. [3-letter ISO 4217 name](https://en.wikipedia.org/wiki/ISO_4217).",
+                                        "example": "ILS"
+                                    },
+                                    "product_name": {
+                                        "type": "string",
+                                        "description": "Use a generic value here (will not affect the authorization setup process)",
+                                        "example": "test"
+                                    },
+                                    "language": {
+                                        "type": "string",
+                                        "description": "The language the page will be presented in",
+                                        "example": "he"
+                                    },
+                                    "sale_type": {
+                                        "type": "string",
+                                        "description": "The sale type. For authorization setup, use `token` by default",
+                                        "enum": [
+                                            "sale"
+                                        ]
+                                    },
+                                    "sale_payment_method": {
+                                        "type": "string",
+                                        "description": "The sale payment method. Must be `il-direct-debit` for the authorization setup process",
+                                        "enum": [
+                                            "il-direct-debit"
+                                        ]
+                                    },
+                                    "sale_return_url": {
+                                        "type": "string",
+                                        "description": "The URL the user will be redirected to after completing the authorization setup process",
+                                        "example": "https://payme.io"
+                                    }
+                                },
+                                "required": [
+                                    "seller_payme_id",
+                                    "sale_price",
+                                    "currency",
+                                    "product_name",
+                                    "sale_type",
+                                    "sale_payment_method"
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {}
+    }
+}

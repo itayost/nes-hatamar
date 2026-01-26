@@ -1,0 +1,1152 @@
+{
+    "openapi": "3.1.0",
+    "x-stoplight": {
+        "id": "0a76d2a3e52c3"
+    },
+    "info": {
+        "title": "Documents",
+        "version": "1.0",
+        "description": "You can use our Invoices API to generate different documents to serve your business needs.\n\n#### Document types\nThe documents you can generate can be found in the following guide - [Document Types](https://payme.stoplight.io/docs/guides/xjoh69bnd0h24-document-types).              "
+    },
+    "servers": [
+        {
+            "url": "https://sandbox.payme.io/api/",
+            "description": "Staging"
+        },
+        {
+            "url": "https://live.payme.io/api/",
+            "description": "Production "
+        }
+    ],
+    "paths": {
+        "/documents": {
+            "post": {
+                "summary": "Create Document",
+                "operationId": "post-create-invoice",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "x-examples": {
+                                        "example-1": {
+                                            "status_code": 0,
+                                            "doc_type": "400",
+                                            "language": "he",
+                                            "due_date": "2021-08-16T00:00:00.000Z",
+                                            "pay_date": "2021-04-16T00:00:00.000Z",
+                                            "doc_date": "2021-05-25 00:00:00",
+                                            "currency": "ILS",
+                                            "vat_rate": 0.17,
+                                            "discount": 0,
+                                            "total_vat": 17,
+                                            "doc_title": "Invoice for John Doe",
+                                            "buyer_name": "John Doe",
+                                            "total_paid": 140,
+                                            "doc_comments": "Some description about the invoice",
+                                            "exchange_rate": 1,
+                                            "total_excluding_vat": 123,
+                                            "total_sum_including_vat": 140,
+                                            "total_sum_after_discount": 123,
+                                            "total_paid_including_vat": 140,
+                                            "cash": {
+                                                "sum": 25
+                                            },
+                                            "cheques": [
+                                                {
+                                                    "sum": 10,
+                                                    "date": "2021-05-16T00:00:00.000Z",
+                                                    "bank": 6,
+                                                    "branch": 22,
+                                                    "account": "123456",
+                                                    "number": "0014555"
+                                                },
+                                                {
+                                                    "sum": 13,
+                                                    "date": "2021-06-16T00:00:00.000Z",
+                                                    "bank": 6,
+                                                    "branch": 22,
+                                                    "account": "123456",
+                                                    "number": "0014555"
+                                                }
+                                            ],
+                                            "bank_transfer": {
+                                                "sum": 25,
+                                                "date": "2021-05-16T00:00:00.000Z",
+                                                "account": "123456"
+                                            },
+                                            "credit_card": {
+                                                "sum": 0,
+                                                "installments": 1,
+                                                "first_payment": 50,
+                                                "number": "4580458045804580",
+                                                "type": "Visa",
+                                                "cvv": "123",
+                                                "buyer_social_id": "05001234",
+                                                "buyer_name": "John Doe",
+                                                "auth_number": "123123123",
+                                                "expiry": "323"
+                                            },
+                                            "paypal": {
+                                                "sum": 50,
+                                                "date": "2021-05-16T00:00:00.000Z",
+                                                "transaction_id": "123456",
+                                                "buyer_name": "John Doe"
+                                            },
+                                            "items": [
+                                                {
+                                                    "quantity": 1,
+                                                    "description": "Test Item 1",
+                                                    "unit_price": 100,
+                                                    "vat_exempt": false,
+                                                    "currency": "ILS",
+                                                    "unit_price_with_vat": 117,
+                                                    "exchange_rate": 1
+                                                },
+                                                {
+                                                    "quantity": 1,
+                                                    "description": "Test Item 2",
+                                                    "unit_price": 23,
+                                                    "vat_exempt": true,
+                                                    "currency": "ILS"
+                                                }
+                                            ],
+                                            "doc_id": "fa397fce-aee6-4c6d-ae9c-273ae1e3a317",
+                                            "doc_url": "https://invoice-staging.paymeservice.com/documents/fa397fce-aee6-4c6d-ae9c-273ae1e3a317"
+                                        }
+                                    },
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "number",
+                                            "description": "Status of the request (0 - success, 1 - error)",
+                                            "example": 0
+                                        },
+                                        "doc_type": {
+                                            "type": "string",
+                                            "description": "The documents you can generate can be found in the following guide - [Document Types](https://payme.stoplight.io/docs/guides/xjoh69bnd0h24-document-types).",
+                                            "example": "100"
+                                        },
+                                        "language": {
+                                            "type": "string",
+                                            "description": "Changes the language of the payment IFRAME to English, as well as the error messages. Default value is Hebrew (he)",
+                                            "example": "he"
+                                        },
+                                        "due_date": {
+                                            "type": "string",
+                                            "description": "The date on which a seller expects to receive payment from a buyer",
+                                            "example": "04/25/2025"
+                                        },
+                                        "pay_date": {
+                                            "type": "string",
+                                            "example": "04/25/2025",
+                                            "description": "Payment date"
+                                        },
+                                        "doc_date": {
+                                            "type": "string",
+                                            "description": "The date of document creation",
+                                            "example": "04/25/2025"
+                                        },
+                                        "currency": {
+                                            "type": "string",
+                                            "description": "Sale currency. [3-letter ISO 4217 name](https://en.wikipedia.org/wiki/ISO_4217).",
+                                            "example": "ILS"
+                                        },
+                                        "vat_rate": {
+                                            "type": "number",
+                                            "example": 0.17,
+                                            "description": "The VAT (Value Added Tax) rate applied."
+                                        },
+                                        "discount": {
+                                            "type": "number",
+                                            "description": "The discount rate (percentage) applied to the document",
+                                            "example": 0.5
+                                        },
+                                        "total_vat": {
+                                            "type": "number",
+                                            "description": "Total VAT paid",
+                                            "example": 100
+                                        },
+                                        "doc_title": {
+                                            "type": "string",
+                                            "description": "The title of the document (header)",
+                                            "example": "Invoice for John Doe"
+                                        },
+                                        "buyer_name": {
+                                            "type": "string",
+                                            "description": "The buyer's name",
+                                            "example": "John Doe"
+                                        },
+                                        "total_paid": {
+                                            "type": "number",
+                                            "description": "Total amount paid in this document",
+                                            "example": 100
+                                        },
+                                        "doc_comments": {
+                                            "type": "string",
+                                            "description": "Document description",
+                                            "example": "Document comments example"
+                                        },
+                                        "exchange_rate": {
+                                            "type": "number",
+                                            "description": "Currency exchange rate",
+                                            "example": 3.45
+                                        },
+                                        "total_excluding_vat": {
+                                            "type": "number",
+                                            "description": "Total amount before VAT applied",
+                                            "example": 87
+                                        },
+                                        "total_sum_including_vat": {
+                                            "type": "number",
+                                            "description": "Total amount including VAT",
+                                            "example": 100
+                                        },
+                                        "total_sum_after_discount": {
+                                            "type": "number",
+                                            "description": "Total amount with discount rate included",
+                                            "example": 100
+                                        },
+                                        "total_paid_including_vat": {
+                                            "type": "number",
+                                            "description": "Total amount paid including VAT",
+                                            "example": 100
+                                        },
+                                        "cash": {
+                                            "type": "object",
+                                            "description": "The cash method object",
+                                            "properties": {
+                                                "sum": {
+                                                    "type": "number",
+                                                    "description": "The total amount paid using Cash",
+                                                    "example": 100
+                                                }
+                                            }
+                                        },
+                                        "cheques": {
+                                            "type": "array",
+                                            "description": "The amount paid using a Cheque",
+                                            "items": {
+                                                "type": "object",
+                                                "additionalProperties": false,
+                                                "properties": {
+                                                    "sum": {
+                                                        "type": "number",
+                                                        "description": "The amount paid using Cheque",
+                                                        "example": 10
+                                                    },
+                                                    "date": {
+                                                        "type": "string",
+                                                        "description": "Cheque deposit date",
+                                                        "example": "2021-05-16T00:00:00.000Z"
+                                                    },
+                                                    "bank": {
+                                                        "type": "number",
+                                                        "description": "The bank number - You can check the [list of banks](https://payme.stoplight.io/docs/guides/branches/main/2gxg5v8p1lr0z-list-of-banks) for your convenience."
+                                                    },
+                                                    "branch": {
+                                                        "type": "number",
+                                                        "description": "The bank branch number",
+                                                        "example": 123
+                                                    },
+                                                    "account": {
+                                                        "type": "string",
+                                                        "description": "The bank account number",
+                                                        "example": "1234567"
+                                                    },
+                                                    "number": {
+                                                        "type": "string",
+                                                        "description": "The Cheque number",
+                                                        "example": "0014555"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "bank_transfer": {
+                                            "type": "object",
+                                            "description": "The bank transfer object",
+                                            "properties": {
+                                                "sum": {
+                                                    "type": "number",
+                                                    "description": "Total amount paid using a bank transfer",
+                                                    "example": 100
+                                                },
+                                                "date": {
+                                                    "type": "string",
+                                                    "description": "The date the bank transfer was received",
+                                                    "example": "2021-05-16T00:00:00.000Z"
+                                                },
+                                                "account": {
+                                                    "type": "string",
+                                                    "description": "The bank account number",
+                                                    "example": "123456"
+                                                }
+                                            }
+                                        },
+                                        "credit_card": {
+                                            "type": "object",
+                                            "description": "The credit card object",
+                                            "properties": {
+                                                "sum": {
+                                                    "type": "number",
+                                                    "description": "Total amount paid using a credit card",
+                                                    "example": 100
+                                                },
+                                                "installments": {
+                                                    "type": "number",
+                                                    "description": "The number of installments for the payment (1 min, 36 max)",
+                                                    "example": 1
+                                                },
+                                                "first_payment": {
+                                                    "type": "number",
+                                                    "description": "The amount paid in the 1st installment",
+                                                    "example": 25
+                                                },
+                                                "number": {
+                                                    "type": "string",
+                                                    "description": "If paid without a token, card number is required",
+                                                    "example": "123456******12345"
+                                                },
+                                                "type": {
+                                                    "type": "string",
+                                                    "description": "Card brand",
+                                                    "example": "Visa"
+                                                },
+                                                "cvv": {
+                                                    "type": "string",
+                                                    "description": "Card's CVV (3-number code at the back of the card)",
+                                                    "example": "123"
+                                                },
+                                                "buyer_social_id": {
+                                                    "type": "string",
+                                                    "description": "Buyer's social ID number",
+                                                    "example": "999999999"
+                                                },
+                                                "buyer_name": {
+                                                    "type": "string",
+                                                    "description": "Buyer's full name",
+                                                    "example": "John Doe"
+                                                },
+                                                "auth_number": {
+                                                    "type": "string",
+                                                    "description": "Authorization number of the payment",
+                                                    "example": "123123123"
+                                                },
+                                                "expiry": {
+                                                    "type": "string",
+                                                    "description": "Expiry date of the card (MMYY)",
+                                                    "example": "0225"
+                                                }
+                                            }
+                                        },
+                                        "paypal": {
+                                            "type": "object",
+                                            "description": "The PayPal method object",
+                                            "properties": {
+                                                "sum": {
+                                                    "type": "number",
+                                                    "description": "Total amount paid using Paypal",
+                                                    "example": 100
+                                                },
+                                                "date": {
+                                                    "type": "string",
+                                                    "description": "The date of when the payment was completed",
+                                                    "example": "021-05-16T00:00:00.000Z"
+                                                },
+                                                "transaction_id": {
+                                                    "type": "string",
+                                                    "description": "The external transaction ID (received from Paypal)",
+                                                    "example": "021-05-16T00:00:00.000Z"
+                                                },
+                                                "buyer_name": {
+                                                    "type": "string",
+                                                    "description": "The buyer's name",
+                                                    "example": "John Doe"
+                                                }
+                                            }
+                                        },
+                                        "items": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "quantity": {
+                                                        "type": "number",
+                                                        "description": "Item #1 quantity",
+                                                        "example": 3
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "description": "Description for item #1",
+                                                        "example": "Professional Services"
+                                                    },
+                                                    "unit_price": {
+                                                        "type": "number",
+                                                        "description": "The price per unit (1 item)",
+                                                        "example": 100
+                                                    },
+                                                    "vat_exempt": {
+                                                        "type": "boolean",
+                                                        "description": "VAT exempt for the document"
+                                                    },
+                                                    "currency": {
+                                                        "type": "string",
+                                                        "description": "Currency for item #1<br />\r\nSale currency. [3-letter ISO 4217 name](https://en.wikipedia.org/wiki/ISO_4217)."
+                                                    },
+                                                    "unit_price_with_vat": {
+                                                        "type": "number",
+                                                        "description": "Unit (item) price including VAT",
+                                                        "example": 100
+                                                    },
+                                                    "exchange_rate": {
+                                                        "type": "number",
+                                                        "description": "Exchange rate for the document",
+                                                        "example": 3.45
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "doc_id": {
+                                            "type": "string",
+                                            "description": "Document ID number\n",
+                                            "pattern": "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+                                        },
+                                        "doc_url": {
+                                            "type": "string",
+                                            "description": "Document URL ",
+                                            "pattern": "https://document.url.com/documents/ID"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example-1": {
+                                        "value": {
+                                            "status_code": 0,
+                                            "doc_type": "string",
+                                            "language": "string",
+                                            "due_date": "string",
+                                            "pay_date": "string",
+                                            "doc_date": "string",
+                                            "currency": "string",
+                                            "vat_rate": 0,
+                                            "discount": 0,
+                                            "total_vat": 0,
+                                            "doc_title": "string",
+                                            "buyer_name": "string",
+                                            "total_paid": 0,
+                                            "doc_comments": "string",
+                                            "exchange_rate": 0,
+                                            "total_excluding_vat": 0,
+                                            "total_sum_including_vat": 0,
+                                            "total_sum_after_discount": 0,
+                                            "total_paid_including_vat": 0,
+                                            "cash": {
+                                                "sum": 0
+                                            },
+                                            "cheques": [
+                                                {
+                                                    "sum": 0,
+                                                    "date": "string",
+                                                    "bank": 0,
+                                                    "branch": 0,
+                                                    "account": "string",
+                                                    "number": "string"
+                                                }
+                                            ],
+                                            "bank_transfer": {
+                                                "sum": 0,
+                                                "date": "string",
+                                                "account": "string"
+                                            },
+                                            "credit_card": {
+                                                "sum": 0,
+                                                "installments": 0,
+                                                "first_payment": 0,
+                                                "number": "string",
+                                                "type": "string",
+                                                "cvv": "string",
+                                                "buyer_social_id": "string",
+                                                "buyer_name": "string",
+                                                "auth_number": "string",
+                                                "expiry": "string"
+                                            },
+                                            "paypal": {
+                                                "sum": 0,
+                                                "date": "string",
+                                                "transaction_id": "string",
+                                                "buyer_name": "string"
+                                            },
+                                            "items": [
+                                                {
+                                                    "quantity": 0,
+                                                    "description": "string",
+                                                    "unit_price": 0,
+                                                    "vat_exempt": true,
+                                                    "currency": "string",
+                                                    "unit_price_with_vat": 0,
+                                                    "exchange_rate": 0
+                                                }
+                                            ],
+                                            "doc_id": "https://document.url.com/documents/ID",
+                                            "doc_url": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "",
+                                    "type": "object",
+                                    "x-examples": {
+                                        "example-1": {
+                                            "status_code": 1,
+                                            "status_error_details": "The given data was invalid.",
+                                            "status_additional_info": {
+                                                "doc_type": [
+                                                    "The doc type field is required."
+                                                ],
+                                                "items": [
+                                                    "The items field is required."
+                                                ],
+                                                "buyer_name": [
+                                                    "The buyer name field is required."
+                                                ]
+                                            },
+                                            "status_error_code": 20
+                                        }
+                                    },
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "number"
+                                        },
+                                        "status_error_details": {
+                                            "type": "string"
+                                        },
+                                        "status_additional_info": {
+                                            "type": "object",
+                                            "properties": {
+                                                "doc_type": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "items": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "buyer_name": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "additionalProperties": false
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "status_error_code": {
+                                            "type": "number"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example-1": {
+                                        "value": {
+                                            "status_code": 0,
+                                            "status_error_details": "string",
+                                            "status_additional_info": {
+                                                "doc_type": [
+                                                    {}
+                                                ],
+                                                "items": [
+                                                    {}
+                                                ],
+                                                "buyer_name": [
+                                                    {}
+                                                ]
+                                            },
+                                            "status_error_code": 0
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "x-examples": {
+                                    "example-1": {
+                                        "doc_type": 400,
+                                        "buyer_name": "John Doe",
+                                        "due_date": "2021-08-16T00:00:00.000Z",
+                                        "pay_date": "2021-04-16T00:00:00.000Z",
+                                        "doc_date": "2021-05-25 00:00:00",
+                                        "currency": "ILS",
+                                        "doc_title": "Invoice for John Doe",
+                                        "doc_comments": "Some description about the invoice",
+                                        "exchange_rate": 1,
+                                        "vat_rate": 0.17,
+                                        "total_excluding_vat": 123,
+                                        "discount": 0,
+                                        "total_sum_after_discount": 123,
+                                        "total_sum_including_vat": 140,
+                                        "total_paid": 140,
+                                        "total_vat": 17,
+                                        "total_paid_including_vat": 140,
+                                        "language": "he",
+                                        "items": [
+                                            {
+                                                "description": "Test Item 1",
+                                                "unit_price": 100,
+                                                "vat_exempt": false,
+                                                "quantity": 1,
+                                                "unit_price_with_vat": 117,
+                                                "currency": "ILS",
+                                                "exchange_rate": 1
+                                            },
+                                            {
+                                                "description": "Test Item 2",
+                                                "unit_price": 23,
+                                                "vat_exempt": true,
+                                                "quantity": 1,
+                                                "currency": "ILS"
+                                            }
+                                        ],
+                                        "cheques": [
+                                            {
+                                                "sum": 10,
+                                                "date": "2021-05-16T00:00:00.000Z",
+                                                "bank": 6,
+                                                "branch": 22,
+                                                "account": "123456",
+                                                "number": "0014555"
+                                            },
+                                            {
+                                                "sum": 13,
+                                                "date": "2021-06-16T00:00:00.000Z",
+                                                "bank": 6,
+                                                "branch": 22,
+                                                "account": "123456",
+                                                "number": "0014555"
+                                            }
+                                        ],
+                                        "cash": {
+                                            "sum": 25
+                                        },
+                                        "bank_transfer": {
+                                            "sum": 25,
+                                            "date": "2021-05-16T00:00:00.000Z",
+                                            "account": "123456"
+                                        },
+                                        "paypal": {
+                                            "sum": 25,
+                                            "date": "2021-05-16T00:00:00.000Z",
+                                            "transaction_id": "123456",
+                                            "buyer_name": "John Doe"
+                                        },
+                                        "credit_card": {
+                                            "sum": 25,
+                                            "installments": 1,
+                                            "first_payment": 50,
+                                            "buyer_key": "123456789",
+                                            "number": "4580458045804580",
+                                            "type": "Visa",
+                                            "cvv": "123",
+                                            "expiry": "0323",
+                                            "buyer_social_id": "05001234",
+                                            "buyer_name": "John Doe",
+                                            "auth_number": "123123123"
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "doc_type",
+                                    "buyer_name",
+                                    "currency",
+                                    "cash",
+                                    "bank_transfer"
+                                ],
+                                "properties": {
+                                    "doc_type": {
+                                        "type": "number",
+                                        "description": "The documents you can generate can be found in the following guide - [Document Types](https://payme.stoplight.io/docs/guides/xjoh69bnd0h24-document-types).",
+                                        "example": 100
+                                    },
+                                    "buyer_name": {
+                                        "type": "string",
+                                        "description": "Buyer's full name",
+                                        "example": "John Doe"
+                                    },
+                                    "due_date": {
+                                        "type": "string",
+                                        "description": "Payment due date",
+                                        "example": "2021-08-16T 00:00:00.000Z"
+                                    },
+                                    "pay_date": {
+                                        "type": "string",
+                                        "description": "The date the payment was completed (relevant for doc_type",
+                                        "example": "2021-08-16T 00:00:00.000Z"
+                                    },
+                                    "doc_date": {
+                                        "type": "string",
+                                        "description": "Document creation date",
+                                        "example": "2021-05-25 00:00:00"
+                                    },
+                                    "currency": {
+                                        "type": "string",
+                                        "description": "The currency of the document",
+                                        "example": "ILS"
+                                    },
+                                    "doc_title": {
+                                        "type": "string",
+                                        "description": "The title of the document (header) ",
+                                        "example": "Invoice for John Doe"
+                                    },
+                                    "doc_comments": {
+                                        "type": "string",
+                                        "description": "Document description ",
+                                        "example": "Document description example"
+                                    },
+                                    "exchange_rate": {
+                                        "type": "number",
+                                        "description": "Currency exchange rate ",
+                                        "example": 3.45
+                                    },
+                                    "vat_rate": {
+                                        "type": "number",
+                                        "description": "The VAT (Value Added Tax) rate applied",
+                                        "example": 0.17
+                                    },
+                                    "total_excluding_vat": {
+                                        "type": "number",
+                                        "description": "Total amount before VAT applied",
+                                        "example": 123
+                                    },
+                                    "discount": {
+                                        "type": "number",
+                                        "description": "The discount rate (percentage) applied to the document",
+                                        "example": 0.5
+                                    },
+                                    "total_sum_after_discount": {
+                                        "type": "number",
+                                        "description": "Total amount with discount rate included ",
+                                        "example": 100
+                                    },
+                                    "total_sum_after_discount - copy": {
+                                        "type": "number",
+                                        "description": "Total amount with discount rate included ",
+                                        "example": 100
+                                    },
+                                    "total_sum_including_vat": {
+                                        "type": "number",
+                                        "description": "Total amount including VAT",
+                                        "example": 100
+                                    },
+                                    "total_paid": {
+                                        "type": "number",
+                                        "description": "Total amount paid in this document",
+                                        "example": 100
+                                    },
+                                    "total_vat": {
+                                        "type": "number",
+                                        "description": "Total VAT paid ",
+                                        "example": 100
+                                    },
+                                    "language": {
+                                        "type": "string",
+                                        "description": "Document language",
+                                        "example": "he"
+                                    },
+                                    "items": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "required": [
+                                                "description",
+                                                "unit_price"
+                                            ],
+                                            "properties": {
+                                                "description": {
+                                                    "type": "string",
+                                                    "description": "Description for item #1 ",
+                                                    "example": "Professional Services"
+                                                },
+                                                "unit_price": {
+                                                    "type": "number",
+                                                    "description": "The price per unit (1 item) <br>\r\n`unit_price` or `unit_price_with_vat` is required.",
+                                                    "example": 100
+                                                },
+                                                "vat_exempt": {
+                                                    "type": "boolean",
+                                                    "description": "VAT exempt for the document"
+                                                },
+                                                "quantity": {
+                                                    "type": "number",
+                                                    "description": "Item #1 quantity",
+                                                    "example": 3
+                                                },
+                                                "unit_price_with_vat": {
+                                                    "type": "number",
+                                                    "description": "Unit (item) price including VAT",
+                                                    "example": 100
+                                                },
+                                                "currency": {
+                                                    "type": "string",
+                                                    "description": "Currency for item #1<br />\r\nSale currency. [3-letter ISO 4217 name](https://en.wikipedia.org/wiki/ISO_4217).",
+                                                    "example": "ILS"
+                                                },
+                                                "exchange_rate": {
+                                                    "type": "number",
+                                                    "description": "Exchange rate for the document",
+                                                    "example": 3.45
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "total_paid_including_vat": {
+                                        "type": "number",
+                                        "description": "Total amount paid including VAT",
+                                        "example": 100
+                                    },
+                                    "cheques": {
+                                        "type": "array",
+                                        "description": "The amount paid using a Cheque",
+                                        "items": {
+                                            "type": "object",
+                                            "required": [
+                                                "sum"
+                                            ],
+                                            "properties": {
+                                                "sum": {
+                                                    "type": "number",
+                                                    "description": "The amount paid using Cheque",
+                                                    "example": 10
+                                                },
+                                                "date": {
+                                                    "type": "string",
+                                                    "pattern": "2021-05-16T00:00:00.000Z",
+                                                    "description": "Cheque deposit date"
+                                                },
+                                                "bank": {
+                                                    "type": "number",
+                                                    "description": "The bank number - You can check the [list of banks](https://payme.stoplight.io/docs/guides/branches/main/2gxg5v8p1lr0z-list-of-banks) for your convenience.",
+                                                    "example": 12
+                                                },
+                                                "branch": {
+                                                    "type": "number",
+                                                    "description": "The bank branch number",
+                                                    "example": 123
+                                                },
+                                                "account": {
+                                                    "type": "string",
+                                                    "description": "The bank account number",
+                                                    "example": "1234567"
+                                                },
+                                                "number": {
+                                                    "type": "string",
+                                                    "description": "The Cheque number",
+                                                    "example": "0014555"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "cash": {
+                                        "type": "object",
+                                        "description": "The cash method object",
+                                        "additionalProperties": false,
+                                        "required": [
+                                            "sum"
+                                        ],
+                                        "properties": {
+                                            "sum": {
+                                                "type": "number",
+                                                "description": "The total amount paid using Cash",
+                                                "example": 100
+                                            }
+                                        }
+                                    },
+                                    "bank_transfer": {
+                                        "type": "object",
+                                        "description": "The bank transfer object ",
+                                        "required": [
+                                            "sum"
+                                        ],
+                                        "properties": {
+                                            "sum": {
+                                                "type": "number",
+                                                "description": "Total amount paid using a bank transfer",
+                                                "example": 100
+                                            },
+                                            "date": {
+                                                "type": "string",
+                                                "description": "The date the bank transfer was received",
+                                                "pattern": "2021-05-16T00:00:00.000Z"
+                                            },
+                                            "account": {
+                                                "type": "string",
+                                                "description": "The bank account number",
+                                                "pattern": "123456"
+                                            }
+                                        }
+                                    },
+                                    "paypal": {
+                                        "type": "object",
+                                        "description": "The PayPal method object",
+                                        "required": [
+                                            "sum",
+                                            "date"
+                                        ],
+                                        "properties": {
+                                            "sum": {
+                                                "type": "number",
+                                                "description": "Total amount paid using Paypal",
+                                                "example": 100
+                                            },
+                                            "date": {
+                                                "type": "string",
+                                                "description": "The date of when the payment was completed",
+                                                "pattern": "021-05-16T00:00:00.000Z"
+                                            },
+                                            "transaction_id": {
+                                                "type": "string",
+                                                "description": "The external transaction ID (received from Paypal)",
+                                                "pattern": "021-05-16T00:00:00.000Z"
+                                            },
+                                            "buyer_name": {
+                                                "type": "string",
+                                                "description": "The buyer's name",
+                                                "pattern": "John Doe"
+                                            }
+                                        }
+                                    },
+                                    "credit_card": {
+                                        "type": "object",
+                                        "description": "The credit card object ",
+                                        "required": [
+                                            "sum"
+                                        ],
+                                        "properties": {
+                                            "sum": {
+                                                "type": "number",
+                                                "description": "Total amount paid using a credit card",
+                                                "example": 100
+                                            },
+                                            "installments": {
+                                                "type": "number",
+                                                "description": "The number of installments for the payment (1 min, 36 max) ",
+                                                "example": 1
+                                            },
+                                            "first_payment": {
+                                                "type": "number",
+                                                "description": "The amount paid in the 1st installment ",
+                                                "example": 25
+                                            },
+                                            "buyer_key": {
+                                                "type": "string",
+                                                "description": "If the invoice is paid using a token, buyer key is required",
+                                                "example": "123456789"
+                                            },
+                                            "number": {
+                                                "type": "string",
+                                                "description": "If paid without a token, card number is required",
+                                                "example": "123456******12345"
+                                            },
+                                            "type": {
+                                                "type": "string",
+                                                "description": "Card brand",
+                                                "example": "Visa"
+                                            },
+                                            "cvv": {
+                                                "type": "string",
+                                                "description": "Card's CVV (3-number code at the back of the card)",
+                                                "example": "123"
+                                            },
+                                            "expiry": {
+                                                "type": "string",
+                                                "description": "Expiry date of the card (MMYY)",
+                                                "example": "0225"
+                                            },
+                                            "buyer_social_id": {
+                                                "type": "string",
+                                                "description": "Buyer's social ID number",
+                                                "example": "999999999"
+                                            },
+                                            "buyer_name": {
+                                                "type": "string",
+                                                "description": "Buyer's full name",
+                                                "example": "John Doe"
+                                            },
+                                            "auth_number": {
+                                                "type": "string",
+                                                "description": "Authorization number of the payment",
+                                                "example": "123123123"
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "examples": {
+                                "example-1": {
+                                    "value": {
+                                        "doc_type": 400,
+                                        "doc_title": "document-title",
+                                        "doc_comments": "document-comment",
+                                        "buyer_name": "buyer's-name",
+                                        "due_date": "2023-06-20T00:00:00.000Z",
+                                        "pay_date": "2023-06-20T00:00:00.000Z",
+                                        "doc_date": "2023-06-20T00:00:00.000Z",
+                                        "items": [
+                                            {
+                                                "description": "product/service-description",
+                                                "unit_price": 33,
+                                                "vat_exempt": false,
+                                                "quantity": 1,
+                                                "unit_price_with_vat": 33,
+                                                "currency": "ILS",
+                                                "exchange_rate": 1
+                                            }
+                                        ],
+                                        "currency": "ILS",
+                                        "exchange_rate": 1,
+                                        "vat_rate": 0,
+                                        "total_excluding_vat": 33,
+                                        "discount": 0,
+                                        "total_sum_after_discount": 33,
+                                        "total_sum_including_vat": 33,
+                                        "total_paid": 33,
+                                        "total_vat": 0,
+                                        "total_paid_including_vat": 33,
+                                        "language": "he",
+                                        "credit_card": {
+                                            "sum": 33,
+                                            "installments": 1,
+                                            "first_payment": 33,
+                                            "number": "45************80",
+                                            "type": "Visa",
+                                            "exp_year": "2**4",
+                                            "exp_month": "07",
+                                            "buyer_social_id": "20*****6",
+                                            "buyer_name": "buyer's-name",
+                                            "auth_number": "0*****3"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "description": ""
+                },
+                "x-internal": false,
+                "description": "## Overview\n\nYou can use our Invoices API to generate different documents to serve your business needs.\n\n#### Document types\nThe documents you can generate can be found in the following guide - [Document Types](https://payme.stoplight.io/docs/guides/xjoh69bnd0h24-document-types).\n   \n\n\n",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "header",
+                        "description": "DEMOMPLDEMOMPLDEMOMPLDEMOMPL"
+                    }
+                ]
+            },
+            "parameters": []
+        },
+        "/documents/document_id": {
+            "get": {
+                "summary": "Get Generated Document By ID",
+                "tags": [],
+                "responses": {},
+                "operationId": "Show Generated Document By ID",
+                "description": "## Overview\n\nIn order to query for existing documents, you will need to use the following endpoint and parameters:\n \nEnvironment | URL\n---|---\n`Staging`| `https://sandbox.payme.io/api/documents?page=0&limit=5&field=createdAt&sort=desc`\n`Production` | `https://live.payme.io/api/documents?page=0&limit=5&field=createdAt&sort=desc`\n\n##### Header\nParameter | Description \n---|---\n`PayMe-Merchant-Key` | Seller's MPL `DEMOMPL-DEMOMPL-DEMOMPL-DEMOMPL-`\n\n### Request Example:\n\nItem | Description | Example\n---|---|---\nURL | `https://sandbox.payme.io/api/documents/{document_ID}` |  `INV12321*****`\nHeader| `seller_payme_id` | `MPLDEMO-MPLDEMO-MPLDEMO-MPLDEMO`",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string",
+                            "example": "DEMOMPL-DEMOMPL-DEMOMPL-DEMOMPL"
+                        },
+                        "in": "header",
+                        "name": "PayMe-Merchant-Key",
+                        "required": true
+                    }
+                ],
+                "x-internal": false
+            },
+            "parameters": []
+        },
+        "/documents?page=0&limit=5&field=createdAt&sort=descs": {
+            "get": {
+                "summary": "Query Existing Documents",
+                "tags": [],
+                "responses": {},
+                "operationId": "get-documents",
+                "description": "## Overview\n\nIn order to query for existing documents, you will need to use the following endpoint and parameters:\n \nEnvironment | URL\n---|---\n`Staging`| `https://sandbox.payme.io/api/documents?page=0&limit=5&field=createdAt&sort=desc`\n`Production` | `https://live.payme.io/api/documents?page=0&limit=5&field=createdAt&sort=desc`\n\n##### Header\nParameter | Description \n---|---\n`PayMe-Merchant-Key` | Seller's MPL `MPL15991-38967CJU-GSBK5E1G-XSZ1GZXU`\n\n  \n",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "number"
+                        },
+                        "in": "query",
+                        "name": "page",
+                        "description": "How many pages should be included in the query"
+                    },
+                    {
+                        "schema": {
+                            "type": "number"
+                        },
+                        "in": "query",
+                        "name": "limit",
+                        "description": "How many documents per extraction"
+                    },
+                    {
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "createdAt"
+                            ]
+                        },
+                        "in": "query",
+                        "name": "field",
+                        "description": "The dates the query is for"
+                    },
+                    {
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "desc",
+                                "asc"
+                            ]
+                        },
+                        "in": "query",
+                        "name": "sort",
+                        "description": "The order of documents "
+                    },
+                    {
+                        "schema": {
+                            "type": "string",
+                            "example": "MPL15991-38967CJU-GSBK5E1G-XSZ1GZXU",
+                            "pattern": "MPL15991-38967CJU-GSBK5E1G-XSZ1GZXU"
+                        },
+                        "in": "header",
+                        "name": "PayMe-Merchant-Key"
+                    }
+                ],
+                "x-internal": false
+            },
+            "parameters": []
+        }
+    },
+    "components": {
+        "schemas": {}
+    }
+}

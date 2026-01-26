@@ -1,0 +1,1233 @@
+{
+    "openapi": "3.1.0",
+    "x-stoplight": {
+        "id": "i65z0ks7w8ofr"
+    },
+    "info": {
+        "version": "1.0",
+        "title": "Post Sale Actions",
+        "description": ""
+    },
+    "servers": [
+        {
+            "url": "https://sandbox.payme.io/api",
+            "description": "Staging"
+        },
+        {
+            "url": "https://live.payme.io/api",
+            "description": "Prodaction"
+        }
+    ],
+    "paths": {
+        "/refund-sale": {
+            "post": {
+                "summary": "Refund Sale",
+                "description": "## Overview\n\nRefund request enable you to reimburse a charge that was previously generated but remains unreimbursed. The funds will be returned to the initial payment method used for the charge.\n\n### Callback\nOnce the sale is refunded successfully, we will update the marketplace with the sale details with a POST request of type `x-www-form-urlencoded` to the marketplace Callback URL.\n\n#### Note:\nYou can refund multiple times per sale as long as you do not exceed the total amount of the sale. \nIf you do not send the `sale_refund_amount' parameter, the sale will be fully refunded.",
+                "operationId": "post-refund-sale",
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "payme_client_key": {
+                                        "type": "string",
+                                        "description": "PayMe Partner Key.",
+                                        "examples": [
+                                            "XXXXXXXX"
+                                        ]
+                                    },
+                                    "seller_payme_id": {
+                                        "type": "string",
+                                        "description": "MPL. Your private key in PayMe system.",
+                                        "examples": [
+                                            "MPLDEMO-MPLDEMO-MPLDEMO-1234567"
+                                        ]
+                                    },
+                                    "payme_sale_id": {
+                                        "type": "string",
+                                        "description": "Our unique sale ID.",
+                                        "examples": [
+                                            "SALEDEMO-XXXXXXXX-XXXXXXXX-XXXXXXXX"
+                                        ]
+                                    },
+                                    "sale_refund_amount": {
+                                        "type": "integer",
+                                        "description": "**Used only for partial refunds**, for a full refund exclude this attribute.<BR />For example:<BR />\r\nif the amount is 50.75 (max 2 decimal points) the value that recieved is 5075.\r\n<BR />Note that the minimum value is 500.",
+                                        "examples": [
+                                            500
+                                        ]
+                                    },
+                                    "language": {
+                                        "type": "string",
+                                        "description": "Changes the error message language to English.",
+                                        "examples": [
+                                            "he"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "payme_client_key",
+                                    "seller_payme_id",
+                                    "payme_sale_id"
+                                ],
+                                "x-examples": {
+                                    "Example 1": {
+                                        "payme_client_key": "XXXXXXXX",
+                                        "seller_payme_id": "MPL1DEMO-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+                                        "payme_sale_id": "SALEDEMO-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+                                        "sale_refund_amount": 1000,
+                                        "language": "he"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "status_code": 0,
+                                            "status_error_code": 0,
+                                            "payme_status": "success",
+                                            "refunded_from_creditcard": false,
+                                            "sale_invoice_number": null,
+                                            "sale_invoice_url": null,
+                                            "sale_refund_buffer": 18800,
+                                            "sale_status": "partial-refund",
+                                            "payme_transaction_total": 1000,
+                                            "payme_transaction_total_aft_deduction": 1000,
+                                            "payme_transaction_id": "TRANDEMO-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+                                            "payme_transaction_card_brand": "XXXXXXXX",
+                                            "payme_transaction_auth_number": "72****4",
+                                            "payme_transaction_voucher": "24****9",
+                                            "payme_signature": "b71e**************ca5a",
+                                            "payme_transaction_arn": null
+                                        }
+                                    },
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "integer",
+                                            "description": "Status of the request (0 - success, 1 - error).",
+                                            "examples": [
+                                                0
+                                            ]
+                                        },
+                                        "status_error_code": {
+                                            "type": "integer",
+                                            "description": "Our unique error code.\r\n\r\n",
+                                            "examples": [
+                                                500
+                                            ]
+                                        },
+                                        "payme_status": {
+                                            "type": "string",
+                                            "description": "Status of the request (success, error)",
+                                            "examples": [
+                                                "success"
+                                            ]
+                                        },
+                                        "refunded_from_creditcard": {
+                                            "type": "boolean",
+                                            "description": "Return true if seller has not enough money for refund and we complete the refund from the seller credit card."
+                                        },
+                                        "sale_invoice_number": {
+                                            "type": [
+                                                "integer",
+                                                "null"
+                                            ],
+                                            "description": "Sale invoice Number.",
+                                            "examples": [
+                                                123456
+                                            ]
+                                        },
+                                        "sale_invoice_url": {
+                                            "type": [
+                                                "string",
+                                                "null"
+                                            ],
+                                            "description": "Sale invoice URL, if the seller has enabled the invoices module in his account panel.",
+                                            "examples": [
+                                                "https://www.example.com/XXXXXX.pdf"
+                                            ]
+                                        },
+                                        "sale_refund_buffer": {
+                                            "type": "integer",
+                                            "description": "The refund buffer of this sale.",
+                                            "examples": [
+                                                8000
+                                            ]
+                                        },
+                                        "sale_status": {
+                                            "type": "string",
+                                            "description": "Refund status.",
+                                            "examples": [
+                                                "refunded"
+                                            ]
+                                        },
+                                        "payme_transaction_total": {
+                                            "type": "integer",
+                                            "description": "The refund amount that the buyer will get.",
+                                            "examples": [
+                                                8000
+                                            ]
+                                        },
+                                        "payme_transaction_total_aft_deduction": {
+                                            "type": "integer",
+                                            "description": "The amount that the seller will be charge on.",
+                                            "examples": [
+                                                8000
+                                            ]
+                                        },
+                                        "payme_transaction_id": {
+                                            "type": "string",
+                                            "description": "The transaction unique id.",
+                                            "examples": [
+                                                "TRANDEMO-XXXXXX-XXXXXX-XXXXXX"
+                                            ]
+                                        },
+                                        "payme_transaction_card_brand": {
+                                            "type": "string",
+                                            "description": "Card brand.",
+                                            "examples": [
+                                                "XXXXXXXX"
+                                            ]
+                                        },
+                                        "payme_transaction_auth_number": {
+                                            "type": "string",
+                                            "description": "Authorization number from credit company.\r\n",
+                                            "examples": [
+                                                "123456"
+                                            ]
+                                        },
+                                        "payme_transaction_voucher": {
+                                            "type": "string",
+                                            "description": "Transaction voucher",
+                                            "examples": [
+                                                "123456"
+                                            ]
+                                        },
+                                        "payme_signature": {
+                                            "type": "string",
+                                            "description": "MD5 Signature",
+                                            "examples": [
+                                                "75e99dbcb25cdfbe1c62f0b9376f4144 "
+                                            ]
+                                        },
+                                        "payme_transaction_acquirer": {
+                                            "type": "string",
+                                            "x-stoplight": {
+                                                "id": "p6j38ajti9xs9"
+                                            },
+                                            "description": "Transaction acquirer",
+                                            "example": "Isracard"
+                                        }
+                                    }
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            },
+                            "multipart/form-data": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "integer"
+                                        },
+                                        "status_error_code": {
+                                            "type": "integer"
+                                        },
+                                        "payme_status": {
+                                            "type": "string"
+                                        },
+                                        "refunded_from_creditcard": {
+                                            "type": "boolean"
+                                        },
+                                        "sale_invoice_number": {
+                                            "type": "null"
+                                        },
+                                        "sale_invoice_url": {
+                                            "type": "null"
+                                        },
+                                        "sale_refund_buffer": {
+                                            "type": "integer"
+                                        },
+                                        "sale_status": {
+                                            "type": "string"
+                                        },
+                                        "payme_transaction_total": {
+                                            "type": "integer"
+                                        },
+                                        "payme_transaction_total_aft_deduction": {
+                                            "type": "integer"
+                                        },
+                                        "payme_transaction_id": {
+                                            "type": "string"
+                                        },
+                                        "payme_transaction_card_brand": {
+                                            "type": "string"
+                                        },
+                                        "payme_transaction_auth_number": {
+                                            "type": "string"
+                                        },
+                                        "payme_transaction_voucher": {
+                                            "type": "string"
+                                        },
+                                        "payme_signature": {
+                                            "type": "string"
+                                        },
+                                        "payme_transaction_arn": {
+                                            "type": "null"
+                                        }
+                                    },
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "status_code": 0,
+                                            "status_error_code": 0,
+                                            "payme_status": "success",
+                                            "refunded_from_creditcard": false,
+                                            "sale_invoice_number": null,
+                                            "sale_invoice_url": null,
+                                            "sale_refund_buffer": 18800,
+                                            "sale_status": "partial-refund",
+                                            "payme_transaction_total": 1000,
+                                            "payme_transaction_total_aft_deduction": 1000,
+                                            "payme_transaction_id": "TRANDEMO-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+                                            "payme_transaction_card_brand": "XXXXXXX",
+                                            "payme_transaction_auth_number": "72***64",
+                                            "payme_transaction_voucher": "24***9",
+                                            "payme_signature": "b71ee****************d57cca5a",
+                                            "payme_transaction_arn": null
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "servers": [
+                    {
+                        "url": "https://sandbox.payme.io/api",
+                        "description": "Staging"
+                    },
+                    {
+                        "url": "https://live.payme.io/api",
+                        "description": "Prodaction"
+                    }
+                ],
+                "x-extension-1": null,
+                "x-stoplight": {
+                    "id": "5u880m8f2q7ii"
+                }
+            }
+        },
+        "/refund-sale - copy": {
+            "post": {
+                "summary": "Void Sale",
+                "description": "## Overview\n\nIn order to initiatea void for an authorization, you will be able to do so using the same API call for a refund. \n\nIn order to be eligible for a void, the request must be initiated for:\n\n1. Sale type must be authorization\n2. The amount required to be voided must be the equal to amount requested and authorized initially.\n\n\n#### Sale Types\nYou can find all the sale statuses [here](https://payme.stoplight.io/docs/guides/nznlk59rribo5-sale-statuses).",
+                "operationId": "void-sale",
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "seller_payme_id": {
+                                        "type": "string",
+                                        "description": "MPL. Your private key in PayMe system.",
+                                        "pattern": "MPLDEMO-MPLDEMO-MPLDEMO-1234567"
+                                    },
+                                    "payme_sale_id": {
+                                        "type": "string",
+                                        "description": "Our unique sale ID.",
+                                        "pattern": "SALEDEMO-XXXXXXXX-XXXXXXXX-XXXXXXXX"
+                                    },
+                                    "sale_currency": {
+                                        "type": "string",
+                                        "description": "Sale currency.",
+                                        "examples": [
+                                            "USD"
+                                        ]
+                                    },
+                                    "language": {
+                                        "type": "string",
+                                        "description": "Changes the error message language to English.",
+                                        "default": "he"
+                                    }
+                                },
+                                "required": [
+                                    "seller_payme_id",
+                                    "payme_sale_id"
+                                ],
+                                "x-examples": {
+                                    "Example 1": {
+                                        "payme_client_key": "XXXXXXXX",
+                                        "seller_payme_id": "MPL1DEMO-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+                                        "payme_sale_id": "SALEDEMO-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+                                        "sale_refund_amount": 1000,
+                                        "language": "he"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "integer",
+                                            "description": "Status of the request (0 - success, 1 - error)."
+                                        },
+                                        "status_error_code": {
+                                            "type": "integer",
+                                            "description": "Our unique error code.\r\n\r\n"
+                                        },
+                                        "payme_status": {
+                                            "type": "string"
+                                        },
+                                        "refunded_from_creditcard": {
+                                            "type": "boolean",
+                                            "description": "Return true if seller has not enough money for refund and we complete the refund from the seller credit card."
+                                        },
+                                        "sale_invoice_number": {
+                                            "type": [
+                                                "integer",
+                                                "null"
+                                            ],
+                                            "description": "Sale invoice Number.",
+                                            "examples": [
+                                                123456
+                                            ]
+                                        },
+                                        "sale_invoice_url": {
+                                            "type": [
+                                                "string",
+                                                "null"
+                                            ],
+                                            "description": "Sale invoice URL, if the seller has enabled the invoices module in his account panel.",
+                                            "examples": [
+                                                "https://www.example.com/XXXXXX.pdf"
+                                            ]
+                                        },
+                                        "sale_refund_buffer": {
+                                            "type": "integer",
+                                            "description": "The refund buffer of this sale.",
+                                            "examples": [
+                                                8000
+                                            ]
+                                        },
+                                        "sale_status": {
+                                            "type": "string",
+                                            "description": "Refund status.",
+                                            "examples": [
+                                                "refunded"
+                                            ]
+                                        },
+                                        "payme_transaction_total": {
+                                            "type": "integer",
+                                            "description": "The refund amount that the buyer will get."
+                                        },
+                                        "payme_transaction_total_aft_deduction": {
+                                            "type": "integer",
+                                            "description": "The amount that the seller will be charge on."
+                                        },
+                                        "payme_transaction_id": {
+                                            "type": "string",
+                                            "description": "The transaction unique id.",
+                                            "examples": [
+                                                "TRANDEMO-XXXXXX-XXXXXX-XXXXXX"
+                                            ]
+                                        },
+                                        "payme_transaction_card_brand": {
+                                            "type": "string",
+                                            "description": "Card brand.",
+                                            "examples": [
+                                                "XXXXXXXX"
+                                            ]
+                                        },
+                                        "payme_transaction_auth_number": {
+                                            "type": "string",
+                                            "description": "Authorization number from credit company.\r\n",
+                                            "examples": [
+                                                "123456"
+                                            ]
+                                        },
+                                        "payme_transaction_voucher": {
+                                            "type": "string",
+                                            "description": "Transaction voucher\r\n\r\n",
+                                            "examples": [
+                                                "123456"
+                                            ]
+                                        },
+                                        "payme_signature": {
+                                            "type": "string",
+                                            "description": "MD5 Signature\r\n\r\n",
+                                            "examples": [
+                                                "75e99dbcb25cdfbe1c62f0b9376f4144"
+                                            ]
+                                        }
+                                    },
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "status_code": 0,
+                                            "status_error_code": 0,
+                                            "payme_status": "success",
+                                            "refunded_from_creditcard": false,
+                                            "sale_invoice_number": null,
+                                            "sale_invoice_url": null,
+                                            "sale_refund_buffer": 18800,
+                                            "sale_status": "partial-refund",
+                                            "payme_transaction_total": 1000,
+                                            "payme_transaction_total_aft_deduction": 1000,
+                                            "payme_transaction_id": "TRANDEMO-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+                                            "payme_transaction_card_brand": "XXXXXXXX",
+                                            "payme_transaction_auth_number": "72****4",
+                                            "payme_transaction_voucher": "24****9",
+                                            "payme_signature": "b71e**************ca5a",
+                                            "payme_transaction_arn": null
+                                        }
+                                    }
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            },
+                            "multipart/form-data": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "integer"
+                                        },
+                                        "status_error_code": {
+                                            "type": "integer"
+                                        },
+                                        "payme_status": {
+                                            "type": "string"
+                                        },
+                                        "refunded_from_creditcard": {
+                                            "type": "boolean"
+                                        },
+                                        "sale_invoice_number": {
+                                            "type": "null"
+                                        },
+                                        "sale_invoice_url": {
+                                            "type": "null"
+                                        },
+                                        "sale_refund_buffer": {
+                                            "type": "integer"
+                                        },
+                                        "sale_status": {
+                                            "type": "string"
+                                        },
+                                        "payme_transaction_total": {
+                                            "type": "integer"
+                                        },
+                                        "payme_transaction_total_aft_deduction": {
+                                            "type": "integer"
+                                        },
+                                        "payme_transaction_id": {
+                                            "type": "string"
+                                        },
+                                        "payme_transaction_card_brand": {
+                                            "type": "string"
+                                        },
+                                        "payme_transaction_auth_number": {
+                                            "type": "string"
+                                        },
+                                        "payme_transaction_voucher": {
+                                            "type": "string"
+                                        },
+                                        "payme_signature": {
+                                            "type": "string"
+                                        },
+                                        "payme_transaction_arn": {
+                                            "type": "null"
+                                        }
+                                    },
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "status_code": 0,
+                                            "status_error_code": 0,
+                                            "payme_status": "success",
+                                            "refunded_from_creditcard": false,
+                                            "sale_invoice_number": null,
+                                            "sale_invoice_url": null,
+                                            "sale_refund_buffer": 18800,
+                                            "sale_status": "partial-refund",
+                                            "payme_transaction_total": 1000,
+                                            "payme_transaction_total_aft_deduction": 1000,
+                                            "payme_transaction_id": "TRANDEMO-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+                                            "payme_transaction_card_brand": "XXXXXXX",
+                                            "payme_transaction_auth_number": "72***64",
+                                            "payme_transaction_voucher": "24***9",
+                                            "payme_signature": "b71ee****************d57cca5a",
+                                            "payme_transaction_arn": null
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "servers": [
+                    {
+                        "url": "https://sandbox.payme.io/api",
+                        "description": "Staging"
+                    },
+                    {
+                        "url": "https://live.payme.io/api",
+                        "description": "Prodaction"
+                    }
+                ],
+                "x-stoplight": {
+                    "id": "s79yrwhbrnypl"
+                }
+            }
+        },
+        "/capture-sale": {
+            "post": {
+                "summary": "Capture Sale",
+                "description": "## Overview\n\nThis endpoint enable you to execute the sale after authorization (`generate-sale` with `sale_type` = \"authorize\").\n\nFor more information, go to the [Capture Sale (Authorization) Guide](https://payme.stoplight.io/docs/guides/5hztg1usesrsf-capture-sale-authorization).",
+                "operationId": "post-capture-sale",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "payme_client_key": {
+                                        "type": "string",
+                                        "description": "PayMe Partner Key.",
+                                        "pattern": "XXXXXXXX"
+                                    },
+                                    "seller_payme_id": {
+                                        "type": "string",
+                                        "description": "MPL. Your private key in PayMe system.",
+                                        "examples": [
+                                            "MPLDEMO-MPLDEMO-MPLDEMO-1234567"
+                                        ]
+                                    },
+                                    "payme_sale_id": {
+                                        "type": "string",
+                                        "description": "Our unique sale ID",
+                                        "pattern": "SALEDEMO-XXXXXXXX-XXXXXXXX-XXXXXXXX"
+                                    }
+                                },
+                                "x-examples": {
+                                    "Example 1": {
+                                        "payme_client_key": "XXXXXXXX",
+                                        "seller_payme_id": "MPL1DEMO-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+                                        "payme_sale_id": "SALEDEMO-XXXXXXXX-XXXXXXXX-XXXXXXXX"
+                                    }
+                                }
+                            },
+                            "examples": {
+                                "Example 1": {
+                                    "value": {
+                                        "payme_client_key": "XXXXXXXX",
+                                        "seller_payme_id": "MPL1DEMO-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+                                        "payme_sale_id": "SALEDEMO-XXXXXXXX-XXXXXXXX-XXXXXXXX"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "integer",
+                                            "description": "Status of the request (0 - success, 1 - error)",
+                                            "examples": [
+                                                0
+                                            ]
+                                        },
+                                        "payme_status": {
+                                            "type": "string",
+                                            "description": "Status of the request (success, error)\r\n\r\n",
+                                            "examples": [
+                                                "success"
+                                            ]
+                                        },
+                                        "payme_sale_id": {
+                                            "type": "string",
+                                            "description": "Our unique sale ID.",
+                                            "examples": [
+                                                "SALEDEMO-XXXXXXXX-XXXXXXXX-XXXXXXXX"
+                                            ]
+                                        },
+                                        "payme_sale_code": {
+                                            "type": "integer",
+                                            "description": "Sale code",
+                                            "examples": [
+                                                123456
+                                            ]
+                                        },
+                                        "sale_created": {
+                                            "type": "string",
+                                            "description": "The date the sale was created (timestamp)\r\n\r\n",
+                                            "examples": [
+                                                "2021-11-02 16:36:13"
+                                            ]
+                                        },
+                                        "payme_sale_status": {
+                                            "type": "string",
+                                            "description": "Sale status. You can find all the sale statuses [here](https://payme.stoplight.io/docs/guides/ort17682q5o8a-sale-statuses).",
+                                            "examples": [
+                                                "completed"
+                                            ]
+                                        },
+                                        "sale_status": {
+                                            "type": "string",
+                                            "description": "Sale status. You can find all the sale statuses [here](https://payme.stoplight.io/docs/guides/ort17682q5o8a-sale-statuses).\r\n\r\n",
+                                            "examples": [
+                                                "completed"
+                                            ]
+                                        },
+                                        "currency": {
+                                            "type": "string",
+                                            "description": "Sale currency. [3-letter ISO 4217 name](https://en.wikipedia.org/wiki/ISO_4217).",
+                                            "examples": [
+                                                "ILS"
+                                            ]
+                                        },
+                                        "transaction_id": {
+                                            "type": "string",
+                                            "description": "The transaction ID.",
+                                            "examples": [
+                                                "12345"
+                                            ]
+                                        },
+                                        "is_token_sale": {
+                                            "type": "boolean",
+                                            "description": "Indicates if the sale paid with token."
+                                        },
+                                        "price": {
+                                            "type": "integer",
+                                            "description": "The sale price.",
+                                            "examples": [
+                                                100
+                                            ]
+                                        },
+                                        "payme_signature": {
+                                            "type": "string",
+                                            "description": "PayMe's signature for the payment\r\n\r\n",
+                                            "examples": [
+                                                "0efd912d7dc26c658f841e577afa2b79"
+                                            ]
+                                        },
+                                        "sale_description": {
+                                            "type": "string",
+                                            "description": "Sale description",
+                                            "examples": [
+                                                "Description"
+                                            ]
+                                        },
+                                        "payme_transaction_id": {
+                                            "type": "string",
+                                            "description": "PayMe transaction ID\r\n\r\n",
+                                            "examples": [
+                                                "TRAN1635-8638707F-FDCJJP3T-0IJMAP8K"
+                                            ]
+                                        },
+                                        "payme_transaction_total": {
+                                            "type": "string",
+                                            "description": "Transaction total amount\r\n\r\n",
+                                            "examples": [
+                                                "1000"
+                                            ]
+                                        },
+                                        "payme_transaction_card_brand": {
+                                            "type": "string",
+                                            "description": "The card brand\r\n\r\n",
+                                            "examples": [
+                                                "Visa"
+                                            ]
+                                        },
+                                        "payme_transaction_auth_number": {
+                                            "type": "string",
+                                            "description": "Transaction authorization number\r\n\r\n",
+                                            "examples": [
+                                                "5973894"
+                                            ]
+                                        },
+                                        "buyer_name": {
+                                            "type": "string",
+                                            "description": "Buyer's full name\r\n\r\n",
+                                            "examples": [
+                                                "John Doe"
+                                            ]
+                                        },
+                                        "buyer_email": {
+                                            "type": "string",
+                                            "description": "Buyer's email address\r\n\r\n",
+                                            "examples": [
+                                                "Test@example.com"
+                                            ]
+                                        },
+                                        "buyer_phone": {
+                                            "type": "string",
+                                            "description": "Buyer's phone number\r\n\r\n",
+                                            "examples": [
+                                                "+972520000000"
+                                            ]
+                                        },
+                                        "buyer_card_mask": {
+                                            "type": "string",
+                                            "description": "Card mask\r\n\r\n",
+                                            "examples": [
+                                                "458045******4580"
+                                            ]
+                                        },
+                                        "buyer_card_exp": {
+                                            "type": "string",
+                                            "description": "Buyer's card expiration date\r\n\r\n",
+                                            "examples": [
+                                                "10/26"
+                                            ]
+                                        },
+                                        "buyer_card_is_foreign": {
+                                            "type": "boolean",
+                                            "description": "Is the card foreign or domestic? (For IL Sellers only)\r\n\r\n"
+                                        },
+                                        "buyer_social_id": {
+                                            "type": "string",
+                                            "description": "Buyer's social ID number\r\n\r\n",
+                                            "examples": [
+                                                "999999999"
+                                            ]
+                                        },
+                                        "installments": {
+                                            "type": "integer",
+                                            "description": "Number of installments used for the payment\r\n\r\n",
+                                            "examples": [
+                                                12
+                                            ]
+                                        },
+                                        "sale_paid_date": {
+                                            "type": "string",
+                                            "description": "Sale paid date\r\n\r\n",
+                                            "examples": [
+                                                "2021-11-02 16:36:13"
+                                            ]
+                                        }
+                                    },
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "status_code": 0,
+                                            "payme_status": "success",
+                                            "status_error_code": 0,
+                                            "payme_sale_id": "SALEDEMO-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+                                            "payme_sale_code": 1111111,
+                                            "sale_created": "2023-06-22 14:01:47",
+                                            "payme_sale_status": "completed",
+                                            "sale_status": "completed",
+                                            "currency": "ILS",
+                                            "transaction_id": "12345",
+                                            "is_token_sale": false,
+                                            "price": 150000,
+                                            "payme_signature": "93a1ca34ed43bc00c62b9f467c40be8e",
+                                            "sale_description": "Computer",
+                                            "sale_deferred_months": null,
+                                            "payme_transaction_id": "TRANDEMO-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+                                            "payme_transaction_total": "150000",
+                                            "payme_transaction_card_brand": "Mastercard",
+                                            "payme_transaction_auth_number": "8906759",
+                                            "payme_transaction_voucher": "111111",
+                                            "payme_transaction_emv_uid": null,
+                                            "payme_transaction_acquirer": "PayMe",
+                                            "payme_transaction_auth_source": "VoiceMail",
+                                            "payme_transaction_card_issuer": "Isracard",
+                                            "payme_transaction_credit_type": "RegularCredit",
+                                            "buyer_name": "Test User",
+                                            "buyer_email": "test@payme.io",
+                                            "buyer_phone": "9725254448888",
+                                            "buyer_card_mask": "532610******5846",
+                                            "buyer_card_exp": "0426",
+                                            "buyer_card_is_foreign": false,
+                                            "buyer_social_id": "123456789",
+                                            "installments": 1,
+                                            "transaction_first_payment": 150000,
+                                            "transaction_periodical_payment": 0,
+                                            "transaction_arn": null,
+                                            "sale_paid_date": "2023-06-22 14:04:28",
+                                            "sale_release_date": null,
+                                            "sale_3ds": false
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Example 1": {
+                                        "value": {
+                                            "status_code": 0,
+                                            "payme_status": "success",
+                                            "status_error_code": 0,
+                                            "payme_sale_id": "SALEDEMO-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+                                            "payme_sale_code": 1111111,
+                                            "sale_created": "2023-06-22 14:01:47",
+                                            "payme_sale_status": "completed",
+                                            "sale_status": "completed",
+                                            "currency": "ILS",
+                                            "transaction_id": "12345",
+                                            "is_token_sale": false,
+                                            "price": 150000,
+                                            "payme_signature": "93a1ca34ed43bc00c62b9f467c40be8e",
+                                            "sale_description": "Computer",
+                                            "sale_deferred_months": null,
+                                            "payme_transaction_id": "TRANDEMO-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+                                            "payme_transaction_total": "150000",
+                                            "payme_transaction_card_brand": "Mastercard",
+                                            "payme_transaction_auth_number": "8906759",
+                                            "payme_transaction_voucher": "111111",
+                                            "payme_transaction_emv_uid": null,
+                                            "payme_transaction_acquirer": "PayMe",
+                                            "payme_transaction_auth_source": "VoiceMail",
+                                            "payme_transaction_card_issuer": "Isracard",
+                                            "payme_transaction_credit_type": "RegularCredit",
+                                            "buyer_name": "Test User",
+                                            "buyer_email": "test@payme.io",
+                                            "buyer_phone": "9725254448888",
+                                            "buyer_card_mask": "532610******5846",
+                                            "buyer_card_exp": "0426",
+                                            "buyer_card_is_foreign": false,
+                                            "buyer_social_id": "123456789",
+                                            "installments": 1,
+                                            "transaction_first_payment": 150000,
+                                            "transaction_periodical_payment": 0,
+                                            "transaction_arn": null,
+                                            "sale_paid_date": "2023-06-22 14:04:28",
+                                            "sale_release_date": null,
+                                            "sale_3ds": false
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "servers": [
+                    {
+                        "url": "https://sandbox.payme.io/api",
+                        "description": "Staging"
+                    },
+                    {
+                        "url": "https://live.payme.io/api",
+                        "description": "Prodaction"
+                    }
+                ],
+                "x-stoplight": {
+                    "id": "cyl5trr3ph04g"
+                }
+            }
+        },
+        "/cancel-template": {
+            "post": {
+                "summary": "Cancel Multi Payment Page",
+                "description": "## Overview\n\nThis endpoint enable you to cancle a Multi Payment Page.\n\nMulti Payment Page enables payments on a single sale link, by multiple buyers.<br />You can find more information in our [Multi Payment Page Guide](https://payme.stoplight.io/docs/guides/branches/main/cij4imxt4y3z2-multi-payment-page).",
+                "operationId": "post-cancel-template",
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "seller_payme_id": {
+                                        "type": "string",
+                                        "description": "MPL. Your private key in PayMe system.",
+                                        "examples": [
+                                            "MPLDEMO-MPLDEMO-MPLDEMO-1234567"
+                                        ]
+                                    },
+                                    "payme_sale_id": {
+                                        "type": "string",
+                                        "description": "Our unique sale ID.",
+                                        "examples": [
+                                            "SALEDEMO-XXXXXXXX-XXXXXXXX-XXXXXXXX"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "seller_payme_id",
+                                    "payme_sale_id"
+                                ],
+                                "x-examples": {
+                                    "Example 1": {
+                                        "payme_client_key": "XXXXXXXX",
+                                        "seller_payme_id": "MPL1DEMO-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+                                        "payme_sale_id": "SALEDEMO-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+                                        "sale_refund_amount": 1000,
+                                        "language": "he"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "integer",
+                                            "description": "Status of the request (0 - success, 1 - error).",
+                                            "examples": [
+                                                0
+                                            ]
+                                        }
+                                    },
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "status_code": 0,
+                                            "status_error_code": 0,
+                                            "payme_status": "success",
+                                            "refunded_from_creditcard": false,
+                                            "sale_invoice_number": null,
+                                            "sale_invoice_url": null,
+                                            "sale_refund_buffer": 18800,
+                                            "sale_status": "partial-refund",
+                                            "payme_transaction_total": 1000,
+                                            "payme_transaction_total_aft_deduction": 1000,
+                                            "payme_transaction_id": "TRANDEMO-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+                                            "payme_transaction_card_brand": "XXXXXXXX",
+                                            "payme_transaction_auth_number": "72****4",
+                                            "payme_transaction_voucher": "24****9",
+                                            "payme_signature": "b71e**************ca5a",
+                                            "payme_transaction_arn": null
+                                        }
+                                    }
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            },
+                            "multipart/form-data": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "integer"
+                                        },
+                                        "status_error_code": {
+                                            "type": "integer"
+                                        },
+                                        "payme_status": {
+                                            "type": "string"
+                                        },
+                                        "refunded_from_creditcard": {
+                                            "type": "boolean"
+                                        },
+                                        "sale_invoice_number": {
+                                            "type": "null"
+                                        },
+                                        "sale_invoice_url": {
+                                            "type": "null"
+                                        },
+                                        "sale_refund_buffer": {
+                                            "type": "integer"
+                                        },
+                                        "sale_status": {
+                                            "type": "string"
+                                        },
+                                        "payme_transaction_total": {
+                                            "type": "integer"
+                                        },
+                                        "payme_transaction_total_aft_deduction": {
+                                            "type": "integer"
+                                        },
+                                        "payme_transaction_id": {
+                                            "type": "string"
+                                        },
+                                        "payme_transaction_card_brand": {
+                                            "type": "string"
+                                        },
+                                        "payme_transaction_auth_number": {
+                                            "type": "string"
+                                        },
+                                        "payme_transaction_voucher": {
+                                            "type": "string"
+                                        },
+                                        "payme_signature": {
+                                            "type": "string"
+                                        },
+                                        "payme_transaction_arn": {
+                                            "type": "null"
+                                        }
+                                    },
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "status_code": 0,
+                                            "status_error_code": 0,
+                                            "payme_status": "success",
+                                            "refunded_from_creditcard": false,
+                                            "sale_invoice_number": null,
+                                            "sale_invoice_url": null,
+                                            "sale_refund_buffer": 18800,
+                                            "sale_status": "partial-refund",
+                                            "payme_transaction_total": 1000,
+                                            "payme_transaction_total_aft_deduction": 1000,
+                                            "payme_transaction_id": "TRANDEMO-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+                                            "payme_transaction_card_brand": "XXXXXXX",
+                                            "payme_transaction_auth_number": "72***64",
+                                            "payme_transaction_voucher": "24***9",
+                                            "payme_signature": "b71ee****************d57cca5a",
+                                            "payme_transaction_arn": null
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "251": {
+                        "description": "Seller not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "integer",
+                                            "description": "Status of the request (0 - success, 1 - error).",
+                                            "examples": [
+                                                1
+                                            ]
+                                        },
+                                        "status_error_details": {
+                                            "type": "string"
+                                        },
+                                        "status_additional_info": {
+                                            "type": "string"
+                                        },
+                                        "status_error_code": {
+                                            "type": "integer"
+                                        },
+                                        "session": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "status_code": 1,
+                                            "status_error_details": "מוכר לא נמצא",
+                                            "status_additional_info": "seller_payme_id",
+                                            "status_error_code": 251,
+                                            "session": "MfH3Hc80"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Example 1": {
+                                        "value": {
+                                            "status_code": 1,
+                                            "status_error_details": "מוכר לא נמצא",
+                                            "status_additional_info": "seller_payme_id",
+                                            "status_error_code": 251,
+                                            "session": "MfH3Hc80"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "305": {
+                        "description": "This operation cannot be completed due to an inappropriate sale status",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "integer",
+                                            "description": "Status of the request (0 - success, 1 - error).",
+                                            "examples": [
+                                                1
+                                            ]
+                                        },
+                                        "status_error_details": {
+                                            "type": "string"
+                                        },
+                                        "status_additional_info": {
+                                            "type": "string"
+                                        },
+                                        "status_error_code": {
+                                            "type": "integer"
+                                        },
+                                        "session": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "status_code": 1,
+                                            "status_error_details": "לא ניתן להשלים פעולה זו עקב סטטוס מכירה לא מתאים",
+                                            "status_additional_info": "canceled",
+                                            "status_error_code": 305,
+                                            "session": "NGQ1QpYB"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Example 1": {
+                                        "value": {
+                                            "status_code": 1,
+                                            "status_error_details": "לא ניתן להשלים פעולה זו עקב סטטוס מכירה לא מתאים",
+                                            "status_additional_info": "canceled",
+                                            "status_error_code": 305,
+                                            "session": "NGQ1QpYB"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "servers": [
+                    {
+                        "url": "https://sandbox.payme.io/api",
+                        "description": "Staging"
+                    },
+                    {
+                        "url": "https://live.payme.io/api",
+                        "description": "Prodaction"
+                    }
+                ],
+                "x-extension-1": null,
+                "x-stoplight": {
+                    "id": "urderx3vszsbj"
+                }
+            }
+        }
+    }
+}

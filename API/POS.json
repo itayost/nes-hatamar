@@ -1,0 +1,1009 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "POS",
+        "version": "1.0",
+        "description": "# PayMe POS Module\n\n#### Introduction\n\nThe POS Module is part of our Payments API, designed to allow platforms, merchants and PSPs to process card-present EMV transactions.\n\n#### Supported Payment Methods\n\n* Cards - Visa, Mastercard, American Express, Diners Club\n* Apple Pay\n* Google Pay\n* Samsung Pay\n* PayPal\n* Sodexo Cibus\n* 10bis\n* Pepper Pay\n* bit\n* WeChat\n* Alipay\n* Monyx Wallet\n\n## Integration Prerequisite\nBefore beginning the integration, make sure you have the following:\nItem|\tDescription\n---|---\n`payme_client_key`|\tYour private key provided by us for authentication\n`seller_payme_id`|\tYour Merchant's unique ID in our system\n`Active POS service`|\tThe Merchant must have an active POS value-added-service in his account\n`POS/ECR device`| \tA supported physical device\n\n\n### POS Setup\nSince the payment terminal is not directly connected to the client application a pairing process needs to be done between the POS/ECR and the terminal, this process is described in the pair and authenticate methods.\n\n### Pair\n(See endpoint)\nThis method is used to pair a stand-alone terminal to a POS/ECR. Each stand-alone terminal has a unique ID that is used in the paring process, this method is called first and then the pairing process is finalized by calling the authenticate method.Target URLs\nEnvironment|\tURL\n---|---\n`Staging`\t|`https://preprod.paymeservice.com/api/vas/pos/pair`\n`Production`\t|`https://ng.paymeservice.com/api/vas/pos/pair`\n\n### Authenticate\n(See endpoint)\nThis method completes the pairing process started with the pair method.Target URLs\nEnvironment|\tURL\n---|---\n`Staging`|\t`https://preprod.paymeservice.com/api/vas/pos/authenticate`\n`Production`|\t`https://ng.paymeservice.com/api/vas/pos/authenticate`\n\n\n## POS Payment\nThe payment flow is synchronous, which means that the payment result will be returned in the response. There is no need to poll the status.\n\nPlease go over the full details of the generate-sale method in our PayMe Marketplace API documentation.The main change you should make to the request, is setting the sale_payment_method parameter to emv.Target URLs\nEnvironment\t|URL\n---|---\n`Staging\t`|`https://preprod.paymeservice.com/api/generate-sale`\n`Production\t`|`https://ng.paymeservice.com/api/generate-sale`\n\n\n## Payment\nCalling this method will \"push\" a payment request to the POS, synchronously awaiting the payment result. You should use the sale_payme_id value received from the generate-sale method.Target URLs\nEnvironment\t|URL\n---|---\n`Staging\t`|`https://preprod.paymeservice.com/api/sales/{payme_sale_id}`\n`Production`|\t`https://ng.paymeservice.com/api/sales/{payme_sale_id}`\n"
+    },
+    "servers": [
+        {
+            "url": "https://sandbox.payme.io/api"
+        },
+        {
+            "url": "https://live.payme.io/api",
+            "description": ""
+        }
+    ],
+    "paths": {
+        "/vas-enable": {
+            "post": {
+                "summary": "Order New POS Device",
+                "operationId": "post-vas-enable",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "x-examples": {
+                                        "example-1": {
+                                            "status_code": 2,
+                                            "seller_payme_id": "MPL16574-41620LKX-NMRDNAQV-ATOETSG8",
+                                            "message": "Zendesk ticket created"
+                                        }
+                                    },
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "string",
+                                            "description": "The status code.",
+                                            "example": "0"
+                                        },
+                                        "seller_payme_id": {
+                                            "type": "string",
+                                            "description": "The unique seller ID.",
+                                            "example": "MPLDEMO-MPLDEMO-MPLDEMO-MPLDEMO"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "description": "The message for either success of failure.",
+                                            "example": "Action Completed Successfully."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "## Overview\n\nIn order to be initiate the process of receiving a physical Point Of Sale (POS) device, you will first need to generate a new request to https://<env>.payme.io/api/vas-enable using your personal VAS identifier. \n\nOnce the VAS is activated, the process will be initiated and the following operations will take place:\n\n1. New terminal request (takes up to 5 business days)\n2. Physical device internal preparation (Immediate once terminal is ready)\n\nThe API request for activating the service will look as follows:\n### 1st step\nAdd the payment method via `vas-enable`\n```\n{\n    \"payme_client_key\": \"payme_client_key\",\n    \"seller_payme_id\": \"seller_payme_id\",\n    \"vas_payme_id\": \"vas_payme_id\"\n}\n```\n\n### 2nd step\nAdd the device type via `vas-enable`\n```\n{\n \"payme_client_key\": \"payme\",\n \"seller_payme_id\":\"MPL15991-MPL15991-MPL15991-MPL15991\",\n \"vas_payme_id\": \"VASL1545-8192915E-8192915E-8192915E\",\n \"extend_items\": true,\n \"vas_data\": {\n              \"number_of_devices\": 3,\n              \"items\":[\n                        {\n                          \"pos_id\": \"123\", \n                          \"shipping_address\": \"address of shipping\", \n                          \"name\": \"name of the device\"\n                        },\n                        {\n                        \"pos_id\": \"123\", \n                          \"shipping_address\": \"address of shipping\", \n                          \"name\": \"name of the device\"   \n                        }\n                      ]\n            }\n}\n```\n\nOnce the VAS is activated, the process will be synchronous and there's no further action required to be completed by the partner or seller until receiving the device and starting to process immidiately. \n",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "x-examples": {
+                                    "example-1": {
+                                        "payme_client_key": "icount",
+                                        "seller_payme_id": "MPL15991-16765VD7-EMZAYZEV-31PXMITN",
+                                        "vas_payme_id": "VASL1545-8192915E-5NTSEUM1-03YNFWNU",
+                                        "vas_data": {
+                                            "number_of_devices": 3,
+                                            "items": [
+                                                {
+                                                    "pos_id": "123",
+                                                    "shipping_address": "address of shipping",
+                                                    "name": "name of the device"
+                                                },
+                                                {
+                                                    "pos_id": "123",
+                                                    "shipping_address": "address of shipping",
+                                                    "name": "name of the device"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                "properties": {
+                                    "payme_client_key": {
+                                        "type": "string",
+                                        "description": "The PayMe Secret Client Key",
+                                        "example": "payme"
+                                    },
+                                    "seller_payme_id": {
+                                        "type": "string",
+                                        "description": "The unique seller identifier (MPL).",
+                                        "example": "MPLDEMO-MPLDEMO-MPLDEMO-MPLDEMO"
+                                    },
+                                    "vas_payme_id": {
+                                        "type": "string",
+                                        "description": "The unique activation key.",
+                                        "example": "VASLDEMO-VASLDEMO-VASLDEMO-VASLDEMO"
+                                    },
+                                    "vas_data": {
+                                        "type": "object",
+                                        "description": "The predefined data object that allows you to request specific device amount and a per device information.",
+                                        "required": [
+                                            "number_of_devices",
+                                            "items"
+                                        ],
+                                        "properties": {
+                                            "number_of_devices": {
+                                                "type": "integer",
+                                                "description": "The number of requested devices.",
+                                                "example": 1
+                                            },
+                                            "items": {
+                                                "type": "array",
+                                                "description": "The devices array. The items count must be equal to `number_of_devices` value.",
+                                                "items": {
+                                                    "type": "object",
+                                                    "description": "The per device object.",
+                                                    "properties": {
+                                                        "pos_id": {
+                                                            "type": "string",
+                                                            "description": "The unique POS ID. This ID will be used in order to send payment request to the specific device.",
+                                                            "example": "001"
+                                                        },
+                                                        "shipping_address": {
+                                                            "type": "string",
+                                                            "description": "The shipping address for the physical device."
+                                                        },
+                                                        "name": {
+                                                            "type": "string",
+                                                            "description": "The name of the device. Will be used internally for the setup process."
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "pos_id",
+                                                        "shipping_address",
+                                                        "name"
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "extend_items": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "required": [
+                                    "payme_client_key",
+                                    "seller_payme_id",
+                                    "vas_payme_id",
+                                    "vas_data",
+                                    "extend_items"
+                                ]
+                            },
+                            "examples": {
+                                "VAS Enable": {
+                                    "value": {
+                                        "payme_client_key": "payme",
+                                        "seller_payme_id": "MPL15991-MPL15991-MPL15991-MPL15991",
+                                        "vas_payme_id": "VASL1545-8192915E-8192915E-8192915E",
+                                        "vas_data": {
+                                            "number_of_devices": 3,
+                                            "items": [
+                                                {
+                                                    "pos_id": "123",
+                                                    "shipping_address": "address of shipping",
+                                                    "name": "name of the device"
+                                                },
+                                                {
+                                                    "pos_id": "123",
+                                                    "shipping_address": "address of shipping",
+                                                    "name": "name of the device"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sales": {
+            "post": {
+                "summary": "New POS Payment",
+                "operationId": "post-Payment",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "status_code": 0,
+                                            "payme_status": "success",
+                                            "status_error_code": 0,
+                                            "payme_sale_id": "SALE1688-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+                                            "payme_sale_code": 12346578,
+                                            "sale_created": "2023-06-29 13:33:54",
+                                            "payme_sale_status": "authorized",
+                                            "sale_status": "authorized",
+                                            "currency": "ILS",
+                                            "transaction_id": "string",
+                                            "is_token_sale": false,
+                                            "price": 100,
+                                            "payme_signature": "db1c276**********c5b39",
+                                            "sale_description": "bbb",
+                                            "sale_deferred_months": null,
+                                            "payme_transaction_id": "TRAN1688-034834SZ-OYNALKNE-DWOXFEUZ",
+                                            "payme_transaction_total": "100",
+                                            "payme_transaction_card_brand": "Mastercard",
+                                            "payme_transaction_auth_number": "12345678",
+                                            "payme_transaction_voucher": null,
+                                            "payme_transaction_emv_uid": "2306**********102613",
+                                            "payme_transaction_acquirer": "PayMe",
+                                            "payme_transaction_auth_source": "CreditCompany",
+                                            "payme_transaction_card_issuer": "Isracard",
+                                            "payme_transaction_credit_type": "RegularCredit",
+                                            "buyer_name": "First Name",
+                                            "buyer_email": "test@example.com",
+                                            "buyer_phone": "+15417543010",
+                                            "buyer_card_mask": "532610******5846",
+                                            "buyer_card_exp": "0426",
+                                            "buyer_card_is_foreign": false,
+                                            "buyer_social_id": "123456782",
+                                            "installments": 1,
+                                            "transaction_first_payment": "100",
+                                            "transaction_periodical_payment": 0,
+                                            "transaction_arn": "2306**********2613",
+                                            "sale_paid_date": "2023-06-29 13:33:54",
+                                            "sale_release_date": null,
+                                            "sale_3ds": false,
+                                            "redirect_url": null
+                                        }
+                                    },
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "integer",
+                                            "example": 0,
+                                            "description": "PayMe's payment status (success/failure)"
+                                        },
+                                        "payme_status": {
+                                            "type": "string",
+                                            "example": "success",
+                                            "description": "PayMe's payment status (success/failure)"
+                                        },
+                                        "payme_sale_id": {
+                                            "type": "string",
+                                            "description": "PayMe's unique Sale ID\r\n\r\n",
+                                            "example": "SALE1635-XXXXXXXX-XXXXXXXX-O0POYBAJ"
+                                        },
+                                        "payme_sale_code": {
+                                            "type": "integer",
+                                            "description": "PayMe's unique Sale code\r\n\r\n",
+                                            "example": 809283
+                                        },
+                                        "sale_created": {
+                                            "type": "string",
+                                            "description": "The date the sale was created (timestamp)\r\n\r\n",
+                                            "example": "2021-11-02 16:36:13"
+                                        },
+                                        "payme_sale_status": {
+                                            "type": "string",
+                                            "description": "PayMe's sale status\r\n\r\n",
+                                            "example": "completed"
+                                        },
+                                        "sale_status": {
+                                            "type": "string",
+                                            "description": "Sale status\r\n\r\n",
+                                            "example": "completed"
+                                        },
+                                        "currency": {
+                                            "type": "string",
+                                            "description": "Sale currency. [3-letter ISO 4217 name](https://en.wikipedia.org/wiki/ISO_4217).",
+                                            "example": "ILS"
+                                        },
+                                        "transaction_id": {
+                                            "type": "string",
+                                            "description": "Transaction ID\r\n\r\n",
+                                            "example": "12345"
+                                        },
+                                        "is_token_sale": {
+                                            "type": "boolean",
+                                            "description": "Was the card tokenized or not\r\n\r\n"
+                                        },
+                                        "price": {
+                                            "type": "integer",
+                                            "description": "Payment price\r\n\r\n",
+                                            "example": 100
+                                        },
+                                        "payme_signature": {
+                                            "type": "string",
+                                            "description": "PayMe's signature for the payment\r\n\r\n",
+                                            "example": "0efd912d7dc26c658f841e577afa2b79"
+                                        },
+                                        "sale_description": {
+                                            "type": "string",
+                                            "example": "Description",
+                                            "description": "Sale description"
+                                        },
+                                        "payme_transaction_id": {
+                                            "type": "string",
+                                            "description": "PayMe transaction ID\r\n\r\n",
+                                            "example": "TRAN1635-8638707F-FDCJJP3T-0IJMAP8K"
+                                        },
+                                        "payme_transaction_total": {
+                                            "type": "string",
+                                            "description": "Transaction total amount\r\n\r\n",
+                                            "example": "1000"
+                                        },
+                                        "payme_transaction_card_brand": {
+                                            "type": "string",
+                                            "description": "The card brand\r\n\r\n",
+                                            "example": "Visa"
+                                        },
+                                        "payme_transaction_auth_number": {
+                                            "type": "string",
+                                            "description": "Transaction authorization number\r\n\r\n",
+                                            "example": "5973894"
+                                        },
+                                        "buyer_name": {
+                                            "type": "string",
+                                            "description": "Buyer's full name\r\n\r\n",
+                                            "example": "John Doe"
+                                        },
+                                        "buyer_email": {
+                                            "type": "string",
+                                            "description": "Buyer's email address\r\n\r\n",
+                                            "example": "Test@example.com"
+                                        },
+                                        "buyer_phone": {
+                                            "type": "string",
+                                            "description": "Buyer's phone number\r\n\r\n",
+                                            "example": "+972520000000"
+                                        },
+                                        "buyer_card_mask": {
+                                            "type": "string",
+                                            "description": "Card mask\r\n\r\n",
+                                            "example": "458045******4580"
+                                        },
+                                        "buyer_card_exp": {
+                                            "type": "string",
+                                            "description": "Buyer's card expiration date\r\n\r\n",
+                                            "example": "10/26"
+                                        },
+                                        "buyer_card_is_foreign": {
+                                            "type": "boolean",
+                                            "description": "Is the card foreign or domestic? (For IL Sellers only)\r\n\r\n"
+                                        },
+                                        "buyer_social_id": {
+                                            "type": "string",
+                                            "description": "Buyer's social ID number\r\n\r\n",
+                                            "example": "999999999"
+                                        },
+                                        "installments": {
+                                            "type": "integer",
+                                            "description": "Number of installments used for the payment\r\n\r\n",
+                                            "example": 12
+                                        },
+                                        "sale_paid_date": {
+                                            "type": "string",
+                                            "description": "Sale paid date\r\n\r\n",
+                                            "example": "2021-11-02 16:36:13"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Example 1": {
+                                        "value": {
+                                            "status_code": 0,
+                                            "payme_status": "success",
+                                            "status_error_code": 0,
+                                            "payme_sale_id": "SALE1688-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+                                            "payme_sale_code": 12346578,
+                                            "sale_created": "2023-06-29 13:33:54",
+                                            "payme_sale_status": "authorized",
+                                            "sale_status": "authorized",
+                                            "currency": "ILS",
+                                            "transaction_id": "string",
+                                            "is_token_sale": false,
+                                            "price": 100,
+                                            "payme_signature": "db1c276**********c5b39",
+                                            "sale_description": "bbb",
+                                            "sale_deferred_months": null,
+                                            "payme_transaction_id": "TRAN1688-034834SZ-OYNALKNE-DWOXFEUZ",
+                                            "payme_transaction_total": "100",
+                                            "payme_transaction_card_brand": "Mastercard",
+                                            "payme_transaction_auth_number": "12345678",
+                                            "payme_transaction_voucher": null,
+                                            "payme_transaction_emv_uid": "2306**********102613",
+                                            "payme_transaction_acquirer": "PayMe",
+                                            "payme_transaction_auth_source": "CreditCompany",
+                                            "payme_transaction_card_issuer": "Isracard",
+                                            "payme_transaction_credit_type": "RegularCredit",
+                                            "buyer_name": "First Name",
+                                            "buyer_email": "test@example.com",
+                                            "buyer_phone": "+15417543010",
+                                            "buyer_card_mask": "532610******5846",
+                                            "buyer_card_exp": "0426",
+                                            "buyer_card_is_foreign": false,
+                                            "buyer_social_id": "123456782",
+                                            "installments": 1,
+                                            "transaction_first_payment": "100",
+                                            "transaction_periodical_payment": 0,
+                                            "transaction_arn": "2306**********2613",
+                                            "sale_paid_date": "2023-06-29 13:33:54",
+                                            "sale_release_date": null,
+                                            "sale_3ds": false,
+                                            "redirect_url": null
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "",
+                                    "type": "object",
+                                    "x-examples": {
+                                        "example-1": {
+                                            "status_code": 1,
+                                            "status_error_details": "קישור משתמש לא נמצא",
+                                            "status_additional_info": null,
+                                            "status_error_code": 251
+                                        }
+                                    },
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "number",
+                                            "description": "Status of the request (0 - success, 1 - error)\n\n"
+                                        },
+                                        "status_error_details": {
+                                            "type": "string",
+                                            "description": "Error message\n\n",
+                                            "pattern": "קישור משתמש לא נמצא`"
+                                        },
+                                        "status_additional_info": {
+                                            "description": "Additional error information\n\n"
+                                        },
+                                        "status_error_code": {
+                                            "type": "number",
+                                            "description": "Our unique error code\n\n"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "",
+                                    "type": "object",
+                                    "x-examples": {
+                                        "example-1": {
+                                            "status_code": 0,
+                                            "sale_url": "https://preprod.paymeservice.com/sale/generate/XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+                                            "payme_sale_id": "XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+                                            "payme_sale_code": 12345678,
+                                            "price": 10000,
+                                            "transaction_id": "12345",
+                                            "currency": "USD"
+                                        }
+                                    },
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "number",
+                                            "description": "Status of the request (0 - success, 1 - error)\n\n"
+                                        },
+                                        "sale_url": {
+                                            "type": "string",
+                                            "description": "The URL of the IFRAME secured payment form to display to the buyer\n\n",
+                                            "pattern": "https://preprod.paymeservice.com/sale/generate/XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX"
+                                        },
+                                        "payme_sale_id": {
+                                            "type": "string",
+                                            "description": "Our unique sale ID\n\n",
+                                            "pattern": "XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX"
+                                        },
+                                        "payme_sale_code": {
+                                            "type": "number",
+                                            "description": "Our unique sale code (for display purposes only)\n\n"
+                                        },
+                                        "price": {
+                                            "type": "number",
+                                            "description": "Sale final price. For example, if the price is 50.75 (max 2 decimal points) the value that needs to be sent is 5075\n\n"
+                                        },
+                                        "transaction_id": {
+                                            "type": "string",
+                                            "description": "Merchant's unique sale ID for correlation with us\n\n",
+                                            "pattern": "12345"
+                                        },
+                                        "currency": {
+                                            "type": "string",
+                                            "description": "Sale currency. 3-letter ISO 4217 name\n\n",
+                                            "enum": [
+                                                "USD",
+                                                "ILS",
+                                                "EUR",
+                                                "GBP"
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "## Overview\n\nCalling this method will \"push\" a payment request to the POS, synchronously awaiting the payment result. \n",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "x-examples": {
+                                    "example-1": {
+                                        "seller_payme_id": "MPLXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+                                        "product_name": "My Product",
+                                        "sale_price": 10000,
+                                        "currency": "USD",
+                                        "transaction_id": "12345",
+                                        "sale_callback_url": "https://www.example.com/payment/callback",
+                                        "payment": {
+                                            "method": "emv",
+                                            "pos_id": "001"
+                                        },
+                                        "customer": {
+                                            "name": "John Due",
+                                            "email": "test@test.com",
+                                            "phone": "+498963648018"
+                                        },
+                                        "language": "en"
+                                    }
+                                },
+                                "required": [
+                                    "seller_payme_id",
+                                    "product_name",
+                                    "sale_price",
+                                    "transaction_id",
+                                    "sale_callback_url",
+                                    "payment"
+                                ],
+                                "properties": {
+                                    "seller_payme_id": {
+                                        "type": "string",
+                                        "description": "PayMe's unqiue seller ID",
+                                        "example": "MPLXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX"
+                                    },
+                                    "product_name": {
+                                        "type": "string",
+                                        "description": "Product's description",
+                                        "example": "Product Name"
+                                    },
+                                    "sale_price": {
+                                        "type": "number",
+                                        "description": "Sale Price",
+                                        "example": 100
+                                    },
+                                    "sale_type": {
+                                        "type": "string",
+                                        "example": "1",
+                                        "description": "You can find all the sale types [here](https://payme.stoplight.io/docs/guides/branches/main/okab0oj46ivn7-sale-types)."
+                                    },
+                                    "currency": {
+                                        "type": "string",
+                                        "description": "Sale currency. [3-letter ISO 4217 name](https://en.wikipedia.org/wiki/ISO_4217).",
+                                        "example": "ILS"
+                                    },
+                                    "transaction_id": {
+                                        "type": "string",
+                                        "description": "Transaction ID",
+                                        "example": "12345"
+                                    },
+                                    "sale_callback_url": {
+                                        "type": "string",
+                                        "description": "Sale Callback URL",
+                                        "example": "https://www.example.com/callback_payment"
+                                    },
+                                    "payment": {
+                                        "type": "object",
+                                        "required": [
+                                            "method",
+                                            "pos_id"
+                                        ],
+                                        "properties": {
+                                            "method": {
+                                                "type": "string",
+                                                "description": "Payment method",
+                                                "example": "pos"
+                                            },
+                                            "pos_id": {
+                                                "type": "string",
+                                                "description": "The ID you must choose for your POS. Must be a string of digits, between \"001\" and \"999\"",
+                                                "example": "001"
+                                            }
+                                        }
+                                    },
+                                    "customer": {
+                                        "type": "object",
+                                        "description": "The customer object is **not** mandatory.<br> **If this object is added** to the request, it should include its **required fields**: name, email and phone.",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string",
+                                                "description": "Customer name",
+                                                "example": "John Doe"
+                                            },
+                                            "email": {
+                                                "type": "string",
+                                                "description": "Customer email",
+                                                "example": "example@test.com"
+                                            },
+                                            "zip_code": {
+                                                "type": "string",
+                                                "description": "Customer address zip code",
+                                                "example": "837592"
+                                            },
+                                            "phone": {
+                                                "type": "string",
+                                                "description": "Customer mobile phone number",
+                                                "example": "+498963648018"
+                                            },
+                                            "social_id": {
+                                                "type": "string",
+                                                "description": "Customer social ID / national ID for additional verification",
+                                                "example": "123456782"
+                                            }
+                                        }
+                                    },
+                                    "language": {
+                                        "type": "string",
+                                        "description": "Customer language",
+                                        "example": "he"
+                                    }
+                                }
+                            },
+                            "examples": {
+                                "example-1": {
+                                    "value": {
+                                        "seller_payme_id": "string",
+                                        "product_name": "string",
+                                        "sale_price": 0,
+                                        "currency": "USD",
+                                        "transaction_id": "string",
+                                        "sale_callback_url": "string",
+                                        "payment": {
+                                            "method": "pos",
+                                            "pos_id": "string"
+                                        },
+                                        "customer": {
+                                            "name": "string",
+                                            "email": "string",
+                                            "phone": "string",
+                                            "zip_code": "string",
+                                            "social_id": "string"
+                                        },
+                                        "language": "he"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "description": ""
+                },
+                "x-internal": false
+            },
+            "parameters": [],
+            "put": {
+                "summary": "Refund POS Sale",
+                "operationId": "put-sales",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "status_code": 0,
+                                            "payme_status": "success",
+                                            "status_error_code": 0,
+                                            "payme_sale_id": "SALE1688-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+                                            "payme_sale_code": 12346578,
+                                            "sale_created": "2023-06-29 13:33:54",
+                                            "payme_sale_status": "authorized",
+                                            "sale_status": "authorized",
+                                            "currency": "ILS",
+                                            "transaction_id": "string",
+                                            "is_token_sale": false,
+                                            "price": 100,
+                                            "payme_signature": "db1c276**********c5b39",
+                                            "sale_description": "bbb",
+                                            "sale_deferred_months": null,
+                                            "payme_transaction_id": "TRAN1688-034834SZ-OYNALKNE-DWOXFEUZ",
+                                            "payme_transaction_total": "100",
+                                            "payme_transaction_card_brand": "Mastercard",
+                                            "payme_transaction_auth_number": "12345678",
+                                            "payme_transaction_voucher": null,
+                                            "payme_transaction_emv_uid": "2306**********102613",
+                                            "payme_transaction_acquirer": "PayMe",
+                                            "payme_transaction_auth_source": "CreditCompany",
+                                            "payme_transaction_card_issuer": "Isracard",
+                                            "payme_transaction_credit_type": "RegularCredit",
+                                            "buyer_name": "First Name",
+                                            "buyer_email": "test@example.com",
+                                            "buyer_phone": "+15417543010",
+                                            "buyer_card_mask": "532610******5846",
+                                            "buyer_card_exp": "0426",
+                                            "buyer_card_is_foreign": false,
+                                            "buyer_social_id": "123456782",
+                                            "installments": 1,
+                                            "transaction_first_payment": "100",
+                                            "transaction_periodical_payment": 0,
+                                            "transaction_arn": "2306**********2613",
+                                            "sale_paid_date": "2023-06-29 13:33:54",
+                                            "sale_release_date": null,
+                                            "sale_3ds": false,
+                                            "redirect_url": null
+                                        }
+                                    },
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "integer",
+                                            "description": "PayMe's payment status (success/failure)\r\n\r\n",
+                                            "example": 0
+                                        },
+                                        "payme_status": {
+                                            "type": "string",
+                                            "description": "Sale status\r\n\r\n",
+                                            "example": "success"
+                                        },
+                                        "payme_sale_id": {
+                                            "type": "string",
+                                            "description": "PayMe's unique Sale ID\r\n\r\n",
+                                            "example": "SALE1635-XXXXXXXX-XXXXXXXX-O0POYBAJ"
+                                        },
+                                        "payme_sale_code": {
+                                            "type": "integer",
+                                            "description": "PayMe's unique Sale code\r\n\r\n",
+                                            "example": 809283
+                                        },
+                                        "sale_created": {
+                                            "type": "string",
+                                            "description": "The date the sale was created (timestamp)\r\n\r\n",
+                                            "example": "2021-11-02 16:36:13"
+                                        },
+                                        "payme_sale_status": {
+                                            "type": "string",
+                                            "description": "PayMe's sale status\r\n\r\n",
+                                            "example": "completed"
+                                        },
+                                        "sale_status": {
+                                            "type": "string",
+                                            "description": "Sale status\r\n\r\n",
+                                            "example": "completed"
+                                        },
+                                        "currency": {
+                                            "type": "string",
+                                            "description": "Sale currency. [3-letter ISO 4217 name](https://en.wikipedia.org/wiki/ISO_4217).\r\n",
+                                            "example": "ILS"
+                                        },
+                                        "transaction_id": {
+                                            "type": "string",
+                                            "description": "Transaction ID\r\n\r\n",
+                                            "example": "12345"
+                                        },
+                                        "is_token_sale": {
+                                            "type": "boolean",
+                                            "description": "Was the card tokenized or not\r\n\r\n"
+                                        },
+                                        "price": {
+                                            "type": "integer",
+                                            "description": "Payment price\r\n\r\n",
+                                            "example": 100
+                                        },
+                                        "payme_signature": {
+                                            "type": "string",
+                                            "description": "PayMe's signature for the payment\r\n\r\n",
+                                            "example": "0efd912d7dc26c658f841e577afa2b79"
+                                        },
+                                        "sale_description": {
+                                            "type": "string",
+                                            "description": "Sale description\r\n\r\n",
+                                            "example": "Description"
+                                        },
+                                        "payme_transaction_id": {
+                                            "type": "string",
+                                            "description": "PayMe transaction ID\r\n\r\n\r\n",
+                                            "example": "TRAN1635-8638707F-FDCJJP3T-0IJMAP8K"
+                                        },
+                                        "payme_transaction_total": {
+                                            "type": "string",
+                                            "description": "Transaction total amount\r\n\r\n\r\n",
+                                            "example": "1000"
+                                        },
+                                        "payme_transaction_card_brand": {
+                                            "type": "string",
+                                            "description": "The card brand\r\n\r\n\r\n",
+                                            "example": "Visa"
+                                        },
+                                        "payme_transaction_auth_number": {
+                                            "type": "string",
+                                            "description": "Transaction authorization number\r\n\r\n\r\n",
+                                            "example": "5973894"
+                                        },
+                                        "buyer_name": {
+                                            "type": "string",
+                                            "description": "Buyer's full name\r\n\r\n",
+                                            "example": "John Doe"
+                                        },
+                                        "buyer_email": {
+                                            "type": "string",
+                                            "description": "Buyer's email address\r\n\r\n",
+                                            "example": "Test@example.com"
+                                        },
+                                        "buyer_phone": {
+                                            "type": "string",
+                                            "description": "Buyer's phone number\r\n\r\n",
+                                            "example": "+972520000000"
+                                        },
+                                        "buyer_card_mask": {
+                                            "type": "string",
+                                            "description": "Card mask\r\n\r\n",
+                                            "example": "458045******4580"
+                                        },
+                                        "buyer_card_exp": {
+                                            "type": "string",
+                                            "description": "Buyer's card expiration date\r\n\r\n",
+                                            "example": "10/26"
+                                        },
+                                        "buyer_card_is_foreign": {
+                                            "type": "boolean",
+                                            "description": "Is the card foreign or domestic? (For IL Sellers only)\r\n\r\n"
+                                        },
+                                        "buyer_social_id": {
+                                            "type": "string",
+                                            "description": "Buyer's social ID number\r\n\r\n",
+                                            "example": "999999999"
+                                        },
+                                        "installments": {
+                                            "type": "integer",
+                                            "description": "Number of installments used for the payment\r\n\r\n",
+                                            "example": 12
+                                        },
+                                        "sale_paid_date": {
+                                            "type": "string",
+                                            "description": "Sale paid date\r\n\r\n",
+                                            "example": "2021-11-02 16:36:13"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Example 1": {
+                                        "value": {
+                                            "status_code": 0,
+                                            "payme_status": "success",
+                                            "status_error_code": 0,
+                                            "payme_sale_id": "SALE1688-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+                                            "payme_sale_code": 12346578,
+                                            "sale_created": "2023-06-29 13:33:54",
+                                            "payme_sale_status": "authorized",
+                                            "sale_status": "authorized",
+                                            "currency": "ILS",
+                                            "transaction_id": "string",
+                                            "is_token_sale": false,
+                                            "price": 100,
+                                            "payme_signature": "db1c276**********c5b39",
+                                            "sale_description": "bbb",
+                                            "sale_deferred_months": null,
+                                            "payme_transaction_id": "TRAN1688-034834SZ-OYNALKNE-DWOXFEUZ",
+                                            "payme_transaction_total": "100",
+                                            "payme_transaction_card_brand": "Mastercard",
+                                            "payme_transaction_auth_number": "12345678",
+                                            "payme_transaction_voucher": null,
+                                            "payme_transaction_emv_uid": "2306**********102613",
+                                            "payme_transaction_acquirer": "PayMe",
+                                            "payme_transaction_auth_source": "CreditCompany",
+                                            "payme_transaction_card_issuer": "Isracard",
+                                            "payme_transaction_credit_type": "RegularCredit",
+                                            "buyer_name": "First Name",
+                                            "buyer_email": "test@example.com",
+                                            "buyer_phone": "+15417543010",
+                                            "buyer_card_mask": "532610******5846",
+                                            "buyer_card_exp": "0426",
+                                            "buyer_card_is_foreign": false,
+                                            "buyer_social_id": "123456782",
+                                            "installments": 1,
+                                            "transaction_first_payment": "100",
+                                            "transaction_periodical_payment": 0,
+                                            "transaction_arn": "2306**********2613",
+                                            "sale_paid_date": "2023-06-29 13:33:54",
+                                            "sale_release_date": null,
+                                            "sale_3ds": false,
+                                            "redirect_url": null
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "In order to refund a sale paid via a POS device, you can use PUT function which will trigger a manual refund request sent back to the device.\n\n### You will need to chain the sale GUID unique identifier to the endpoint URL in the following form:\n`https://<env>.payme.io/api/sales/{sale_guid}` \n\n#### Example:\n\n`https://<env>.payme.io/api/sales/SALEGUID-TEST123-TEST123-TEST123` \n\nThe request will trigger a refund that will be sent to the designated device per the device ID mentioned in the request (see request example below)",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "x-examples": {
+                                    "example-1": {
+                                        "seller_payme_id": "string",
+                                        "product_name": "string",
+                                        "sale_price": 0,
+                                        "currency": "USD",
+                                        "transaction_id": "string",
+                                        "sale_callback_url": "string",
+                                        "payment": {
+                                            "method": "pos",
+                                            "pos_id": "002",
+                                            "action": "refund"
+                                        },
+                                        "customer": {
+                                            "name": "string",
+                                            "email": "string",
+                                            "phone": "string",
+                                            "zip_code": "string",
+                                            "social_id": "string"
+                                        },
+                                        "language": "he"
+                                    }
+                                },
+                                "properties": {
+                                    "seller_payme_id": {
+                                        "type": "string",
+                                        "description": "PayMe's unqiue seller ID",
+                                        "example": "MPLXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX"
+                                    },
+                                    "product_name": {
+                                        "type": "string",
+                                        "description": "Product's description",
+                                        "example": "Product Name"
+                                    },
+                                    "currency": {
+                                        "type": "string",
+                                        "description": "Sale currency. [3-letter ISO 4217 name](https://en.wikipedia.org/wiki/ISO_4217).",
+                                        "example": "ILS"
+                                    },
+                                    "transaction_id": {
+                                        "type": "string",
+                                        "description": "The external transaction ID.",
+                                        "example": "12345"
+                                    },
+                                    "sale_callback_url": {
+                                        "type": "string",
+                                        "description": "The callback url for the specific sale.",
+                                        "example": "https://www.example.com/callback_payment"
+                                    },
+                                    "payment": {
+                                        "type": "object",
+                                        "description": "The payment object.",
+                                        "properties": {
+                                            "method": {
+                                                "type": "string",
+                                                "description": "The payment method.",
+                                                "example": "pos"
+                                            },
+                                            "pos_id": {
+                                                "type": "string",
+                                                "description": "The POS ID - the device that will be used to process the refund request.",
+                                                "example": "001"
+                                            },
+                                            "action": {
+                                                "type": "string",
+                                                "description": "The action - must be `refund` in order to complete this action. ",
+                                                "example": "refund "
+                                            },
+                                            "amount": {
+                                                "type": "string",
+                                                "description": "The sale amount in Agorot",
+                                                "example": "10000"
+                                            }
+                                        }
+                                    },
+                                    "language": {
+                                        "type": "string",
+                                        "description": "The language of the customer's interface. ",
+                                        "example": "he"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {}
+    }
+}
