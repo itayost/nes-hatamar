@@ -18,7 +18,7 @@ export interface OrderData {
 }
 
 export interface CreateOrderInput {
-  product: 'course';
+  product: 'course' | 'book';
   customerInfo: CustomerInfo;
   couponCode?: string;
 }

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
-import { validateCoupon, applyCoupon, getCoursePrice } from '@/lib/coupon-validator';
+import { validateCoupon, applyCoupon, getProductPrice, ProductType } from '@/lib/coupon-validator';
 import { generateOrderEmailHTML, generateOrderSubject } from '@/lib/email-templates';
 import { createPaymePayment } from '@/lib/payme-payment';
 import { CreateOrderInput, OrderData } from '@/types/order';
@@ -69,9 +69,11 @@ export async function POST(request: NextRequest) {
     // Validate input
     const input: CreateOrderInput = body;
 
-    if (input.product !== 'course') {
+    if (input.product !== 'course' && input.product !== 'book') {
       return NextResponse.json({ error: 'Invalid product' }, { status: 400 });
     }
+
+    const product = input.product as ProductType;
 
     // Validate customer info
     if (!input.customerInfo) {
@@ -93,12 +95,12 @@ export async function POST(request: NextRequest) {
     }
 
     // Calculate price with coupon
-    let originalPrice = getCoursePrice();
+    let originalPrice = getProductPrice(product);
     let discountAmount = 0;
     let finalPrice = originalPrice;
 
     if (input.couponCode) {
-      const couponValidation = await validateCoupon(input.couponCode);
+      const couponValidation = await validateCoupon(input.couponCode, product);
 
       if (!couponValidation.valid) {
         return NextResponse.json({ error: couponValidation.error || 'Invalid coupon' }, { status: 400 });
@@ -109,7 +111,7 @@ export async function POST(request: NextRequest) {
         discountAmount = originalPrice - finalPrice;
 
         // Apply coupon (increment usage)
-        await applyCoupon(input.couponCode);
+        await applyCoupon(input.couponCode, product);
       }
     }
 

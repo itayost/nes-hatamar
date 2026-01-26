@@ -3,12 +3,15 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 
-interface CoursePurchaseFormProps {
+type ProductType = 'book' | 'course';
+
+interface PurchaseFormProps {
+  product: ProductType;
   basePrice: number;
 }
 
-export default function CoursePurchaseForm({ basePrice }: CoursePurchaseFormProps) {
-  const t = useTranslations('coursePurchase');
+export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) {
+  const t = useTranslations('purchase');
 
   const [formData, setFormData] = useState({
     name: '',
@@ -44,7 +47,7 @@ export default function CoursePurchaseForm({ basePrice }: CoursePurchaseFormProp
       const res = await fetch('/api/validate-coupon', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code: formData.couponCode }),
+        body: JSON.stringify({ code: formData.couponCode, product }),
       });
 
       const data = await res.json();
@@ -83,7 +86,7 @@ export default function CoursePurchaseForm({ basePrice }: CoursePurchaseFormProp
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          product: 'course',
+          product,
           customerInfo: {
             name: formData.name,
             email: formData.email,
@@ -209,7 +212,7 @@ export default function CoursePurchaseForm({ basePrice }: CoursePurchaseFormProp
       {/* Price Summary */}
       <div className="bg-gold/5 rounded-xl p-6 space-y-3">
         <div className="flex justify-between text-dark">
-          <span>{t('summary.coursePrice')}</span>
+          <span>{product === 'book' ? t('summary.bookPrice') : t('summary.coursePrice')}</span>
           <span>₪{basePrice.toLocaleString()}</span>
         </div>
 

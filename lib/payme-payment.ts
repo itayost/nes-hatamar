@@ -7,6 +7,12 @@ import { OrderData } from '@/types/order';
  * Documentation: API/Hosted Payment Page.json
  */
 
+// Product names for PayMe
+const PRODUCT_NAMES: Record<string, string> = {
+  course: 'קורס מבוא להומאופטיה - נס התמר',
+  book: 'נס התמר - ספר',
+};
+
 interface PaymePaymentResult {
   success: boolean;
   paymentUrl?: string;
@@ -50,7 +56,7 @@ export async function createPaymePayment(order: OrderData): Promise<PaymePayment
     // Return placeholder for development/testing without credentials
     return {
       success: true,
-      paymentUrl: `/he/course-purchase/pending?orderId=${order.id}`,
+      paymentUrl: `/he/purchase/pending?orderId=${order.id}`,
     };
   }
 
@@ -59,13 +65,15 @@ export async function createPaymePayment(order: OrderData): Promise<PaymePayment
   // PayMe expects price in agorot (cents) - multiply by 100
   const priceInAgorot = Math.round(order.finalPrice * 100);
 
+  const productName = PRODUCT_NAMES[order.product] || PRODUCT_NAMES.book;
+
   const requestBody = {
     seller_payme_id: sellerId,
     sale_price: priceInAgorot,
     currency: 'ILS',
-    product_name: 'קורס מבוא להומאופטיה - נס התמר',
+    product_name: productName,
     transaction_id: order.id,
-    sale_return_url: `${siteUrl}/he/course-purchase/success?orderId=${order.id}`,
+    sale_return_url: `${siteUrl}/he/purchase/success?orderId=${order.id}`,
     sale_callback_url: `${siteUrl}/api/payme-webhook`,
     language: 'he',
     sale_type: 'sale',

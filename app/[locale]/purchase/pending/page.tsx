@@ -10,16 +10,16 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'coursePurchase' });
+  const t = await getTranslations({ locale, namespace: 'purchase' });
 
   return generatePageMetadata(locale, {
-    title: t('success.title'),
-    description: t('success.subtitle'),
-    path: 'course-purchase/success',
+    title: t('pending.title'),
+    description: t('pending.subtitle'),
+    path: 'purchase/pending',
   });
 }
 
-export default async function CoursePurchaseSuccessPage({
+export default async function PurchasePendingPage({
   params,
   searchParams
 }: {
@@ -28,7 +28,7 @@ export default async function CoursePurchaseSuccessPage({
 }) {
   const { locale } = await params;
   const { orderId } = await searchParams;
-  const t = await getTranslations('coursePurchase');
+  const t = await getTranslations('purchase');
 
   return (
     <section className="py-20 px-4">
@@ -60,10 +60,10 @@ export default async function CoursePurchaseSuccessPage({
               </svg>
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-dark font-serif mb-4">
-              {t('success.title')}
+              {t('pending.title')}
             </h1>
             <p className="text-lg text-dark/70">
-              {t('success.subtitle')}
+              {t('pending.subtitle')}
             </p>
           </div>
 
@@ -71,27 +71,18 @@ export default async function CoursePurchaseSuccessPage({
           <div className="bg-white rounded-2xl shadow-lg border-2 border-gold/20 p-8 text-center mb-8">
             {orderId && (
               <div className="mb-6 pb-6 border-b border-gold/20">
-                <p className="text-sm text-dark/60 mb-1">{t('success.orderIdLabel')}</p>
+                <p className="text-sm text-dark/60 mb-1">{t('pending.orderIdLabel')}</p>
                 <p className="text-xl font-mono font-bold text-gold">{orderId}</p>
               </div>
             )}
 
-            <div className="bg-green-50 rounded-xl p-4 mb-6">
-              <div className="flex items-center justify-center gap-2 text-green-700">
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span className="font-medium">{t('success.paymentConfirmed')}</span>
-              </div>
-            </div>
-
             <p className="text-dark/80 mb-6 leading-relaxed">
-              {t('success.description')}
+              {t('pending.description')}
             </p>
 
             <div className="bg-gold/5 rounded-xl p-4 mb-6">
               <p className="text-sm text-dark/70">
-                {t('success.contactInfo')}
+                {t('pending.contactInfo')}
               </p>
               <a
                 href="mailto:Nissimkrispiltamar@gmail.com"
@@ -105,7 +96,7 @@ export default async function CoursePurchaseSuccessPage({
               href={`/${locale}`}
               className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-gold to-gold-light text-white font-semibold rounded-xl hover:opacity-90 transition-opacity"
             >
-              <span>{t('success.backToHome')}</span>
+              <span>{t('pending.backToHome')}</span>
               <svg className="w-5 h-5 rtl:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
               </svg>

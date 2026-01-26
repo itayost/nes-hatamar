@@ -4,6 +4,9 @@ import { Coupon, CouponValidationResult, CouponCreateInput, CouponUpdateInput } 
 
 const COUPONS_FILE = path.join(process.cwd(), 'data', 'coupons.json');
 const COURSE_PRICE = 1600; // Base price in NIS
+const BOOK_PRICE = 550; // Book price in NIS
+
+export type ProductType = 'book' | 'course';
 
 // Simple file-based locking mechanism
 let fileLock = false;
@@ -46,7 +49,7 @@ async function writeCoupons(coupons: Coupon[]): Promise<void> {
 }
 
 // Validate a coupon code
-export async function validateCoupon(code: string): Promise<CouponValidationResult> {
+export async function validateCoupon(code: string, product: ProductType = 'course'): Promise<CouponValidationResult> {
   if (!code || typeof code !== 'string') {
     return { valid: false, error: 'Invalid coupon code', errorCode: 'INVALID_CODE' };
   }
@@ -73,9 +76,10 @@ export async function validateCoupon(code: string): Promise<CouponValidationResu
     return { valid: false, error: 'Coupon has reached maximum uses', errorCode: 'MAX_USES_REACHED' };
   }
 
-  // Calculate discount
-  const discountAmount = calculateDiscount(COURSE_PRICE, coupon);
-  const finalPrice = COURSE_PRICE - discountAmount;
+  // Calculate discount based on product type
+  const basePrice = getProductPrice(product);
+  const discountAmount = calculateDiscount(basePrice, coupon);
+  const finalPrice = basePrice - discountAmount;
 
   return {
     valid: true,
@@ -97,7 +101,7 @@ export function calculateDiscount(price: number, coupon: Coupon): number {
 }
 
 // Apply coupon (increment usage)
-export async function applyCoupon(code: string): Promise<CouponValidationResult> {
+export async function applyCoupon(code: string, product: ProductType = 'course'): Promise<CouponValidationResult> {
   const locked = await acquireLock();
   if (!locked) {
     return { valid: false, error: 'System busy, please try again', errorCode: 'INVALID_CODE' };
@@ -105,7 +109,7 @@ export async function applyCoupon(code: string): Promise<CouponValidationResult>
 
   try {
     // Validate first
-    const validation = await validateCoupon(code);
+    const validation = await validateCoupon(code, product);
     if (!validation.valid) {
       return validation;
     }
@@ -233,4 +237,14 @@ function generateId(): string {
 // Get course price (for external use)
 export function getCoursePrice(): number {
   return COURSE_PRICE;
+}
+
+// Get book price (for external use)
+export function getBookPrice(): number {
+  return BOOK_PRICE;
+}
+
+// Get price by product type
+export function getProductPrice(product: ProductType): number {
+  return product === 'book' ? BOOK_PRICE : COURSE_PRICE;
 }

@@ -22,6 +22,27 @@ const nextConfig: NextConfig = {
         destination: 'https://www.neshatamar.com/:path*',
         permanent: true,
       },
+      // Redirect old course-purchase URLs to new purchase URLs
+      {
+        source: '/:locale/course-purchase',
+        destination: '/:locale/purchase?product=course',
+        permanent: true,
+      },
+      {
+        source: '/:locale/course-purchase/success',
+        destination: '/:locale/purchase/success',
+        permanent: true,
+      },
+      {
+        source: '/:locale/course-purchase/error',
+        destination: '/:locale/purchase/error',
+        permanent: true,
+      },
+      {
+        source: '/:locale/course-purchase/pending',
+        destination: '/:locale/purchase/pending',
+        permanent: true,
+      },
     ];
   },
 };

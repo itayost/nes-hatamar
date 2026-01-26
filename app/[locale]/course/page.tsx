@@ -346,9 +346,7 @@ export default async function CoursePage({ params }: { params: Promise<{ locale:
               </div>
 
               <Link
-                href="https://headstart.co.il/project/87579"
-                target="_blank"
-                rel="noopener noreferrer"
+                href={`/${locale}/purchase?product=course`}
                 className="group btn-sacred-primary inline-flex items-center justify-center gap-3 px-12 py-5 bg-gradient-to-r from-gold via-gold to-gold-light text-white font-bold text-xl shadow-xl hover:shadow-2xl hover:shadow-gold/50 transition-all duration-300 hover:-translate-y-1 active:scale-[0.98]"
               >
                 <span className="relative z-10 flex items-center gap-3">

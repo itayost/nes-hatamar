@@ -10,16 +10,16 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'coursePurchase' });
+  const t = await getTranslations({ locale, namespace: 'purchase' });
 
   return generatePageMetadata(locale, {
-    title: t('error.title'),
-    description: t('error.subtitle'),
-    path: 'course-purchase/error',
+    title: t('errorPage.title'),
+    description: t('errorPage.subtitle'),
+    path: 'purchase/error',
   });
 }
 
-export default async function CoursePurchaseErrorPage({
+export default async function PurchaseErrorPage({
   params,
   searchParams
 }: {
@@ -28,7 +28,7 @@ export default async function CoursePurchaseErrorPage({
 }) {
   const { locale } = await params;
   const { orderId } = await searchParams;
-  const t = await getTranslations('coursePurchase');
+  const t = await getTranslations('purchase');
 
   return (
     <section className="py-20 px-4">
@@ -60,10 +60,10 @@ export default async function CoursePurchaseErrorPage({
               </svg>
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-dark font-serif mb-4">
-              {t('error.title')}
+              {t('errorPage.title')}
             </h1>
             <p className="text-lg text-dark/70">
-              {t('error.subtitle')}
+              {t('errorPage.subtitle')}
             </p>
           </div>
 
@@ -71,7 +71,7 @@ export default async function CoursePurchaseErrorPage({
           <div className="bg-white rounded-2xl shadow-lg border-2 border-gold/20 p-8 text-center mb-8">
             {orderId && (
               <div className="mb-6 pb-6 border-b border-gold/20">
-                <p className="text-sm text-dark/60 mb-1">{t('error.orderIdLabel')}</p>
+                <p className="text-sm text-dark/60 mb-1">{t('errorPage.orderIdLabel')}</p>
                 <p className="text-xl font-mono font-bold text-dark/70">{orderId}</p>
               </div>
             )}
@@ -81,36 +81,36 @@ export default async function CoursePurchaseErrorPage({
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <span className="font-medium">{t('error.paymentFailed')}</span>
+                <span className="font-medium">{t('errorPage.paymentFailed')}</span>
               </div>
             </div>
 
             <p className="text-dark/80 mb-6 leading-relaxed">
-              {t('error.description')}
+              {t('errorPage.description')}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
               <Link
-                href={`/${locale}/course-purchase`}
+                href={`/${locale}/purchase`}
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-gold to-gold-light text-white font-semibold rounded-xl hover:opacity-90 transition-opacity"
               >
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                 </svg>
-                <span>{t('error.tryAgain')}</span>
+                <span>{t('errorPage.tryAgain')}</span>
               </Link>
 
               <Link
                 href={`/${locale}`}
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-gold/30 text-dark font-semibold rounded-xl hover:bg-gold/5 transition-colors"
               >
-                <span>{t('error.backToHome')}</span>
+                <span>{t('errorPage.backToHome')}</span>
               </Link>
             </div>
 
             <div className="bg-gold/5 rounded-xl p-4">
               <p className="text-sm text-dark/70 mb-2">
-                {t('error.contactInfo')}
+                {t('errorPage.contactInfo')}
               </p>
               <div className="flex flex-col sm:flex-row gap-2 justify-center">
                 <a

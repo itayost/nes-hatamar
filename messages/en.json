@@ -203,13 +203,15 @@
   "purchase": {
     "title": "Order Nes HaTamar",
     "subtitle": "Secure your copy today",
-    "headstartCta": {
-      "button": "Order at Special Price",
-      "description": "Early sale continues! Order at a special price until the books arrive from Italy"
+    "backToHome": "Back to Home",
+    "orderSummary": {
+      "title": "Order Details"
     },
     "bookInfo": {
       "title": "Premium Edition",
-      "price": "Contact for Price",
+      "productName": "Nes HaTamar - Premium Edition",
+      "productDescription": "A luxurious 700+ page book on homeopathy and Torah wisdom",
+      "price": "₪550",
       "details": {
         "binding": "Hardcover with gold embossing",
         "pages": "700+ pages",
@@ -217,15 +219,39 @@
         "language": "Hebrew"
       }
     },
+    "course": {
+      "title": "Register for Introduction to Homeopathy Course",
+      "subtitle": "Join the fascinating course with Tamar Eshel",
+      "metaTitle": "Register for Introduction to Homeopathy Course",
+      "metaDescription": "Register for the Introduction to Homeopathy course with Tamar Eshel - 8 sessions + Nes HaTamar book",
+      "backToCourse": "Back to Course Page",
+      "includes": "What's Included in the Course"
+    },
     "form": {
-      "title": "Order Form",
-      "subtitle": "Fill out the form and we'll contact you within 24 hours",
+      "title": "Order & Payment Details",
       "name": "Full Name",
+      "namePlaceholder": "Enter your full name",
       "email": "Email",
+      "emailPlaceholder": "example@email.com",
       "phone": "Phone",
-      "quantity": "Quantity",
-      "message": "Message (optional)",
-      "submit": "Submit Order"
+      "phonePlaceholder": "05X-XXXXXXX",
+      "phoneInvalid": "Invalid phone number",
+      "couponCode": "Coupon Code",
+      "couponPlaceholder": "Enter coupon code",
+      "applyCoupon": "Apply",
+      "couponApplied": "Coupon applied! {discount} discount",
+      "couponInvalid": "Invalid coupon code",
+      "couponError": "Error validating coupon",
+      "submit": "Proceed to Payment",
+      "processing": "Processing...",
+      "submitError": "An error occurred. Please try again.",
+      "securePayment": "Secure and encrypted payment"
+    },
+    "summary": {
+      "bookPrice": "Book Price",
+      "coursePrice": "Course Price",
+      "discount": "Discount",
+      "total": "Total"
     },
     "whatsIncluded": {
       "title": "What's Included",
@@ -237,10 +263,29 @@
     "trust": {
       "secure": "Secure Payment",
       "shipping": "Fast Shipping",
-      "support": "Dedicated Support"
+      "support": "Dedicated Support",
+      "cards": "All Credit Cards Accepted"
     },
     "success": "Order sent successfully! We will contact you soon.",
-    "error": "An error occurred. Please try again."
+    "error": "An error occurred. Please try again.",
+    "pending": {
+      "title": "Order Received!",
+      "subtitle": "Thank you for your order",
+      "orderIdLabel": "Order Number",
+      "description": "We have received your order successfully. You will receive a confirmation email shortly with all the details.",
+      "contactInfo": "For questions, please contact:",
+      "backToHome": "Back to Home"
+    },
+    "errorPage": {
+      "title": "Payment Failed",
+      "subtitle": "Something went wrong with the payment",
+      "orderIdLabel": "Order Number",
+      "paymentFailed": "Payment was not completed",
+      "description": "The payment was not completed. This can happen for various reasons. Please try again or contact us for assistance.",
+      "tryAgain": "Try Again",
+      "backToHome": "Back to Home",
+      "contactInfo": "For assistance, please contact:"
+    }
   },
   "course": {
     "title": "Introduction to Homeopathy Course",
@@ -324,7 +369,7 @@
     "cta": {
       "title": "Join the Course",
       "subtitle": "A rare opportunity to learn homeopathy from its roots with Tamar Eshel",
-      "button": "Register via Headstart",
+      "button": "Register for Course",
       "trust": {
         "includes": "Book Included",
         "expert": "Expert Teacher",

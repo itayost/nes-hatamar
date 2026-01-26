@@ -10,16 +10,16 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'coursePurchase' });
+  const t = await getTranslations({ locale, namespace: 'purchase' });
 
   return generatePageMetadata(locale, {
     title: t('pending.title'),
     description: t('pending.subtitle'),
-    path: 'course-purchase/pending',
+    path: 'purchase/success',
   });
 }
 
-export default async function CoursePurchasePendingPage({
+export default async function PurchaseSuccessPage({
   params,
   searchParams
 }: {
@@ -28,7 +28,7 @@ export default async function CoursePurchasePendingPage({
 }) {
   const { locale } = await params;
   const { orderId } = await searchParams;
-  const t = await getTranslations('coursePurchase');
+  const t = await getTranslations('purchase');
 
   return (
     <section className="py-20 px-4">
@@ -75,6 +75,15 @@ export default async function CoursePurchasePendingPage({
                 <p className="text-xl font-mono font-bold text-gold">{orderId}</p>
               </div>
             )}
+
+            <div className="bg-green-50 rounded-xl p-4 mb-6">
+              <div className="flex items-center justify-center gap-2 text-green-700">
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span className="font-medium">{t('pending.title')}</span>
+              </div>
+            </div>
 
             <p className="text-dark/80 mb-6 leading-relaxed">
               {t('pending.description')}

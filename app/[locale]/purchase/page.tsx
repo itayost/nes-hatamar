@@ -1,163 +1,222 @@
 import { getTranslations } from 'next-intl/server';
 import { Metadata } from 'next';
+import Link from 'next/link';
 import CornerOrnament from '@/components/ornaments/CornerOrnament';
-import Divider from '@/components/ornaments/Divider';
 import AnimateOnScroll from '@/components/AnimateOnScroll';
-import HeadstartEmbed from '@/components/HeadstartEmbed';
+import PurchaseForm from '@/components/PurchaseForm';
 import { generatePageMetadata } from '@/lib/og-metadata';
-import { MailIcon, StarIcon, ArrowRightIcon } from '@/components/icons/Icons';
+import { CheckCircleIcon, ArrowRightIcon, BookIcon, CalendarIcon, ClockIcon, MailIcon, StarIcon } from '@/components/icons/Icons';
+
+const BOOK_PRICE = 550;
+const COURSE_PRICE = 1600;
+
+type ProductType = 'book' | 'course';
 
 export async function generateMetadata({
-  params
+  params,
+  searchParams
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ product?: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  const { product } = await searchParams;
+  const productType: ProductType = product === 'course' ? 'course' : 'book';
+
   const t = await getTranslations({ locale, namespace: 'purchase' });
 
   return generatePageMetadata(locale, {
-    title: `${t('title')} | נס התמר - Nes HaTamar`,
-    description: t('subtitle'),
-    path: '/purchase',
+    title: productType === 'course'
+      ? `${t('course.metaTitle')} | נס התמר - Nes HaTamar`
+      : `${t('title')} | נס התמר - Nes HaTamar`,
+    description: productType === 'course' ? t('course.metaDescription') : t('subtitle'),
+    path: `/purchase${productType === 'course' ? '?product=course' : ''}`,
   });
 }
 
-export default async function PurchasePage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function PurchasePage({
+  params,
+  searchParams
+}: {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<{ product?: string }>;
+}) {
   const { locale } = await params;
+  const { product } = await searchParams;
+  const productType: ProductType = product === 'course' ? 'course' : 'book';
+  const basePrice = productType === 'course' ? COURSE_PRICE : BOOK_PRICE;
+
   const t = await getTranslations('purchase');
+  const tCourse = await getTranslations('course');
 
   return (
     <div className="min-h-screen bg-cream">
-      {/* Section 1: Hero - Directive and Clear */}
+      {/* Hero Section */}
       <section className="relative bg-gradient-to-b from-white to-cream py-16 sm:py-20 overflow-hidden">
         <CornerOrnament position="top-left" size="lg" />
         <CornerOrnament position="top-right" size="lg" />
 
-        <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl text-center">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent mb-4 animate-fadeIn">
-            {t('title')}
-          </h1>
-          <p className="text-xl sm:text-2xl text-dark/70 font-semibold animate-fadeIn delay-100">
-            {t('subtitle')}
-          </p>
-        </div>
-      </section>
-
-      <Divider />
-
-      {/* Section 2: Headstart Crowdfunding Embed */}
-      <section className="relative py-16 sm:py-20">
-        <div className="w-full mx-auto px-10 sm:px-8 lg:px-12 max-w-6xl">
+        <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-6xl">
           <AnimateOnScroll animation="slideUp">
-            <HeadstartEmbed locale={locale} size="default" />
-          </AnimateOnScroll>
-
-          {/* Call-to-Action Button */}
-          <AnimateOnScroll animation="scaleIn">
-            <div className="mt-12 text-center">
-              <p className="text-dark/70 text-lg mb-6">
-                {t('headstartCta.description')}
+            <div className="text-center space-y-4 mb-8">
+              {productType === 'course' ? (
+                <Link
+                  href={`/${locale}/course`}
+                  className="inline-flex items-center gap-2 text-gold hover:text-gold-light transition-colors text-sm"
+                >
+                  <ArrowRightIcon size={16} className="rotate-180" />
+                  {t('course.backToCourse')}
+                </Link>
+              ) : (
+                <Link
+                  href={`/${locale}`}
+                  className="inline-flex items-center gap-2 text-gold hover:text-gold-light transition-colors text-sm"
+                >
+                  <ArrowRightIcon size={16} className="rotate-180" />
+                  {t('backToHome')}
+                </Link>
+              )}
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent">
+                {productType === 'course' ? t('course.title') : t('title')}
+              </h1>
+              <p className="text-lg sm:text-xl text-dark/70 max-w-2xl mx-auto">
+                {productType === 'course' ? t('course.subtitle') : t('subtitle')}
               </p>
-              <a
-                href="https://headstart.co.il/project/87579"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group btn-sacred-primary inline-flex items-center justify-center px-12 py-5 bg-gradient-to-r from-gold via-gold to-gold-light text-white font-bold text-xl overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-gold/50 transition-all duration-300 hover:-translate-y-1 active:scale-[0.98]"
-              >
-                <span className="relative z-10 flex items-center gap-3">
-                  {t('headstartCta.button')}
-                  <ArrowRightIcon size={24} className="transform group-hover:translate-x-1 transition-transform" />
-                </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-              </a>
             </div>
           </AnimateOnScroll>
         </div>
       </section>
 
-      {/* Section 3: What's Included (Brief) */}
-      <section className="relative py-16 sm:py-20 bg-gradient-to-b from-cream to-white">
-        <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-5xl">
-          <AnimateOnScroll animation="slideUp">
-            <h2 className="text-3xl sm:text-4xl font-bold text-center bg-gradient-to-r from-gold to-gold-light bg-clip-text text-transparent mb-12">
-              {t('whatsIncluded.title')}
-            </h2>
-          </AnimateOnScroll>
+      {/* Main Content */}
+      <section className="relative py-12 sm:py-16">
+        <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-6xl">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
+            {/* Order Summary */}
+            <AnimateOnScroll animation="slideInRight">
+              <div className="space-y-6">
+                {/* Product Info Card */}
+                <div className="bg-white/60 backdrop-blur-sm p-8 rounded-2xl border-2 border-gold/20 shadow-lg">
+                  <h2 className="text-2xl font-bold text-gold mb-6">{t('orderSummary.title')}</h2>
 
-          <div className="grid sm:grid-cols-2 gap-6">
-            {/* Included Item 1 */}
-            <AnimateOnScroll animation="slideUp">
-              <div className="flex items-start gap-4 bg-white/60 backdrop-blur-sm p-6 rounded-2xl border-2 border-gold/20">
-                <div className="w-10 h-10 bg-gold/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                  <span className="text-gold text-xl font-bold">✓</span>
+                  <div className="space-y-4 mb-8">
+                    <div className="flex items-start gap-4 p-4 bg-gold/5 rounded-xl">
+                      <BookIcon size={24} className="text-gold flex-shrink-0 mt-1" />
+                      <div>
+                        {productType === 'course' ? (
+                          <>
+                            <h3 className="font-bold text-dark">{tCourse('title')}</h3>
+                            <p className="text-sm text-dark/70 mt-1">{tCourse('subtitle')}</p>
+                          </>
+                        ) : (
+                          <>
+                            <h3 className="font-bold text-dark">{t('bookInfo.productName')}</h3>
+                            <p className="text-sm text-dark/70 mt-1">{t('bookInfo.productDescription')}</p>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Product Details */}
+                  {productType === 'course' ? (
+                    <div className="space-y-3 text-sm">
+                      <div className="flex items-center gap-3 text-dark/70">
+                        <CalendarIcon size={18} className="text-gold" />
+                        <span>{tCourse('details.duration.value')}</span>
+                      </div>
+                      <div className="flex items-center gap-3 text-dark/70">
+                        <ClockIcon size={18} className="text-gold" />
+                        <span>{tCourse('details.schedule.value')}</span>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="space-y-3 text-sm">
+                      <div className="flex items-center gap-3 text-dark/70">
+                        <BookIcon size={18} className="text-gold" />
+                        <span>{t('bookInfo.details.binding')}</span>
+                      </div>
+                      <div className="flex items-center gap-3 text-dark/70">
+                        <span className="w-[18px] text-center text-gold font-bold">+</span>
+                        <span>{t('bookInfo.details.pages')}</span>
+                      </div>
+                      <div className="flex items-center gap-3 text-dark/70">
+                        <span className="w-[18px] text-center text-gold font-bold">✦</span>
+                        <span>{t('bookInfo.details.features')}</span>
+                      </div>
+                    </div>
+                  )}
                 </div>
-                <p className="text-dark/80 leading-relaxed">{t('whatsIncluded.book')}</p>
+
+                {/* What's Included */}
+                <div className="bg-white/60 backdrop-blur-sm p-8 rounded-2xl border-2 border-gold/20 shadow-lg">
+                  <h3 className="text-lg font-bold text-gold mb-4">
+                    {productType === 'course' ? t('course.includes') : t('whatsIncluded.title')}
+                  </h3>
+                  <div className="space-y-3">
+                    {productType === 'course' ? (
+                      <>
+                        <div className="flex items-start gap-3">
+                          <CheckCircleIcon size={20} className="text-gold flex-shrink-0 mt-0.5" />
+                          <span className="text-dark/80">{tCourse('receive.items.course.title')}</span>
+                        </div>
+                        <div className="flex items-start gap-3">
+                          <CheckCircleIcon size={20} className="text-gold flex-shrink-0 mt-0.5" />
+                          <span className="text-dark/80">{tCourse('receive.items.book.title')}</span>
+                        </div>
+                        <div className="flex items-start gap-3">
+                          <CheckCircleIcon size={20} className="text-gold flex-shrink-0 mt-0.5" />
+                          <span className="text-dark/80">{tCourse('receive.items.knowledge.title')}</span>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="flex items-start gap-3">
+                          <CheckCircleIcon size={20} className="text-gold flex-shrink-0 mt-0.5" />
+                          <span className="text-dark/80">{t('whatsIncluded.book')}</span>
+                        </div>
+                        <div className="flex items-start gap-3">
+                          <CheckCircleIcon size={20} className="text-gold flex-shrink-0 mt-0.5" />
+                          <span className="text-dark/80">{t('whatsIncluded.artwork')}</span>
+                        </div>
+                        <div className="flex items-start gap-3">
+                          <CheckCircleIcon size={20} className="text-gold flex-shrink-0 mt-0.5" />
+                          <span className="text-dark/80">{t('whatsIncluded.pages')}</span>
+                        </div>
+                        <div className="flex items-start gap-3">
+                          <CheckCircleIcon size={20} className="text-gold flex-shrink-0 mt-0.5" />
+                          <span className="text-dark/80">{t('whatsIncluded.quality')}</span>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+
+                {/* Trust Badges */}
+                <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+                  <div className="flex items-center gap-2 text-sm text-dark/60">
+                    <svg className="w-5 h-5 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                    {t('trust.secure')}
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-dark/60">
+                    <svg className="w-5 h-5 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                    </svg>
+                    {t('trust.cards')}
+                  </div>
+                </div>
               </div>
             </AnimateOnScroll>
 
-            {/* Included Item 2 */}
-            <AnimateOnScroll animation="slideUp">
-              <div className="flex items-start gap-4 bg-white/60 backdrop-blur-sm p-6 rounded-2xl border-2 border-gold/20">
-                <div className="w-10 h-10 bg-gold/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                  <span className="text-gold text-xl font-bold">✓</span>
-                </div>
-                <p className="text-dark/80 leading-relaxed">{t('whatsIncluded.pages')}</p>
-              </div>
-            </AnimateOnScroll>
-
-            {/* Included Item 3 */}
-            <AnimateOnScroll animation="slideUp">
-              <div className="flex items-start gap-4 bg-white/60 backdrop-blur-sm p-6 rounded-2xl border-2 border-gold/20">
-                <div className="w-10 h-10 bg-gold/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                  <span className="text-gold text-xl font-bold">✓</span>
-                </div>
-                <p className="text-dark/80 leading-relaxed">{t('whatsIncluded.artwork')}</p>
-              </div>
-            </AnimateOnScroll>
-
-            {/* Included Item 4 */}
-            <AnimateOnScroll animation="slideUp">
-              <div className="flex items-start gap-4 bg-white/60 backdrop-blur-sm p-6 rounded-2xl border-2 border-gold/20">
-                <div className="w-10 h-10 bg-gold/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                  <span className="text-gold text-xl font-bold">✓</span>
-                </div>
-                <p className="text-dark/80 leading-relaxed">{t('whatsIncluded.quality')}</p>
+            {/* Purchase Form */}
+            <AnimateOnScroll animation="slideInLeft">
+              <div className="bg-white rounded-2xl shadow-xl border-2 border-gold/20 p-8 lg:sticky lg:top-8">
+                <h2 className="text-2xl font-bold text-gold mb-6">{t('form.title')}</h2>
+                <PurchaseForm product={productType} basePrice={basePrice} />
               </div>
             </AnimateOnScroll>
           </div>
-        </div>
-      </section>
-
-      {/* Section 4: Trust Bar */}
-      <section className="relative py-12 bg-white border-y-2 border-gold/10">
-        <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-6xl">
-          <AnimateOnScroll animation="slideUp">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-12 text-center">
-              {/* Trust 1: Secure Payment */}
-              <div className="flex flex-col items-center gap-3">
-                <div className="w-14 h-14 bg-gold/10 rounded-full flex items-center justify-center">
-                  <StarIcon size={32} className="text-gold" />
-                </div>
-                <h3 className="font-bold text-gold text-lg">{t('trust.secure')}</h3>
-              </div>
-
-              {/* Trust 2: Fast Shipping */}
-              <div className="flex flex-col items-center gap-3">
-                <div className="w-14 h-14 bg-gold/10 rounded-full flex items-center justify-center">
-                  <ArrowRightIcon size={32} className="text-gold" />
-                </div>
-                <h3 className="font-bold text-gold text-lg">{t('trust.shipping')}</h3>
-              </div>
-
-              {/* Trust 3: Dedicated Support */}
-              <div className="flex flex-col items-center gap-3">
-                <div className="w-14 h-14 bg-gold/10 rounded-full flex items-center justify-center">
-                  <MailIcon size={32} className="text-gold" />
-                </div>
-                <h3 className="font-bold text-gold text-lg">{t('trust.support')}</h3>
-              </div>
-            </div>
-          </AnimateOnScroll>
         </div>
       </section>
 
