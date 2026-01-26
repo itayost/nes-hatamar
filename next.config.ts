@@ -22,6 +22,17 @@ const nextConfig: NextConfig = {
         destination: 'https://www.neshatamar.com/:path*',
         permanent: true,
       },
+      // Redirect old admin URLs to new admin
+      {
+        source: '/admin-nes-hatamar-2025',
+        destination: '/admin',
+        permanent: true,
+      },
+      {
+        source: '/admin-nes-hatamar-2025/:path*',
+        destination: '/admin/:path*',
+        permanent: true,
+      },
       // Redirect old course-purchase URLs to new purchase URLs
       {
         source: '/:locale/course-purchase',
