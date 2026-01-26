@@ -73,7 +73,7 @@ export async function createPaymePayment(order: OrderData): Promise<PaymePayment
     currency: 'ILS',
     product_name: productName,
     transaction_id: order.id,
-    sale_return_url: `${siteUrl}/he/purchase/success?orderId=${order.id}`,
+    sale_return_url: `${siteUrl}/he/purchase/success`,
     sale_callback_url: `${siteUrl}/api/payme-webhook`,
     language: 'he',
     sale_type: 'sale',
