@@ -7,8 +7,8 @@ const AUTH_FILE = path.join(process.cwd(), 'data', 'admin-auth.json');
 const SESSION_COOKIE_NAME = 'nes_admin_session';
 const SESSION_EXPIRY = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
-// Admin secret path - change this to a random string in production
-export const ADMIN_SECRET_PATH = 'admin-nes-hatamar-2025';
+// Admin secret path
+export const ADMIN_SECRET_PATH = 'admin';
 
 interface AuthData {
   passwordHash: string;
@@ -21,7 +21,7 @@ async function readAuthData(): Promise<AuthData> {
     return JSON.parse(data);
   } catch {
     // Create default auth file if it doesn't exist
-    const defaultHash = await bcrypt.hash('admin123', 10); // Default password - CHANGE IN PRODUCTION
+    const defaultHash = await bcrypt.hash('Tamar@1974', 10);
     const defaultData: AuthData = {
       passwordHash: defaultHash,
       sessions: {},
