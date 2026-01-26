@@ -79,22 +79,6 @@ export default async function PreviewPage({ params }: { params: Promise<{ locale
         <div className="absolute bottom-1/4 right-10 text-gold/5 text-7xl pointer-events-none -rotate-45">✦</div>
 
         <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl">
-          {/* Section Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gold mb-4">
-              {tHome('whatsInside.title')}
-            </h2>
-            <p className="text-xl text-dark/70 max-w-3xl mx-auto">
-              {tHome('whatsInside.subtitle')}
-            </p>
-            {/* Decorative underline */}
-            <div className="flex justify-center items-center gap-3 mt-6">
-              <div className="h-px w-20 bg-gradient-to-r from-transparent to-gold"></div>
-              <div className="text-gold text-2xl">✦</div>
-              <div className="h-px w-20 bg-gradient-to-l from-transparent to-gold"></div>
-            </div>
-          </div>
-
           {/* Content Grid - 2x3 */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Item 1 - Torah Sources */}
