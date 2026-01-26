@@ -1,66 +1,71 @@
 import { cookies } from 'next/headers';
-import bcrypt from 'bcryptjs';
-import { promises as fs } from 'fs';
-import path from 'path';
+import { createHmac, timingSafeEqual } from 'crypto';
 
-const AUTH_FILE = path.join(process.cwd(), 'data', 'admin-auth.json');
 const SESSION_COOKIE_NAME = 'nes_admin_session';
 const SESSION_EXPIRY = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
 // Admin secret path
 export const ADMIN_SECRET_PATH = 'admin';
 
-interface AuthData {
-  passwordHash: string;
-  sessions: { [token: string]: number }; // token -> expiry timestamp
+// Get the admin password from environment variable
+function getAdminPassword(): string {
+  return process.env.ADMIN_PASSWORD || 'Tamar@1974';
 }
 
-async function readAuthData(): Promise<AuthData> {
+// Get the session secret for signing cookies
+function getSessionSecret(): string {
+  return process.env.SESSION_SECRET || 'nes-hatamar-admin-secret-key-2024';
+}
+
+// Sign a value with HMAC
+function signValue(value: string): string {
+  const secret = getSessionSecret();
+  const hmac = createHmac('sha256', secret);
+  hmac.update(value);
+  return hmac.digest('hex');
+}
+
+// Create a signed session token
+function createSessionToken(): string {
+  const expiry = Date.now() + SESSION_EXPIRY;
+  const data = `admin:${expiry}`;
+  const signature = signValue(data);
+  return `${data}:${signature}`;
+}
+
+// Verify and parse a session token
+function verifySessionToken(token: string): { valid: boolean; expiry?: number } {
   try {
-    const data = await fs.readFile(AUTH_FILE, 'utf-8');
-    return JSON.parse(data);
-  } catch {
-    // Create default auth file if it doesn't exist
-    const defaultHash = await bcrypt.hash('Tamar@1974', 10);
-    const defaultData: AuthData = {
-      passwordHash: defaultHash,
-      sessions: {},
-    };
-    await writeAuthData(defaultData);
-    return defaultData;
-  }
-}
-
-async function writeAuthData(data: AuthData): Promise<void> {
-  const jsonData = JSON.stringify(data, null, 2);
-  const tempFile = `${AUTH_FILE}.tmp`;
-  await fs.writeFile(tempFile, jsonData, 'utf-8');
-  await fs.rename(tempFile, AUTH_FILE);
-}
-
-// Generate a secure random token
-function generateToken(): string {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let token = '';
-  for (let i = 0; i < 64; i++) {
-    token += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return token;
-}
-
-// Clean expired sessions
-async function cleanExpiredSessions(authData: AuthData): Promise<AuthData> {
-  const now = Date.now();
-  const validSessions: { [token: string]: number } = {};
-
-  for (const [token, expiry] of Object.entries(authData.sessions)) {
-    if (expiry > now) {
-      validSessions[token] = expiry;
+    const parts = token.split(':');
+    if (parts.length !== 3) {
+      return { valid: false };
     }
-  }
 
-  authData.sessions = validSessions;
-  return authData;
+    const [role, expiryStr, signature] = parts;
+    const data = `${role}:${expiryStr}`;
+    const expectedSignature = signValue(data);
+
+    // Use timing-safe comparison to prevent timing attacks
+    const signatureBuffer = Buffer.from(signature, 'hex');
+    const expectedBuffer = Buffer.from(expectedSignature, 'hex');
+
+    if (signatureBuffer.length !== expectedBuffer.length) {
+      return { valid: false };
+    }
+
+    if (!timingSafeEqual(signatureBuffer, expectedBuffer)) {
+      return { valid: false };
+    }
+
+    const expiry = parseInt(expiryStr, 10);
+    if (isNaN(expiry) || expiry < Date.now()) {
+      return { valid: false };
+    }
+
+    return { valid: true, expiry };
+  } catch {
+    return { valid: false };
+  }
 }
 
 // Verify password and create session
@@ -69,21 +74,23 @@ export async function login(password: string): Promise<{ success: boolean; error
     return { success: false, error: 'Password is required' };
   }
 
-  const authData = await readAuthData();
-  const isValid = await bcrypt.compare(password, authData.passwordHash);
+  const adminPassword = getAdminPassword();
+
+  // Simple password comparison (use timing-safe for security)
+  const passwordBuffer = Buffer.from(password);
+  const adminBuffer = Buffer.from(adminPassword);
+
+  let isValid = false;
+  if (passwordBuffer.length === adminBuffer.length) {
+    isValid = timingSafeEqual(passwordBuffer, adminBuffer);
+  }
 
   if (!isValid) {
     return { success: false, error: 'Invalid password' };
   }
 
-  // Generate session token
-  const token = generateToken();
-  const expiry = Date.now() + SESSION_EXPIRY;
-
-  // Clean expired sessions and add new one
-  const cleanedData = await cleanExpiredSessions(authData);
-  cleanedData.sessions[token] = expiry;
-  await writeAuthData(cleanedData);
+  // Generate signed session token
+  const token = createSessionToken();
 
   // Set cookie
   const cookieStore = await cookies();
@@ -101,17 +108,7 @@ export async function login(password: string): Promise<{ success: boolean; error
 // Logout - clear session
 export async function logout(): Promise<void> {
   const cookieStore = await cookies();
-  const token = cookieStore.get(SESSION_COOKIE_NAME)?.value;
-
-  if (token) {
-    // Remove session from storage
-    const authData = await readAuthData();
-    delete authData.sessions[token];
-    await writeAuthData(authData);
-
-    // Clear cookie
-    cookieStore.delete(SESSION_COOKIE_NAME);
-  }
+  cookieStore.delete(SESSION_COOKIE_NAME);
 }
 
 // Check if current request has valid session
@@ -124,38 +121,21 @@ export async function isAuthenticated(): Promise<boolean> {
       return false;
     }
 
-    const authData = await readAuthData();
-    const expiry = authData.sessions[token];
-
-    if (!expiry || expiry < Date.now()) {
-      // Session expired or doesn't exist
-      return false;
-    }
-
-    return true;
+    const { valid } = verifySessionToken(token);
+    return valid;
   } catch {
     return false;
   }
 }
 
-// Change admin password
-export async function changePassword(currentPassword: string, newPassword: string): Promise<{ success: boolean; error?: string }> {
-  if (!newPassword || newPassword.length < 8) {
-    return { success: false, error: 'New password must be at least 8 characters' };
-  }
-
-  const authData = await readAuthData();
-  const isValid = await bcrypt.compare(currentPassword, authData.passwordHash);
-
-  if (!isValid) {
-    return { success: false, error: 'Current password is incorrect' };
-  }
-
-  // Hash new password and update
-  authData.passwordHash = await bcrypt.hash(newPassword, 10);
-  // Clear all sessions for security
-  authData.sessions = {};
-  await writeAuthData(authData);
-
-  return { success: true };
+// Change admin password - not supported without database
+// Password should be changed via environment variable
+export async function changePassword(
+  _currentPassword: string,
+  _newPassword: string
+): Promise<{ success: boolean; error?: string }> {
+  return {
+    success: false,
+    error: 'Password change not supported. Update ADMIN_PASSWORD environment variable in Vercel.',
+  };
 }
