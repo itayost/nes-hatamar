@@ -86,13 +86,6 @@ export async function createPaymePayment(order: OrderData): Promise<PaymePayment
   try {
     const apiUrl = getPaymeApiUrl();
 
-    console.log('PayMe Request:', {
-      apiUrl: `${apiUrl}/generate-sale`,
-      sale_return_url: requestBody.sale_return_url,
-      sale_callback_url: requestBody.sale_callback_url,
-      seller_payme_id: sellerId ? `${sellerId.substring(0, 10)}...` : 'NOT SET',
-    });
-
     const response = await fetch(`${apiUrl}/generate-sale`, {
       method: 'POST',
       headers: {
@@ -103,13 +96,6 @@ export async function createPaymePayment(order: OrderData): Promise<PaymePayment
 
     const data: PaymeGenerateSaleResponse = await response.json();
 
-    console.log('PayMe Response:', {
-      status_code: data.status_code,
-      status_error_code: data.status_error_code,
-      status_error_details: data.status_error_details,
-      sale_url: data.sale_url ? 'present' : 'missing',
-    });
-
     if (data.status_code === 0 && data.sale_url) {
       console.log(`PayMe payment created: ${data.payme_sale_id} for order ${order.id}`);
 
@@ -119,7 +105,7 @@ export async function createPaymePayment(order: OrderData): Promise<PaymePayment
         paymeSaleId: data.payme_sale_id,
       };
     } else {
-      console.error('PayMe error:', data.status_error_details || 'Unknown error', 'Code:', data.status_error_code);
+      console.error('PayMe error:', data.status_error_details || 'Unknown error');
 
       return {
         success: false,
