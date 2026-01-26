@@ -332,6 +332,71 @@
       }
     }
   },
+  "coursePurchase": {
+    "title": "Course Registration",
+    "subtitle": "Fill in your details to register for the Introduction to Homeopathy course",
+    "backToCourse": "Back to course page",
+    "orderSummary": {
+      "title": "Order Summary",
+      "includes": "What's included in the course"
+    },
+    "trust": {
+      "secure": "Secure payment",
+      "cards": "All credit cards accepted"
+    },
+    "form": {
+      "title": "Payment Details",
+      "name": "Full Name",
+      "namePlaceholder": "Enter your full name",
+      "email": "Email",
+      "emailPlaceholder": "example@email.com",
+      "phone": "Mobile Phone",
+      "phonePlaceholder": "050-1234567",
+      "phoneInvalid": "Invalid phone number (format: 05X-XXXXXXX)",
+      "couponCode": "Coupon Code",
+      "couponPlaceholder": "Enter coupon code",
+      "applyCoupon": "Apply",
+      "couponApplied": "Coupon applied! {discount} discount",
+      "couponInvalid": "Invalid coupon code",
+      "couponError": "Error validating coupon",
+      "submit": "Continue to Payment",
+      "processing": "Processing...",
+      "submitError": "An error occurred. Please try again.",
+      "securePayment": "Payment is secure and encrypted"
+    },
+    "summary": {
+      "coursePrice": "Course Price",
+      "discount": "Discount",
+      "total": "Total"
+    },
+    "success": {
+      "title": "Registration Completed Successfully!",
+      "subtitle": "Thank you for registering for the course",
+      "orderIdLabel": "Order Number",
+      "paymentConfirmed": "Payment received successfully",
+      "description": "You've received an email with registration details. We'll contact you soon with all the information about the course start.",
+      "contactInfo": "Have questions? Contact us:",
+      "backToHome": "Back to Home"
+    },
+    "error": {
+      "title": "Payment Issue",
+      "subtitle": "We couldn't process your payment",
+      "orderIdLabel": "Order Number",
+      "paymentFailed": "Payment was not completed",
+      "description": "The payment may have failed or there was a technical issue. Please try again or contact us.",
+      "tryAgain": "Try Again",
+      "backToHome": "Back to Home",
+      "contactInfo": "Need help? Contact us:"
+    },
+    "pending": {
+      "title": "Payment Under Review",
+      "subtitle": "Your order has been received and is being processed",
+      "orderIdLabel": "Order Number",
+      "description": "Your order has been received and is being reviewed. You'll receive an email once the payment is confirmed.",
+      "contactInfo": "Have questions? Contact us:",
+      "backToHome": "Back to Home"
+    }
+  },
   "contact": {
     "title": "Contact Us",
     "subtitle": "We'd love to hear from you and answer any questions",

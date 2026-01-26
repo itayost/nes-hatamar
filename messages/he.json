@@ -332,6 +332,71 @@
       }
     }
   },
+  "coursePurchase": {
+    "title": "הרשמה לקורס",
+    "subtitle": "מלאו את הפרטים להרשמה לקורס מבוא להומאופטיה",
+    "backToCourse": "חזרה לדף הקורס",
+    "orderSummary": {
+      "title": "סיכום הזמנה",
+      "includes": "מה כלול בקורס"
+    },
+    "trust": {
+      "secure": "תשלום מאובטח",
+      "cards": "כל כרטיסי האשראי"
+    },
+    "form": {
+      "title": "פרטי התשלום",
+      "name": "שם מלא",
+      "namePlaceholder": "הזינו את שמכם המלא",
+      "email": "דואר אלקטרוני",
+      "emailPlaceholder": "example@email.com",
+      "phone": "טלפון נייד",
+      "phonePlaceholder": "050-1234567",
+      "phoneInvalid": "מספר טלפון לא תקין (פורמט: 05X-XXXXXXX)",
+      "couponCode": "קוד קופון",
+      "couponPlaceholder": "הזינו קוד קופון",
+      "applyCoupon": "החל",
+      "couponApplied": "הקופון הוחל! הנחה של {discount}",
+      "couponInvalid": "קוד קופון לא תקף",
+      "couponError": "שגיאה בבדיקת הקופון",
+      "submit": "המשך לתשלום",
+      "processing": "מעבד...",
+      "submitError": "אירעה שגיאה. אנא נסו שוב.",
+      "securePayment": "התשלום מאובטח ומוצפן"
+    },
+    "summary": {
+      "coursePrice": "מחיר הקורס",
+      "discount": "הנחה",
+      "total": "סה״כ לתשלום"
+    },
+    "success": {
+      "title": "ההרשמה הושלמה בהצלחה!",
+      "subtitle": "תודה על הרשמתכם לקורס",
+      "orderIdLabel": "מספר הזמנה",
+      "paymentConfirmed": "התשלום התקבל בהצלחה",
+      "description": "קיבלתם מייל עם פרטי ההרשמה. ניצור איתכם קשר בקרוב עם כל הפרטים על תחילת הקורס.",
+      "contactInfo": "יש לכם שאלות? צרו קשר:",
+      "backToHome": "חזרה לדף הבית"
+    },
+    "error": {
+      "title": "הייתה בעיה בתשלום",
+      "subtitle": "לא הצלחנו לעבד את התשלום",
+      "orderIdLabel": "מספר הזמנה",
+      "paymentFailed": "התשלום לא הושלם",
+      "description": "יתכן שהתשלום נכשל או שהייתה בעיה טכנית. אנא נסו שוב או צרו איתנו קשר.",
+      "tryAgain": "נסו שוב",
+      "backToHome": "חזרה לדף הבית",
+      "contactInfo": "צריכים עזרה? צרו קשר:"
+    },
+    "pending": {
+      "title": "התשלום בבדיקה",
+      "subtitle": "ההזמנה התקבלה ומעובדת",
+      "orderIdLabel": "מספר הזמנה",
+      "description": "ההזמנה שלכם התקבלה ונמצאת בבדיקה. תקבלו מייל ברגע שהתשלום יאושר.",
+      "contactInfo": "יש לכם שאלות? צרו קשר:",
+      "backToHome": "חזרה לדף הבית"
+    }
+  },
   "contact": {
     "title": "צור קשר",
     "subtitle": "נשמח לשמוע ממך ולענות על כל שאלה",
