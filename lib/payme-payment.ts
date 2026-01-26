@@ -60,7 +60,7 @@ export async function createPaymePayment(order: OrderData): Promise<PaymePayment
     };
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.neshatamar.com';
 
   // PayMe expects price in agorot (cents) - multiply by 100
   const priceInAgorot = Math.round(order.finalPrice * 100);
