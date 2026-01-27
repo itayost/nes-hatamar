@@ -5,6 +5,7 @@ import { generateOrderEmailHTML, generateOrderSubject } from '@/lib/email-templa
 import { createPaymePayment } from '@/lib/payme-payment';
 import { CreateOrderInput, OrderData } from '@/types/order';
 import { isValidBookQuantity } from '@/lib/book-pricing';
+import { calculateShipping } from '@/lib/shipping-calculator';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -95,6 +96,27 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Valid Israeli phone number is required' }, { status: 400 });
     }
 
+    // Validate shipping address (books only)
+    if (input.product === 'book') {
+      if (!input.shippingAddress) {
+        return NextResponse.json({ error: 'Shipping address is required for book orders' }, { status: 400 });
+      }
+
+      const { street, city, postalCode } = input.shippingAddress;
+
+      if (!street || street.trim().length < 2) {
+        return NextResponse.json({ error: 'Valid street address is required (minimum 2 characters)' }, { status: 400 });
+      }
+
+      if (!city || city.trim().length < 2) {
+        return NextResponse.json({ error: 'Valid city is required (minimum 2 characters)' }, { status: 400 });
+      }
+
+      if (!postalCode || postalCode.trim().length < 5 || !/^\d{5,7}$/.test(postalCode.trim())) {
+        return NextResponse.json({ error: 'Valid postal code is required (5-7 digits)' }, { status: 400 });
+      }
+    }
+
     // Validate and extract quantity (for books only - fixed packages: 1, 2, 5, 10)
     let quantity = 1;
     if (product === 'book' && input.quantity) {
@@ -108,6 +130,7 @@ export async function POST(request: NextRequest) {
     let originalPrice = getProductPrice(product, quantity);
     let discountAmount = 0;
     let finalPrice = originalPrice;
+    let shippingCost = 0;
 
     if (input.couponCode) {
       const couponValidation = await validateCoupon(input.couponCode, product, quantity);
@@ -125,6 +148,13 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // Add shipping cost (books only, after discount)
+    if (product === 'book') {
+      const shipping = calculateShipping(quantity);
+      shippingCost = shipping.shippingCost;
+      finalPrice += shippingCost;
+    }
+
     // Create order
     const order: OrderData = {
       id: generateOrderId(),
@@ -134,10 +164,17 @@ export async function POST(request: NextRequest) {
         email: email.trim().toLowerCase(),
         phone: phone.trim(),
       },
+      shippingAddress: product === 'book' && input.shippingAddress ? {
+        street: input.shippingAddress.street.trim(),
+        apartmentFloor: input.shippingAddress.apartmentFloor?.trim() || '',
+        city: input.shippingAddress.city.trim(),
+        postalCode: input.shippingAddress.postalCode.trim(),
+      } : undefined,
       couponCode: input.couponCode?.trim().toUpperCase(),
       quantity: product === 'book' ? quantity : undefined,
       originalPrice,
       discountAmount,
+      shippingCost: product === 'book' ? shippingCost : undefined,
       finalPrice,
       status: 'pending',
       createdAt: new Date().toISOString(),

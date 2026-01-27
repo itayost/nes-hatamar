@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { calculateBookPrice, BOOK_PACKAGES } from '@/lib/book-pricing';
+import { calculateShipping } from '@/lib/shipping-calculator';
 
 type ProductType = 'book' | 'course';
 
@@ -19,6 +20,13 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
     email: '',
     phone: '',
     couponCode: '',
+  });
+
+  const [shippingAddress, setShippingAddress] = useState({
+    street: '',
+    apartmentFloor: '',
+    city: '',
+    postalCode: '',
   });
 
   const [quantity, setQuantity] = useState(1);
@@ -44,11 +52,21 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
 
   const currentBasePrice = priceInfo.totalPrice;
 
-  const finalPrice = couponState.valid && couponState.discount
+  // Calculate shipping (books only)
+  const shippingResult = useMemo(() => {
+    if (product === 'book') {
+      return calculateShipping(quantity);
+    }
+    return { shippingCost: 0, isFreeShipping: true, threshold: 5 };
+  }, [product, quantity]);
+
+  const priceAfterDiscount = couponState.valid && couponState.discount
     ? couponState.discount.finalPrice
     : currentBasePrice;
 
-  const discountAmount = currentBasePrice - finalPrice;
+  const finalPrice = priceAfterDiscount + shippingResult.shippingCost;
+
+  const discountAmount = currentBasePrice - priceAfterDiscount;
 
   const validateCoupon = async () => {
     if (!formData.couponCode.trim()) return;
@@ -118,6 +136,7 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
             email: formData.email,
             phone: formData.phone,
           },
+          shippingAddress: product === 'book' ? shippingAddress : undefined,
           couponCode: couponState.valid ? formData.couponCode : undefined,
           quantity: product === 'book' ? quantity : undefined,
         }),
@@ -226,6 +245,82 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
         </div>
       </div>
 
+      {/* Shipping Address (Books only) */}
+      {product === 'book' && (
+        <div className="pt-6 space-y-4 border-t border-gold/20">
+          <div className="flex items-center justify-between">
+            <h3 className="text-lg font-medium text-dark">
+              {t('form.shippingAddress')}
+            </h3>
+            {!shippingResult.isFreeShipping && (
+              <span className="text-sm text-gold font-medium">
+                {t('form.freeShippingIncentive', { threshold: shippingResult.threshold })}
+              </span>
+            )}
+          </div>
+
+          {/* Street */}
+          <div>
+            <label className="block text-sm font-medium text-dark mb-2">
+              {t('form.street')} <span className="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              value={shippingAddress.street}
+              onChange={(e) => setShippingAddress({ ...shippingAddress, street: e.target.value })}
+              className="w-full px-4 py-3 border-2 border-gold/20 rounded-xl focus:border-gold focus:outline-none transition-colors"
+              placeholder={t('form.streetPlaceholder')}
+              required
+            />
+          </div>
+
+          {/* Apartment/Floor */}
+          <div>
+            <label className="block text-sm font-medium text-dark mb-2">
+              {t('form.apartmentFloor')}
+            </label>
+            <input
+              type="text"
+              value={shippingAddress.apartmentFloor}
+              onChange={(e) => setShippingAddress({ ...shippingAddress, apartmentFloor: e.target.value })}
+              className="w-full px-4 py-3 border-2 border-gold/20 rounded-xl focus:border-gold focus:outline-none transition-colors"
+              placeholder={t('form.apartmentFloorPlaceholder')}
+            />
+          </div>
+
+          {/* City and Postal Code */}
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-dark mb-2">
+                {t('form.city')} <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                value={shippingAddress.city}
+                onChange={(e) => setShippingAddress({ ...shippingAddress, city: e.target.value })}
+                className="w-full px-4 py-3 border-2 border-gold/20 rounded-xl focus:border-gold focus:outline-none transition-colors"
+                placeholder={t('form.cityPlaceholder')}
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-dark mb-2">
+                {t('form.postalCode')} <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                value={shippingAddress.postalCode}
+                onChange={(e) => setShippingAddress({ ...shippingAddress, postalCode: e.target.value })}
+                className="w-full px-4 py-3 border-2 border-gold/20 rounded-xl focus:border-gold focus:outline-none transition-colors"
+                placeholder={t('form.postalCodePlaceholder')}
+                required
+                dir="ltr"
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Coupon Code */}
       <div className="pt-4 border-t border-gold/20">
         <label className="block text-sm font-medium text-dark mb-2">
@@ -299,6 +394,30 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
           </div>
         )}
 
+        {/* Shipping row (books only) */}
+        {product === 'book' && (
+          <div className="flex justify-between text-dark">
+            <span>
+              {t('summary.shipping')}
+              {shippingResult.isFreeShipping && (
+                <span className="mr-2 text-green-600 text-sm font-medium">
+                  ✓ {t('summary.freeShipping')}
+                </span>
+              )}
+            </span>
+            <span>
+              {shippingResult.isFreeShipping ? (
+                <>
+                  <span className="line-through text-gray-400 ml-2">₪40</span>
+                  <span className="text-green-600 font-medium"> ₪0</span>
+                </>
+              ) : (
+                `₪${shippingResult.shippingCost.toLocaleString()}`
+              )}
+            </span>
+          </div>
+        )}
+
         <div className="flex justify-between text-lg font-bold text-dark pt-3 border-t border-gold/20">
           <span>{t('summary.total')}</span>
           <span className="text-gold">₪{finalPrice.toLocaleString()}</span>
@@ -314,7 +433,17 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
       {/* Submit Button */}
       <button
         type="submit"
-        disabled={submitting || !formData.name || !formData.email || !isValidPhone(formData.phone)}
+        disabled={
+          submitting ||
+          !formData.name ||
+          !formData.email ||
+          !isValidPhone(formData.phone) ||
+          (product === 'book' && (
+            !shippingAddress.street.trim() ||
+            !shippingAddress.city.trim() ||
+            shippingAddress.postalCode.trim().length < 5
+          ))
+        }
         className="w-full py-4 bg-gradient-to-r from-gold to-gold-light text-white text-lg font-bold rounded-xl hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-opacity shadow-lg"
       >
         {submitting ? t('form.processing') : t('form.submit')}

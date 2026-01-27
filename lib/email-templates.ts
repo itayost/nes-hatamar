@@ -164,6 +164,16 @@ export function generateOrderEmailHTML(order: OrderData): string {
         </div>
       </div>
 
+      ${order.shippingAddress ? `
+      <div class="field">
+        <div class="label">כתובת למשלוח</div>
+        <div class="value">
+          ${escapeHtml(order.shippingAddress.street)}${order.shippingAddress.apartmentFloor ? `, ${escapeHtml(order.shippingAddress.apartmentFloor)}` : ''}<br>
+          ${escapeHtml(order.shippingAddress.city)}, ${escapeHtml(order.shippingAddress.postalCode)}
+        </div>
+      </div>
+      ` : ''}
+
       <div class="price-section">
         ${product === 'book' && (quantity || 1) > 1 ? `
         <div class="price-row">
@@ -182,6 +192,14 @@ export function generateOrderEmailHTML(order: OrderData): string {
             ${safeCoupon || 'הנחת כמות'}
           </span>
           <span>-₪${discountAmount.toLocaleString()}</span>
+        </div>
+        ` : ''}
+        ${order.shippingCost !== undefined ? `
+        <div class="price-row">
+          <span>משלוח${order.shippingCost === 0 ? ' (חינם!)' : ''}</span>
+          <span ${order.shippingCost === 0 ? 'style="color: #22c55e; font-weight: 600;"' : ''}>
+            ${order.shippingCost === 0 ? '₪0 ✓' : `₪${order.shippingCost.toLocaleString()}`}
+          </span>
         </div>
         ` : ''}
         <div class="price-row total">
