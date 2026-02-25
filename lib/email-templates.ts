@@ -1,4 +1,5 @@
 import { OrderData } from '@/types/order';
+import { getCountryByCode } from '@/lib/countries';
 
 // HTML entity escaping to prevent injection
 function escapeHtml(unsafe: string): string {
@@ -169,7 +170,8 @@ export function generateOrderEmailHTML(order: OrderData): string {
         <div class="label">כתובת למשלוח</div>
         <div class="value">
           ${escapeHtml(order.shippingAddress.street)}${order.shippingAddress.apartmentFloor ? `, ${escapeHtml(order.shippingAddress.apartmentFloor)}` : ''}<br>
-          ${escapeHtml(order.shippingAddress.city)}, ${escapeHtml(order.shippingAddress.postalCode)}
+          ${escapeHtml(order.shippingAddress.city)}, ${escapeHtml(order.shippingAddress.postalCode)}<br>
+          ${escapeHtml(getCountryByCode(order.shippingAddress.country)?.nameHe || order.shippingAddress.country)}
         </div>
       </div>
       ` : ''}

@@ -1,9 +1,11 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { calculateBookPrice, BOOK_PACKAGES } from '@/lib/book-pricing';
 import { calculateShipping } from '@/lib/shipping-calculator';
+import { isValidPhone } from '@/lib/phone-validation';
+import { COUNTRIES, DEFAULT_COUNTRY_CODE } from '@/lib/countries';
 
 type ProductType = 'book' | 'course';
 
@@ -14,6 +16,7 @@ interface PurchaseFormProps {
 
 export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) {
   const t = useTranslations('purchase');
+  const locale = useLocale();
 
   const [formData, setFormData] = useState({
     name: '',
@@ -27,6 +30,7 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
     apartmentFloor: '',
     city: '',
     postalCode: '',
+    country: DEFAULT_COUNTRY_CODE,
   });
 
   const [quantity, setQuantity] = useState(1);
@@ -157,11 +161,6 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
     }
   };
 
-  const isValidPhone = (phone: string) => {
-    const phoneRegex = /^05[0-9](\d{7}|\d{3}-\d{4})$/;
-    return phoneRegex.test(phone.replace(/\s/g, ''));
-  };
-
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Quantity Selector (Books only) */}
@@ -286,6 +285,25 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
               className="w-full px-4 py-3 border-2 border-gold/20 rounded-xl focus:border-gold focus:outline-none transition-colors"
               placeholder={t('form.apartmentFloorPlaceholder')}
             />
+          </div>
+
+          {/* Country */}
+          <div>
+            <label className="block text-sm font-medium text-dark mb-2">
+              {t('form.country')} <span className="text-red-500">*</span>
+            </label>
+            <select
+              value={shippingAddress.country}
+              onChange={(e) => setShippingAddress({ ...shippingAddress, country: e.target.value })}
+              className="w-full px-4 py-3 border-2 border-gold/20 rounded-xl focus:border-gold focus:outline-none transition-colors bg-white"
+              required
+            >
+              {COUNTRIES.map((c) => (
+                <option key={c.code} value={c.code}>
+                  {locale === 'he' ? c.nameHe : c.nameEn}
+                </option>
+              ))}
+            </select>
           </div>
 
           {/* City and Postal Code */}
@@ -441,7 +459,7 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
           (product === 'book' && (
             !shippingAddress.street.trim() ||
             !shippingAddress.city.trim() ||
-            shippingAddress.postalCode.trim().length < 5
+            shippingAddress.postalCode.trim().length < 3
           ))
         }
         className="w-full py-4 bg-gradient-to-r from-gold to-gold-light text-white text-lg font-bold rounded-xl hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-opacity shadow-lg"

@@ -9,6 +9,7 @@ export interface ShippingAddress {
   apartmentFloor: string;
   city: string;
   postalCode: string;
+  country: string; // ISO 3166-1 alpha-2 code (e.g., "IL", "US")
 }
 
 export interface OrderData {

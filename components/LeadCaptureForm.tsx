@@ -31,11 +31,11 @@ export default function LeadCaptureForm() {
     };
   }, []);
 
-  // Validate Israeli phone number format (05X-XXX-XXXX)
+  // Validate phone number (international format)
   const validatePhone = (phone: string): boolean => {
     if (!phone) return true; // Phone is optional if email is provided
-    const phoneRegex = /^05\d-?\d{3}-?\d{4}$/;
-    return phoneRegex.test(phone.replace(/\s/g, ''));
+    const stripped = phone.replace(/[\s\-.\(\)]/g, '');
+    return /^\+?\d{7,15}$/.test(stripped);
   };
 
   // Validate email format

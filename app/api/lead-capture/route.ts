@@ -66,11 +66,10 @@ function isValidEmail(email: string): boolean {
   return emailRegex.test(email);
 }
 
-function isValidIsraeliPhone(phone: string): boolean {
+function isValidPhone(phone: string): boolean {
   if (!phone) return false;
-  if (phone.length > 20) return false;
-  const phoneRegex = /^05[0-9](\d{7}|\d{3}-\d{4})$/;
-  return phoneRegex.test(phone.replace(/\s/g, ''));
+  const stripped = phone.replace(/[\s\-.\(\)]/g, '');
+  return /^\+?\d{7,15}$/.test(stripped);
 }
 
 // Generate email subject based on interests
@@ -291,7 +290,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (leadData.phone && !isValidIsraeliPhone(leadData.phone)) {
+    if (leadData.phone && !isValidPhone(leadData.phone)) {
       return NextResponse.json(
         { error: 'Invalid phone format' },
         { status: 400 }

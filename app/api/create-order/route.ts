@@ -6,6 +6,8 @@ import { createPaymePayment } from '@/lib/payme-payment';
 import { CreateOrderInput, OrderData } from '@/types/order';
 import { isValidBookQuantity } from '@/lib/book-pricing';
 import { calculateShipping } from '@/lib/shipping-calculator';
+import { isValidPhone } from '@/lib/phone-validation';
+import { getCountryByCode } from '@/lib/countries';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -29,13 +31,6 @@ function checkRateLimit(ip: string): { allowed: boolean; retryAfter?: number } {
 
   limit.count += 1;
   return { allowed: true };
-}
-
-// Validate Israeli phone number
-function isValidIsraeliPhone(phone: string): boolean {
-  if (!phone) return false;
-  const phoneRegex = /^05[0-9](\d{7}|\d{3}-\d{4})$/;
-  return phoneRegex.test(phone.replace(/\s/g, ''));
 }
 
 // Validate email format
@@ -92,8 +87,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Valid email is required' }, { status: 400 });
     }
 
-    if (!phone || !isValidIsraeliPhone(phone)) {
-      return NextResponse.json({ error: 'Valid Israeli phone number is required' }, { status: 400 });
+    if (!phone || !isValidPhone(phone)) {
+      return NextResponse.json({ error: 'Valid phone number is required' }, { status: 400 });
     }
 
     // Validate shipping address (books only)
@@ -102,7 +97,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'Shipping address is required for book orders' }, { status: 400 });
       }
 
-      const { street, city, postalCode } = input.shippingAddress;
+      const { street, city, postalCode, country } = input.shippingAddress;
 
       if (!street || street.trim().length < 2) {
         return NextResponse.json({ error: 'Valid street address is required (minimum 2 characters)' }, { status: 400 });
@@ -112,8 +107,12 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'Valid city is required (minimum 2 characters)' }, { status: 400 });
       }
 
-      if (!postalCode || postalCode.trim().length < 5 || !/^\d{5,7}$/.test(postalCode.trim())) {
-        return NextResponse.json({ error: 'Valid postal code is required (5-7 digits)' }, { status: 400 });
+      if (!postalCode || postalCode.trim().length < 3 || !/^[a-zA-Z0-9\s\-]{3,10}$/.test(postalCode.trim())) {
+        return NextResponse.json({ error: 'Valid postal code is required' }, { status: 400 });
+      }
+
+      if (country && !getCountryByCode(country)) {
+        return NextResponse.json({ error: 'Invalid country' }, { status: 400 });
       }
     }
 
@@ -169,6 +168,7 @@ export async function POST(request: NextRequest) {
         apartmentFloor: input.shippingAddress.apartmentFloor?.trim() || '',
         city: input.shippingAddress.city.trim(),
         postalCode: input.shippingAddress.postalCode.trim(),
+        country: input.shippingAddress.country?.trim() || 'IL',
       } : undefined,
       couponCode: input.couponCode?.trim().toUpperCase(),
       quantity: product === 'book' ? quantity : undefined,

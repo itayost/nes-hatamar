@@ -239,8 +239,8 @@
       "email": "דוא״ל",
       "emailPlaceholder": "example@email.com",
       "phone": "טלפון",
-      "phonePlaceholder": "05X-XXXXXXX",
-      "phoneInvalid": "מספר טלפון לא תקין",
+      "phonePlaceholder": "+972-50-123-4567",
+      "phoneInvalid": "מספר טלפון לא תקין (7-15 ספרות)",
       "couponCode": "קוד קופון",
       "couponPlaceholder": "הזינו קוד קופון",
       "applyCoupon": "החל",
@@ -255,6 +255,7 @@
       "apartmentFloorPlaceholder": "דירה 5, קומה 2",
       "city": "עיר",
       "cityPlaceholder": "תל אביב",
+      "country": "מדינה",
       "postalCode": "מיקוד",
       "postalCodePlaceholder": "1234567",
       "submit": "המשך לתשלום",
@@ -417,8 +418,8 @@
       "email": "דואר אלקטרוני",
       "emailPlaceholder": "example@email.com",
       "phone": "טלפון נייד",
-      "phonePlaceholder": "050-1234567",
-      "phoneInvalid": "מספר טלפון לא תקין (פורמט: 05X-XXXXXXX)",
+      "phonePlaceholder": "+972-50-123-4567",
+      "phoneInvalid": "מספר טלפון לא תקין (7-15 ספרות)",
       "couponCode": "קוד קופון",
       "couponPlaceholder": "הזינו קוד קופון",
       "applyCoupon": "החל",
@@ -489,7 +490,7 @@
       "email": "דוא״ל",
       "emailPlaceholder": "your@email.com",
       "phone": "טלפון",
-      "phonePlaceholder": "050-123-4567",
+      "phonePlaceholder": "+972-50-123-4567",
       "bookInterest": "מעוניין/ת לקבל תוכן על הספר",
       "courseInterest": "מעוניין/ת לקבל מידע על קורסים ולימודים",
       "submit": "שלח",
@@ -499,7 +500,7 @@
       "errorEmailOrPhone": "אנא הזן/י דוא״ל או טלפון",
       "errorCheckbox": "אנא בחר/י לפחות תחום עניין אחד",
       "errorEmailFormat": "כתובת הדוא״ל אינה תקינה",
-      "errorPhoneFormat": "מספר הטלפון אינו תקין (פורמט: 050-123-4567)"
+      "errorPhoneFormat": "מספר הטלפון אינו תקין (7-15 ספרות)"
     }
   },
   "media": {
