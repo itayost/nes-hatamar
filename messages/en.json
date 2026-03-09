@@ -135,6 +135,10 @@
   "preview": {
     "title": "Book Preview",
     "subtitle": "Peek into the rich world of Nes HaTamar",
+    "video": {
+      "title": "Watch the Video",
+      "description": "A short peek inside the book"
+    },
     "highlights": {
       "title": "What Makes This Book Special",
       "quality": {

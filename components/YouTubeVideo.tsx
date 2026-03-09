@@ -7,6 +7,7 @@ interface YouTubeVideoProps {
   title?: string;
   autoplay?: boolean;
   className?: string;
+  aspectRatio?: '16:9' | '9:16';
 }
 
 export default function YouTubeVideo({
@@ -14,6 +15,7 @@ export default function YouTubeVideo({
   title = 'YouTube Video',
   autoplay = true,
   className = '',
+  aspectRatio = '16:9',
 }: YouTubeVideoProps) {
   const [isVisible, setIsVisible] = useState(false);
   const videoRef = useRef<HTMLDivElement>(null);
@@ -57,10 +59,13 @@ export default function YouTubeVideo({
     autoplay && isVisible ? 'autoplay=1&' : ''
   }mute=1&controls=1&modestbranding=1&rel=0&playsinline=1`;
 
+  const isVertical = aspectRatio === '9:16';
+  const paddingBottom = isVertical ? '177.78%' : '56.25%';
+
   return (
-    <div ref={videoRef} className={className}>
-      {/* Responsive 16:9 aspect ratio container */}
-      <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+    <div ref={videoRef} className={`${isVertical ? 'max-w-[400px] mx-auto' : ''} ${className}`}>
+      {/* Responsive aspect ratio container */}
+      <div className="relative w-full" style={{ paddingBottom }}>
         <iframe
           src={embedUrl}
           title={title}

@@ -6,6 +6,7 @@ import CornerOrnament from '@/components/ornaments/CornerOrnament';
 import Divider from '@/components/ornaments/Divider';
 import AnimateOnScroll from '@/components/AnimateOnScroll';
 import { generatePageMetadata } from '@/lib/og-metadata';
+import YouTubeVideo from '@/components/YouTubeVideo';
 import { GalleryIcon, LeafIcon, TorahScrollIcon, PaletteIcon, BookIcon, StarIcon, ArrowRightIcon } from '@/components/icons/Icons';
 
 export async function generateMetadata({
@@ -67,6 +68,31 @@ export default async function PreviewPage({ params }: { params: Promise<{ locale
           <p className="text-xl sm:text-2xl text-dark/70 max-w-3xl mx-auto animate-fadeIn delay-100">
             {t('subtitle')}
           </p>
+        </div>
+      </section>
+
+      {/* Section: Video */}
+      <section className="py-20 sm:py-24 bg-white relative overflow-hidden">
+        <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl">
+          <AnimateOnScroll>
+            <div className="text-center mb-10">
+              <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-gold to-gold-light bg-clip-text text-transparent mb-4">
+                {t('video.title')}
+              </h2>
+              <p className="text-xl text-dark/70 max-w-2xl mx-auto">
+                {t('video.description')}
+              </p>
+            </div>
+          </AnimateOnScroll>
+
+          <AnimateOnScroll>
+            <YouTubeVideo
+              videoId="h_5Qrg2WXxo"
+              title={t('video.title')}
+              autoplay={false}
+              aspectRatio="9:16"
+            />
+          </AnimateOnScroll>
         </div>
       </section>
 
