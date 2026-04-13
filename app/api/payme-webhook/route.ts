@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { parsePaymeWebhook } from '@/lib/payme-payment';
 import { Resend } from 'resend';
+import { getOrder, isOrderStoreConfigured } from '@/lib/orders/store';
+import { dispatchOrderToHfd, renderDispatchEmailFragment, type DispatchResult } from '@/lib/hfd/dispatch';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -9,6 +11,10 @@ const resend = new Resend(process.env.RESEND_API_KEY);
  *
  * Receives payment status callbacks from PayMe.
  * PayMe sends callbacks as x-www-form-urlencoded POST requests.
+ *
+ * On successful payment of a book order we also dispatch the shipment
+ * to HFD. HFD failures never cause a non-2xx response — PayMe would
+ * retry and we'd double-ship.
  */
 
 // POST /api/payme-webhook - Handle PayMe callback
@@ -49,9 +55,37 @@ export async function POST(request: NextRequest) {
       // Payment successful
       console.log(`Payment successful for order ${transaction_id}`);
 
+      // Look up the persisted order so we can create the HFD shipment.
+      let dispatchResult: DispatchResult | null = null;
+      if (isOrderStoreConfigured()) {
+        try {
+          const order = await getOrder(transaction_id);
+          if (order) {
+            dispatchResult = await dispatchOrderToHfd(order);
+            console.log(
+              `HFD dispatch for order ${transaction_id}: status=${dispatchResult.status}` +
+                (dispatchResult.shipmentNumber ? ` shipment=${dispatchResult.shipmentNumber}` : '') +
+                (dispatchResult.errorMessage ? ` error=${dispatchResult.errorMessage}` : ''),
+            );
+          } else {
+            console.warn(`Order ${transaction_id} not found in store — skipping HFD dispatch`);
+            dispatchResult = { status: 'skipped', reason: 'order not found in store' };
+          }
+        } catch (storeError) {
+          console.error('Failed to read order from Redis:', storeError);
+          dispatchResult = {
+            status: 'error',
+            errorMessage: storeError instanceof Error ? storeError.message : String(storeError),
+          };
+        }
+      } else {
+        console.warn('Order store not configured — skipping HFD dispatch');
+      }
+
       // Send confirmation email to admin
       const recipientEmail = process.env.LEAD_RECIPIENT_EMAIL || 'Nissimkrispiltamar@gmail.com';
       const fromEmail = process.env.RESEND_FROM_EMAIL || 'Nes HaTamar Website <onboarding@resend.dev>';
+      const dispatchFragment = dispatchResult ? renderDispatchEmailFragment(dispatchResult) : '';
 
       try {
         await resend.emails.send({
@@ -66,6 +100,7 @@ export async function POST(request: NextRequest) {
               <p><strong>סכום:</strong> ₪${(sale_price / 100).toLocaleString()}</p>
               ${buyer_name ? `<p><strong>שם הלקוח:</strong> ${buyer_name}</p>` : ''}
               ${buyer_email ? `<p><strong>אימייל:</strong> ${buyer_email}</p>` : ''}
+              ${dispatchFragment}
               <hr style="border: 1px solid #E5D3A6; margin: 20px 0;" />
               <p style="color: #666; font-size: 12px;">הודעה זו נשלחה אוטומטית מאתר נס התמר</p>
             </div>

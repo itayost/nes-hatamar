@@ -8,6 +8,7 @@ import { isValidBookQuantity } from '@/lib/book-pricing';
 import { calculateShipping } from '@/lib/shipping-calculator';
 import { isValidPhone } from '@/lib/phone-validation';
 import { getCountryByCode } from '@/lib/countries';
+import { saveOrder, isOrderStoreConfigured } from '@/lib/orders/store';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -179,6 +180,20 @@ export async function POST(request: NextRequest) {
       status: 'pending',
       createdAt: new Date().toISOString(),
     };
+
+    // Persist the order so the PayMe webhook can read it back and dispatch
+    // the HFD shipment with the full address. Non-blocking on Redis failure.
+    if (isOrderStoreConfigured()) {
+      try {
+        await saveOrder(order);
+      } catch (storeError) {
+        console.error('Failed to persist order to Redis:', storeError);
+        // Continue — payment can still proceed; HFD dispatch will be skipped
+        // for this order and the admin email will still arrive.
+      }
+    } else {
+      console.warn('Order store not configured (UPSTASH_REDIS_REST_URL missing) — HFD dispatch will be skipped');
+    }
 
     // Send order notification email
     const recipientEmail = process.env.LEAD_RECIPIENT_EMAIL || 'Nissimkrispiltamar@gmail.com';
