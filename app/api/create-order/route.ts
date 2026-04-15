@@ -8,6 +8,9 @@ import { isValidBookQuantity } from '@/lib/book-pricing';
 import { calculateShipping } from '@/lib/shipping-calculator';
 import { isValidPhone } from '@/lib/phone-validation';
 import { getCountryByCode } from '@/lib/countries';
+import { saveOrder, isOrderStoreConfigured } from '@/lib/orders/store';
+
+export const maxDuration = 30;
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -180,24 +183,25 @@ export async function POST(request: NextRequest) {
       createdAt: new Date().toISOString(),
     };
 
-    // Send order notification email
     const recipientEmail = process.env.LEAD_RECIPIENT_EMAIL || 'Nissimkrispiltamar@gmail.com';
     const fromEmail = process.env.RESEND_FROM_EMAIL || 'Nes HaTamar Website <onboarding@resend.dev>';
 
-    try {
-      await resend.emails.send({
+    const savePromise: Promise<void> = isOrderStoreConfigured()
+      ? saveOrder(order).catch((err) => {
+          console.error('Failed to persist order to Redis:', err);
+        })
+      : (console.warn('Order store not configured — HFD dispatch will be skipped'), Promise.resolve());
+
+    void resend.emails
+      .send({
         from: fromEmail,
         to: [recipientEmail],
         subject: generateOrderSubject(order),
         html: generateOrderEmailHTML(order),
-      });
-    } catch (emailError) {
-      console.error('Failed to send order email:', emailError);
-      // Continue with order creation even if email fails
-    }
+      })
+      .catch((err) => console.error('Failed to send order email:', err));
 
-    // Create PayMe payment
-    const paymentResult = await createPaymePayment(order);
+    const [, paymentResult] = await Promise.all([savePromise, createPaymePayment(order)]);
 
     if (!paymentResult.success) {
       return NextResponse.json(

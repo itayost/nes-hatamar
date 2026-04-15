@@ -1,8 +1,7 @@
 import { OrderData } from '@/types/order';
 import { getCountryByCode } from '@/lib/countries';
 
-// HTML entity escaping to prevent injection
-function escapeHtml(unsafe: string): string {
+export function escapeHtml(unsafe: string): string {
   return unsafe
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
