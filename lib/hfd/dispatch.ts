@@ -2,6 +2,8 @@ import { createShipment } from '@/lib/hfd/client';
 import { getHfdConfig, isHfdConfigured } from '@/lib/hfd/config';
 import { orderToHfdPayload } from '@/lib/hfd/map-order';
 import { setShipmentMeta, type StoredOrder } from '@/lib/orders/store';
+import { escapeHtml } from '@/lib/email-templates';
+import { getCountryByCode } from '@/lib/countries';
 
 /**
  * Outcome of attempting to dispatch a paid book order to HFD.
@@ -44,9 +46,11 @@ export async function dispatchOrderToHfd(order: StoredOrder): Promise<DispatchRe
   }
 
   if (order.shippingAddress.country !== 'IL') {
+    const countryName =
+      getCountryByCode(order.shippingAddress.country)?.nameHe ?? order.shippingAddress.country;
     return {
       status: 'skipped',
-      reason: `international shipping (${order.shippingAddress.country}) — HFD is Israel-only`,
+      reason: `משלוח בינלאומי (${countryName}) — HFD ישראל בלבד`,
     };
   }
 
@@ -75,8 +79,17 @@ export async function dispatchOrderToHfd(order: StoredOrder): Promise<DispatchRe
     const response = await createShipment(payload);
     const nowIso = new Date().toISOString();
 
+    const persist = async (meta: Parameters<typeof setShipmentMeta>[1]) => {
+      const ok = await setShipmentMeta(order.id, meta, order);
+      if (!ok) {
+        console.warn(
+          `HFD shipment created for ${order.id} but order no longer in store — shipmentMeta not persisted`,
+        );
+      }
+    };
+
     if (response.errorCode === '0') {
-      await setShipmentMeta(order.id, {
+      await persist({
         shipmentNumber: response.shipmentNumber,
         randomId: response.randNumber,
         createdAt: nowIso,
@@ -89,7 +102,7 @@ export async function dispatchOrderToHfd(order: StoredOrder): Promise<DispatchRe
     }
 
     if (DUPLICATE_ERROR_CODES.has(response.errorCode) && response.existingShipmentNumber) {
-      await setShipmentMeta(order.id, {
+      await persist({
         shipmentNumber: response.existingShipmentNumber,
         randomId: response.randNumber,
         errorCode: response.errorCode,
@@ -104,7 +117,7 @@ export async function dispatchOrderToHfd(order: StoredOrder): Promise<DispatchRe
       };
     }
 
-    await setShipmentMeta(order.id, {
+    await persist({
       errorCode: response.errorCode,
       errorMessage: response.errorMessage,
       createdAt: nowIso,
@@ -117,14 +130,13 @@ export async function dispatchOrderToHfd(order: StoredOrder): Promise<DispatchRe
     const message = error instanceof Error ? error.message : String(error);
     console.error('HFD dispatch failed:', message);
     try {
-      await setShipmentMeta(order.id, {
-        errorCode: 'EXCEPTION',
-        errorMessage: message,
-        createdAt: new Date().toISOString(),
-      });
+      await setShipmentMeta(
+        order.id,
+        { errorCode: 'EXCEPTION', errorMessage: message, createdAt: new Date().toISOString() },
+        order,
+      );
     } catch {
-      // If even persisting the error fails, just return — never let HFD
-      // problems bubble up into the webhook response.
+      // Never let HFD problems bubble up into the webhook response.
     }
     return { status: 'error', errorMessage: message };
   }
@@ -135,7 +147,8 @@ export async function dispatchOrderToHfd(order: StoredOrder): Promise<DispatchRe
  * for inclusion in the admin payment-confirmation email.
  */
 export function renderDispatchEmailFragment(result: DispatchResult): string {
-  const base = 'background: #fefbef; border-right: 4px solid #C9A961; padding: 12px 16px; margin-top: 16px; border-radius: 4px;';
+  const base =
+    'background: #FFFEF7; border-right: 4px solid #C9A961; padding: 12px 16px; margin-top: 16px; border-radius: 4px;';
   switch (result.status) {
     case 'created':
       return `
@@ -166,14 +179,9 @@ export function renderDispatchEmailFragment(result: DispatchResult): string {
           <span style="color: #666; font-size: 12px;">${escapeHtml(result.errorMessage || 'Unknown error')}</span>
         </div>
       `;
+    default: {
+      const _exhaustive: never = result.status;
+      return _exhaustive;
+    }
   }
-}
-
-function escapeHtml(unsafe: string): string {
-  return unsafe
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
 }

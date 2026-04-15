@@ -1,32 +1,11 @@
-import { Redis } from '@upstash/redis';
 import { Coupon, CouponCreateInput, CouponUpdateInput } from '@/types/coupon';
+import { getRedis, isRedisConfigured } from '@/lib/redis';
 
-// Redis key prefixes
 const COUPONS_LIST_KEY = 'coupons:list';
 const COUPON_KEY_PREFIX = 'coupon:';
 const COUPON_CODE_PREFIX = 'coupon:code:';
 
-// Initialize Redis client (lazy initialization)
-let redis: Redis | null = null;
-
-function getRedis(): Redis {
-  if (!redis) {
-    const url = process.env.UPSTASH_REDIS_REST_URL;
-    const token = process.env.UPSTASH_REDIS_REST_TOKEN;
-
-    if (!url || !token) {
-      throw new Error('Upstash Redis credentials not configured. Set UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN.');
-    }
-
-    redis = new Redis({ url, token });
-  }
-  return redis;
-}
-
-// Check if Redis is configured
-export function isRedisConfigured(): boolean {
-  return !!(process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN);
-}
+export { isRedisConfigured };
 
 // Generate unique ID
 function generateId(): string {

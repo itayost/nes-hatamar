@@ -16,6 +16,8 @@ export interface HfdConfig {
 
 const DEFAULT_API_URL = 'https://api.hfd.co.il/rest/v2';
 
+let cachedConfig: HfdConfig | null = null;
+
 /**
  * Returns the HFD config, throwing if any required variable is missing.
  *
@@ -23,6 +25,7 @@ const DEFAULT_API_URL = 'https://api.hfd.co.il/rest/v2';
  * the payment/webhook flow.
  */
 export function getHfdConfig(): HfdConfig {
+  if (cachedConfig) return cachedConfig;
   const apiUrl = process.env.HFD_API_URL || DEFAULT_API_URL;
   const token = process.env.HFD_API_TOKEN;
   const clientNumberRaw = process.env.HFD_CLIENT_NUMBER;
@@ -49,7 +52,7 @@ export function getHfdConfig(): HfdConfig {
     throw new Error('HFD config numeric env vars are not valid numbers');
   }
 
-  return {
+  cachedConfig = {
     apiUrl,
     token: token as string,
     clientNumber,
@@ -57,6 +60,7 @@ export function getHfdConfig(): HfdConfig {
     cargoTypeHaloch,
     ordererName: ordererName as string,
   };
+  return cachedConfig;
 }
 
 /**

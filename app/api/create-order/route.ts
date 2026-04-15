@@ -10,6 +10,8 @@ import { isValidPhone } from '@/lib/phone-validation';
 import { getCountryByCode } from '@/lib/countries';
 import { saveOrder, isOrderStoreConfigured } from '@/lib/orders/store';
 
+export const maxDuration = 30;
+
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Rate limiting for order creation
@@ -181,38 +183,25 @@ export async function POST(request: NextRequest) {
       createdAt: new Date().toISOString(),
     };
 
-    // Persist the order so the PayMe webhook can read it back and dispatch
-    // the HFD shipment with the full address. Non-blocking on Redis failure.
-    if (isOrderStoreConfigured()) {
-      try {
-        await saveOrder(order);
-      } catch (storeError) {
-        console.error('Failed to persist order to Redis:', storeError);
-        // Continue — payment can still proceed; HFD dispatch will be skipped
-        // for this order and the admin email will still arrive.
-      }
-    } else {
-      console.warn('Order store not configured (UPSTASH_REDIS_REST_URL missing) — HFD dispatch will be skipped');
-    }
-
-    // Send order notification email
     const recipientEmail = process.env.LEAD_RECIPIENT_EMAIL || 'Nissimkrispiltamar@gmail.com';
     const fromEmail = process.env.RESEND_FROM_EMAIL || 'Nes HaTamar Website <onboarding@resend.dev>';
 
-    try {
-      await resend.emails.send({
+    const savePromise: Promise<void> = isOrderStoreConfigured()
+      ? saveOrder(order).catch((err) => {
+          console.error('Failed to persist order to Redis:', err);
+        })
+      : (console.warn('Order store not configured — HFD dispatch will be skipped'), Promise.resolve());
+
+    void resend.emails
+      .send({
         from: fromEmail,
         to: [recipientEmail],
         subject: generateOrderSubject(order),
         html: generateOrderEmailHTML(order),
-      });
-    } catch (emailError) {
-      console.error('Failed to send order email:', emailError);
-      // Continue with order creation even if email fails
-    }
+      })
+      .catch((err) => console.error('Failed to send order email:', err));
 
-    // Create PayMe payment
-    const paymentResult = await createPaymePayment(order);
+    const [, paymentResult] = await Promise.all([savePromise, createPaymePayment(order)]);
 
     if (!paymentResult.success) {
       return NextResponse.json(
