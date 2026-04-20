@@ -1,67 +1,38 @@
 import { Coupon, CouponCreateInput, CouponUpdateInput } from '@/types/coupon';
-import { getRedis, isRedisConfigured } from '@/lib/redis';
+import { getDb, isDbConfigured } from '@/lib/db';
 
-const COUPONS_LIST_KEY = 'coupons:list';
-const COUPON_KEY_PREFIX = 'coupon:';
-const COUPON_CODE_PREFIX = 'coupon:code:';
+export { isDbConfigured as isRedisConfigured };
 
-export { isRedisConfigured };
-
-// Generate unique ID
 function generateId(): string {
-  return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+  return `${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;
 }
 
-// Get all coupons
+function isUniqueViolation(err: unknown): boolean {
+  return typeof err === 'object' && err !== null && 'code' in err && (err as { code: string }).code === '23505';
+}
+
 export async function getAllCoupons(): Promise<Coupon[]> {
-  const r = getRedis();
-
-  // Get all coupon IDs from the set
-  const couponIds = await r.smembers(COUPONS_LIST_KEY);
-
-  if (!couponIds || couponIds.length === 0) {
-    return [];
-  }
-
-  // Get all coupons in parallel
-  const couponPromises = couponIds.map(id => r.get<Coupon>(`${COUPON_KEY_PREFIX}${id}`));
-  const coupons = await Promise.all(couponPromises);
-
-  // Filter out any null values and return
-  return coupons.filter((c): c is Coupon => c !== null);
+  const sql = getDb();
+  const rows = await sql`SELECT data FROM coupons` as Array<{ data: Coupon }>;
+  return rows.map(r => r.data);
 }
 
-// Get coupon by ID
 export async function getCouponById(id: string): Promise<Coupon | null> {
-  const r = getRedis();
-  return r.get<Coupon>(`${COUPON_KEY_PREFIX}${id}`);
+  const sql = getDb();
+  const rows = await sql`SELECT data FROM coupons WHERE id = ${id}` as Array<{ data: Coupon }>;
+  return rows[0]?.data ?? null;
 }
 
-// Get coupon by code (O(1) lookup)
 export async function getCouponByCode(code: string): Promise<Coupon | null> {
-  const r = getRedis();
+  const sql = getDb();
   const normalizedCode = code.trim().toUpperCase();
-
-  // Get the coupon ID from the code lookup
-  const couponId = await r.get<string>(`${COUPON_CODE_PREFIX}${normalizedCode}`);
-
-  if (!couponId) {
-    return null;
-  }
-
-  return getCouponById(couponId);
+  const rows = await sql`SELECT data FROM coupons WHERE code = ${normalizedCode}` as Array<{ data: Coupon }>;
+  return rows[0]?.data ?? null;
 }
 
-// Create a new coupon
 export async function createCoupon(input: CouponCreateInput): Promise<Coupon> {
-  const r = getRedis();
+  const sql = getDb();
   const normalizedCode = input.code.trim().toUpperCase();
-
-  // Check for duplicate code
-  const existingId = await r.get<string>(`${COUPON_CODE_PREFIX}${normalizedCode}`);
-  if (existingId) {
-    throw new Error('Coupon code already exists');
-  }
 
   const newCoupon: Coupon = {
     id: generateId(),
@@ -76,108 +47,89 @@ export async function createCoupon(input: CouponCreateInput): Promise<Coupon> {
     applicableProducts: input.applicableProducts,
   };
 
-  // Use pipeline for atomic operations
-  const pipeline = r.pipeline();
-
-  // Store the coupon
-  pipeline.set(`${COUPON_KEY_PREFIX}${newCoupon.id}`, newCoupon);
-
-  // Add to the coupons list
-  pipeline.sadd(COUPONS_LIST_KEY, newCoupon.id);
-
-  // Create code-to-ID mapping
-  pipeline.set(`${COUPON_CODE_PREFIX}${normalizedCode}`, newCoupon.id);
-
-  await pipeline.exec();
+  try {
+    await sql`
+      INSERT INTO coupons (id, code, data)
+      VALUES (${newCoupon.id}, ${newCoupon.code}, ${JSON.stringify(newCoupon)})
+    `;
+  } catch (err) {
+    if (isUniqueViolation(err)) {
+      throw new Error('Coupon code already exists');
+    }
+    throw err;
+  }
 
   return newCoupon;
 }
 
-// Update an existing coupon
 export async function updateCoupon(id: string, input: CouponUpdateInput): Promise<Coupon> {
-  const r = getRedis();
+  const sql = getDb();
 
-  // Get current coupon
   const currentCoupon = await getCouponById(id);
   if (!currentCoupon) {
     throw new Error('Coupon not found');
   }
 
-  // If code is being changed, check for duplicates and update lookup
-  if (input.code && input.code.trim().toUpperCase() !== currentCoupon.code) {
-    const normalizedNewCode = input.code.trim().toUpperCase();
-    const existingId = await r.get<string>(`${COUPON_CODE_PREFIX}${normalizedNewCode}`);
+  const nextCode =
+    input.code && input.code.trim().toUpperCase() !== currentCoupon.code
+      ? input.code.trim().toUpperCase()
+      : currentCoupon.code;
 
-    if (existingId && existingId !== id) {
-      throw new Error('Coupon code already exists');
-    }
-
-    // Update code lookup
-    const pipeline = r.pipeline();
-    pipeline.del(`${COUPON_CODE_PREFIX}${currentCoupon.code}`);
-    pipeline.set(`${COUPON_CODE_PREFIX}${normalizedNewCode}`, id);
-    await pipeline.exec();
-
-    input.code = normalizedNewCode;
-  }
-
-  // Merge updates
   const updatedCoupon: Coupon = {
     ...currentCoupon,
     ...input,
+    code: nextCode,
   };
 
-  await r.set(`${COUPON_KEY_PREFIX}${id}`, updatedCoupon);
+  try {
+    await sql`
+      UPDATE coupons
+      SET code = ${nextCode}, data = ${JSON.stringify(updatedCoupon)}
+      WHERE id = ${id}
+    `;
+  } catch (err) {
+    if (isUniqueViolation(err)) {
+      throw new Error('Coupon code already exists');
+    }
+    throw err;
+  }
 
   return updatedCoupon;
 }
 
-// Delete a coupon
 export async function deleteCoupon(id: string): Promise<void> {
-  const r = getRedis();
-
-  // Get current coupon to get the code
-  const coupon = await getCouponById(id);
-  if (!coupon) {
+  const sql = getDb();
+  const rows = await sql`DELETE FROM coupons WHERE id = ${id} RETURNING id` as Array<{ id: string }>;
+  if (rows.length === 0) {
     throw new Error('Coupon not found');
   }
-
-  // Use pipeline for atomic deletion
-  const pipeline = r.pipeline();
-  pipeline.del(`${COUPON_KEY_PREFIX}${id}`);
-  pipeline.srem(COUPONS_LIST_KEY, id);
-  pipeline.del(`${COUPON_CODE_PREFIX}${coupon.code}`);
-  await pipeline.exec();
 }
 
-// Increment coupon usage atomically
 export async function incrementCouponUsage(id: string): Promise<void> {
-  const r = getRedis();
-
-  // Get current coupon
-  const coupon = await getCouponById(id);
-  if (!coupon) {
+  const sql = getDb();
+  const rows = await sql`
+    UPDATE coupons
+    SET data = jsonb_set(
+      data,
+      '{currentUses}',
+      to_jsonb(COALESCE((data->>'currentUses')::int, 0) + 1)
+    )
+    WHERE id = ${id}
+    RETURNING id
+  ` as Array<{ id: string }>;
+  if (rows.length === 0) {
     throw new Error('Coupon not found');
   }
-
-  // Update with incremented usage
-  const updatedCoupon: Coupon = {
-    ...coupon,
-    currentUses: coupon.currentUses + 1,
-  };
-
-  await r.set(`${COUPON_KEY_PREFIX}${id}`, updatedCoupon);
 }
 
-// Migration helper: Import coupons from array
 export async function importCoupons(coupons: Coupon[]): Promise<void> {
-  const r = getRedis();
-
+  const sql = getDb();
   for (const coupon of coupons) {
-    const pipeline = r.pipeline();
-    pipeline.set(`${COUPON_KEY_PREFIX}${coupon.id}`, coupon);
-    pipeline.sadd(COUPONS_LIST_KEY, coupon.id);
-    pipeline.set(`${COUPON_CODE_PREFIX}${coupon.code.toUpperCase()}`, coupon.id);
-    await pipeline.exec();
+    const normalizedCode = coupon.code.trim().toUpperCase();
+    await sql`
+      INSERT INTO coupons (id, code, data)
+      VALUES (${coupon.id}, ${normalizedCode}, ${JSON.stringify({ ...coupon, code: normalizedCode })})
+      ON CONFLICT (id) DO NOTHING
+    `;
   }
 }
