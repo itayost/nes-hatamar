@@ -3,7 +3,7 @@ import { Resend } from 'resend';
 import { validateCoupon, applyCoupon, getProductPrice, ProductType } from '@/lib/coupon-validator';
 import { generateOrderEmailHTML, generateOrderSubject } from '@/lib/email-templates';
 import { createPaymePayment } from '@/lib/payme-payment';
-import { CreateOrderInput, OrderData } from '@/types/order';
+import { CreateOrderInput, OrderData, DeliveryMethod } from '@/types/order';
 import { isValidBookQuantity } from '@/lib/book-pricing';
 import { calculateShipping } from '@/lib/shipping-calculator';
 import { isValidPhone } from '@/lib/phone-validation';
@@ -94,8 +94,12 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Valid phone number is required' }, { status: 400 });
     }
 
-    // Validate shipping address (books only)
-    if (input.product === 'book') {
+    // Delivery method (books only, default 'shipping' for backward compat)
+    const deliveryMethod: DeliveryMethod =
+      product === 'book' && input.deliveryMethod === 'pickup' ? 'pickup' : 'shipping';
+
+    // Validate shipping address (books + shipping only)
+    if (product === 'book' && deliveryMethod === 'shipping') {
       if (!input.shippingAddress) {
         return NextResponse.json({ error: 'Shipping address is required for book orders' }, { status: 400 });
       }
@@ -150,8 +154,9 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Add shipping cost (books only, after discount)
-    if (product === 'book') {
+    // Add shipping cost (books + shipping only, after discount).
+    // Pickup keeps shippingCost = 0 so the total never adds freight.
+    if (product === 'book' && deliveryMethod === 'shipping') {
       const shipping = calculateShipping(quantity);
       shippingCost = shipping.shippingCost;
       finalPrice += shippingCost;
@@ -166,13 +171,17 @@ export async function POST(request: NextRequest) {
         email: email.trim().toLowerCase(),
         phone: phone.trim(),
       },
-      shippingAddress: product === 'book' && input.shippingAddress ? {
-        street: input.shippingAddress.street.trim(),
-        apartmentFloor: input.shippingAddress.apartmentFloor?.trim() || '',
-        city: input.shippingAddress.city.trim(),
-        postalCode: input.shippingAddress.postalCode.trim(),
-        country: input.shippingAddress.country?.trim() || 'IL',
-      } : undefined,
+      deliveryMethod: product === 'book' ? deliveryMethod : undefined,
+      shippingAddress:
+        product === 'book' && deliveryMethod === 'shipping' && input.shippingAddress
+          ? {
+              street: input.shippingAddress.street.trim(),
+              apartmentFloor: input.shippingAddress.apartmentFloor?.trim() || '',
+              city: input.shippingAddress.city.trim(),
+              postalCode: input.shippingAddress.postalCode.trim(),
+              country: input.shippingAddress.country?.trim() || 'IL',
+            }
+          : undefined,
       couponCode: input.couponCode?.trim().toUpperCase(),
       quantity: product === 'book' ? quantity : undefined,
       originalPrice,

@@ -251,6 +251,13 @@
       "couponApplied": "הקופון הוחל! הנחה של {discount}",
       "couponInvalid": "קוד קופון לא תקין",
       "couponError": "שגיאה בבדיקת הקופון",
+      "deliveryMethod": "אופן קבלת המשלוח",
+      "shippingOption": "משלוח עד הבית",
+      "shippingOptionDescription": "₪40 · חינם מ-5 ספרים",
+      "pickupOption": "איסוף עצמי מכרם מהר״ל",
+      "pickupOptionDescription": "חינם · בתיאום טלפוני",
+      "pickupLocation": "כרם מהר״ל",
+      "pickupContact": "לתיאום איסוף: 054-7709201",
       "shippingAddress": "כתובת למשלוח",
       "freeShippingIncentive": "משלוח חינם מ-{threshold} ספרים!",
       "street": "רחוב ומספר בית",
@@ -277,6 +284,8 @@
       "discount": "הנחה",
       "shipping": "משלוח",
       "freeShipping": "חינם",
+      "pickup": "איסוף עצמי",
+      "pickupFree": "חינם",
       "total": "סה״כ לתשלום"
     },
     "whatsIncluded": {

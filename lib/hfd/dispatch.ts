@@ -41,6 +41,10 @@ export async function dispatchOrderToHfd(order: StoredOrder): Promise<DispatchRe
     return { status: 'skipped', reason: 'course order — no shipping' };
   }
 
+  if (order.deliveryMethod === 'pickup') {
+    return { status: 'skipped', reason: 'איסוף עצמי מכרם מהר״ל — אין משלוח' };
+  }
+
   if (!order.shippingAddress) {
     return { status: 'skipped', reason: 'missing shipping address' };
   }

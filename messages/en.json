@@ -251,6 +251,13 @@
       "couponApplied": "Coupon applied! {discount} discount",
       "couponInvalid": "Invalid coupon code",
       "couponError": "Error validating coupon",
+      "deliveryMethod": "Delivery Method",
+      "shippingOption": "Home Delivery",
+      "shippingOptionDescription": "₪40 · free on 5+ books",
+      "pickupOption": "Self-Pickup from Kerem Maharal",
+      "pickupOptionDescription": "Free · call to coordinate",
+      "pickupLocation": "Kerem Maharal",
+      "pickupContact": "Call to coordinate: 054-7709201",
       "shippingAddress": "Shipping Address",
       "freeShippingIncentive": "Free shipping from {threshold} books!",
       "street": "Street and Number",
@@ -277,6 +284,8 @@
       "discount": "Discount",
       "shipping": "Shipping",
       "freeShipping": "Free",
+      "pickup": "Self-Pickup",
+      "pickupFree": "Free",
       "total": "Total"
     },
     "whatsIncluded": {

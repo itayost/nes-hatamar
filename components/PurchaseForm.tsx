@@ -33,6 +33,8 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
     country: DEFAULT_COUNTRY_CODE,
   });
 
+  const [deliveryMethod, setDeliveryMethod] = useState<'shipping' | 'pickup'>('shipping');
+
   const [quantity, setQuantity] = useState(1);
 
   const [couponState, setCouponState] = useState<{
@@ -56,13 +58,13 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
 
   const currentBasePrice = priceInfo.totalPrice;
 
-  // Calculate shipping (books only)
+  // Calculate shipping (books only, shipping method only — pickup is always free)
   const shippingResult = useMemo(() => {
-    if (product === 'book') {
+    if (product === 'book' && deliveryMethod === 'shipping') {
       return calculateShipping(quantity);
     }
     return { shippingCost: 0, isFreeShipping: true, threshold: 5 };
-  }, [product, quantity]);
+  }, [product, quantity, deliveryMethod]);
 
   const priceAfterDiscount = couponState.valid && couponState.discount
     ? couponState.discount.finalPrice
@@ -140,7 +142,9 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
             email: formData.email,
             phone: formData.phone,
           },
-          shippingAddress: product === 'book' ? shippingAddress : undefined,
+          deliveryMethod: product === 'book' ? deliveryMethod : undefined,
+          shippingAddress:
+            product === 'book' && deliveryMethod === 'shipping' ? shippingAddress : undefined,
           couponCode: couponState.valid ? formData.couponCode : undefined,
           quantity: product === 'book' ? quantity : undefined,
         }),
@@ -244,8 +248,62 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
         </div>
       </div>
 
-      {/* Shipping Address (Books only) */}
+      {/* Delivery Method Selector (Books only) */}
       {product === 'book' && (
+        <div className="pt-6 space-y-3 border-t border-gold/20">
+          <label className="block text-sm font-medium text-dark">
+            {t('form.deliveryMethod')} <span className="text-red-500">*</span>
+          </label>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <button
+              type="button"
+              onClick={() => setDeliveryMethod('shipping')}
+              aria-pressed={deliveryMethod === 'shipping'}
+              className={`text-start p-4 rounded-xl border-2 transition-colors ${
+                deliveryMethod === 'shipping'
+                  ? 'border-gold bg-gold/10'
+                  : 'border-gold/20 bg-white hover:border-gold/40'
+              }`}
+            >
+              <div className="font-medium text-dark">{t('form.shippingOption')}</div>
+              <div className="text-sm text-dark/70 mt-1">
+                {t('form.shippingOptionDescription')}
+              </div>
+            </button>
+            <button
+              type="button"
+              onClick={() => setDeliveryMethod('pickup')}
+              aria-pressed={deliveryMethod === 'pickup'}
+              className={`text-start p-4 rounded-xl border-2 transition-colors ${
+                deliveryMethod === 'pickup'
+                  ? 'border-gold bg-gold/10'
+                  : 'border-gold/20 bg-white hover:border-gold/40'
+              }`}
+            >
+              <div className="font-medium text-dark">{t('form.pickupOption')}</div>
+              <div className="text-sm text-dark/70 mt-1">
+                {t('form.pickupOptionDescription')}
+              </div>
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Pickup Details (Books + pickup only) */}
+      {product === 'book' && deliveryMethod === 'pickup' && (
+        <div className="bg-gold/5 rounded-xl p-5 border border-gold/20">
+          <div className="text-sm font-medium text-gold uppercase tracking-wide mb-2">
+            {t('form.pickupOption')}
+          </div>
+          <div className="text-dark font-medium">{t('form.pickupLocation')}</div>
+          <div className="text-sm text-dark/80 mt-1" dir="ltr">
+            {t('form.pickupContact')}
+          </div>
+        </div>
+      )}
+
+      {/* Shipping Address (Books + shipping only) */}
+      {product === 'book' && deliveryMethod === 'shipping' && (
         <div className="pt-6 space-y-4 border-t border-gold/20">
           <div className="flex items-center justify-between">
             <h3 className="text-lg font-medium text-dark">
@@ -412,8 +470,19 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
           </div>
         )}
 
-        {/* Shipping row (books only) */}
-        {product === 'book' && (
+        {/* Delivery row (books only) */}
+        {product === 'book' && deliveryMethod === 'pickup' && (
+          <div className="flex justify-between text-dark">
+            <span>
+              {t('summary.pickup')}
+              <span className="mr-2 text-green-600 text-sm font-medium">
+                ✓ {t('summary.pickupFree')}
+              </span>
+            </span>
+            <span className="text-green-600 font-medium">₪0</span>
+          </div>
+        )}
+        {product === 'book' && deliveryMethod === 'shipping' && (
           <div className="flex justify-between text-dark">
             <span>
               {t('summary.shipping')}
@@ -456,7 +525,7 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
           !formData.name ||
           !formData.email ||
           !isValidPhone(formData.phone) ||
-          (product === 'book' && (
+          (product === 'book' && deliveryMethod === 'shipping' && (
             !shippingAddress.street.trim() ||
             !shippingAddress.city.trim() ||
             shippingAddress.postalCode.trim().length < 3

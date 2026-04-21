@@ -164,7 +164,15 @@ export function generateOrderEmailHTML(order: OrderData): string {
         </div>
       </div>
 
-      ${order.shippingAddress ? `
+      ${order.deliveryMethod === 'pickup' ? `
+      <div class="field">
+        <div class="label">איסוף עצמי</div>
+        <div class="value">
+          כרם מהר״ל<br>
+          <a href="tel:054-7709201" style="color: #C9A961; text-decoration: none;" dir="ltr">054-7709201</a>
+        </div>
+      </div>
+      ` : order.shippingAddress ? `
       <div class="field">
         <div class="label">כתובת למשלוח</div>
         <div class="value">
@@ -195,7 +203,12 @@ export function generateOrderEmailHTML(order: OrderData): string {
           <span>-₪${discountAmount.toLocaleString()}</span>
         </div>
         ` : ''}
-        ${order.shippingCost !== undefined ? `
+        ${order.deliveryMethod === 'pickup' ? `
+        <div class="price-row">
+          <span>איסוף עצמי</span>
+          <span style="color: #22c55e; font-weight: 600;">חינם ✓</span>
+        </div>
+        ` : order.shippingCost !== undefined ? `
         <div class="price-row">
           <span>משלוח${order.shippingCost === 0 ? ' (חינם!)' : ''}</span>
           <span ${order.shippingCost === 0 ? 'style="color: #22c55e; font-weight: 600;"' : ''}>

@@ -12,16 +12,20 @@ export interface ShippingAddress {
   country: string; // ISO 3166-1 alpha-2 code (e.g., "IL", "US")
 }
 
+export type DeliveryMethod = 'shipping' | 'pickup';
+
 export interface OrderData {
   id: string;
   product: 'course' | 'book';
   customerInfo: CustomerInfo;
-  shippingAddress?: ShippingAddress; // For book orders only
+  // undefined on legacy orders — treat as 'shipping'
+  deliveryMethod?: DeliveryMethod;
+  shippingAddress?: ShippingAddress; // Only when deliveryMethod === 'shipping'
   couponCode?: string;
   quantity?: number; // For book orders (default: 1)
   originalPrice: number;
   discountAmount: number;
-  shippingCost?: number; // For book orders only
+  shippingCost?: number; // 0 for pickup, real value for shipping
   finalPrice: number;
   status: 'pending' | 'paid' | 'failed' | 'cancelled';
   createdAt: string;
@@ -31,7 +35,8 @@ export interface OrderData {
 export interface CreateOrderInput {
   product: 'course' | 'book';
   customerInfo: CustomerInfo;
-  shippingAddress?: ShippingAddress; // For book orders only
+  deliveryMethod?: DeliveryMethod;
+  shippingAddress?: ShippingAddress; // Only when deliveryMethod === 'shipping'
   couponCode?: string;
   quantity?: number; // For book orders (default: 1)
 }
