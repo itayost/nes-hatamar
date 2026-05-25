@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
-import { calculateBookPrice, BOOK_PACKAGES } from '@/lib/book-pricing';
+import { calculateBookPrice, BOOK_PACKAGES, BOOK_LIST_PRICE } from '@/lib/book-pricing';
 import { calculateShipping } from '@/lib/shipping-calculator';
 import { isValidPhone } from '@/lib/phone-validation';
 import { COUNTRIES, DEFAULT_COUNTRY_CODE } from '@/lib/countries';
@@ -53,7 +53,7 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
     if (product === 'book') {
       return calculateBookPrice(quantity);
     }
-    return { totalPrice: basePrice, unitPrice: basePrice, savings: 0, quantity: 1 };
+    return { totalPrice: basePrice, unitPrice: basePrice, savings: 0, quantity: 1, listPrice: basePrice };
   }, [product, quantity, basePrice]);
 
   const currentBasePrice = priceInfo.totalPrice;
@@ -439,6 +439,15 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
 
       {/* Price Summary */}
       <div className="bg-gold/5 rounded-xl p-6 space-y-3">
+        {product === 'book' && (
+          <div className="flex justify-between text-sm text-dark/50">
+            <span>{t('summary.storePrice')}</span>
+            <span className="line-through">
+              ₪{BOOK_LIST_PRICE.toLocaleString()}
+              {quantity > 1 && ` × ${quantity}`}
+            </span>
+          </div>
+        )}
         {product === 'book' && quantity > 1 ? (
           <>
             <div className="flex justify-between text-dark">

@@ -15,6 +15,10 @@ export const BOOK_PACKAGES = [
 // Single book price for reference
 export const SINGLE_BOOK_PRICE = 550;
 
+// List price (price charged in physical stores). Display-only reference for
+// the "in stores vs online" channel comparison. Never used in charge logic.
+export const BOOK_LIST_PRICE = 770;
+
 // Maximum allowed quantity (highest package)
 export const MAX_BOOK_QUANTITY = 10;
 
@@ -23,6 +27,7 @@ export interface BookPriceResult {
   unitPrice: number;
   savings: number; // Compared to buying individually
   quantity: number;
+  listPrice: number; // BOOK_LIST_PRICE * quantity (display-only)
 }
 
 /**
@@ -39,6 +44,7 @@ export function calculateBookPrice(quantity: number): BookPriceResult {
       unitPrice: SINGLE_BOOK_PRICE,
       savings: 0,
       quantity: 1,
+      listPrice: BOOK_LIST_PRICE,
     };
   }
 
@@ -47,6 +53,7 @@ export function calculateBookPrice(quantity: number): BookPriceResult {
     unitPrice: Math.round(pkg.totalPrice / pkg.quantity),
     savings: (SINGLE_BOOK_PRICE * pkg.quantity) - pkg.totalPrice,
     quantity: pkg.quantity,
+    listPrice: BOOK_LIST_PRICE * pkg.quantity,
   };
 }
 

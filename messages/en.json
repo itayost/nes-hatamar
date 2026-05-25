@@ -216,6 +216,8 @@
       "productName": "Nes HaTamar - Premium Edition",
       "productDescription": "A luxurious 700+ page book on homeopathy and Torah wisdom",
       "price": "₪550",
+      "inStoresLabel": "in stores",
+      "onlineLabel": "online",
       "details": {
         "binding": "Hardcover with gold embossing",
         "pages": "700+ pages",
@@ -275,6 +277,7 @@
       "securePayment": "Secure and encrypted payment"
     },
     "summary": {
+      "storePrice": "Store Price",
       "bookPrice": "Book Price",
       "coursePrice": "Course Price",
       "unitPrice": "Unit Price",

@@ -6,8 +6,9 @@ import AnimateOnScroll from '@/components/AnimateOnScroll';
 import PurchaseForm from '@/components/PurchaseForm';
 import { generatePageMetadata } from '@/lib/og-metadata';
 import { CheckCircleIcon, ArrowRightIcon, BookIcon, CalendarIcon, ClockIcon, MailIcon, StarIcon } from '@/components/icons/Icons';
+import { BOOK_LIST_PRICE, SINGLE_BOOK_PRICE } from '@/lib/book-pricing';
 
-const BOOK_PRICE = 550;
+const BOOK_PRICE = SINGLE_BOOK_PRICE;
 const COURSE_PRICE = 1600;
 
 type ProductType = 'book' | 'course';
@@ -115,6 +116,19 @@ export default async function PurchasePage({
                         )}
                       </div>
                     </div>
+
+                    {productType === 'book' && (
+                      <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 px-4">
+                        <div className="flex items-baseline gap-1.5 text-dark/40">
+                          <span className="line-through text-base">₪{BOOK_LIST_PRICE}</span>
+                          <span className="text-xs">{t('bookInfo.inStoresLabel')}</span>
+                        </div>
+                        <div className="flex items-baseline gap-1.5">
+                          <span className="text-gold font-bold text-2xl">₪{SINGLE_BOOK_PRICE}</span>
+                          <span className="text-xs text-dark/60">{t('bookInfo.onlineLabel')}</span>
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   {/* Product Details */}

@@ -216,6 +216,8 @@
       "productName": "נס התמר - מהדורת פרימיום",
       "productDescription": "ספר יוקרתי בן 700+ עמודים על הומאופטיה ותורת ישראל",
       "price": "₪550",
+      "inStoresLabel": "בחנויות",
+      "onlineLabel": "באתר",
       "details": {
         "binding": "כריכה קשה עם הטבעת זהב",
         "pages": "700+ עמודים",
@@ -275,6 +277,7 @@
       "securePayment": "התשלום מאובטח ומוצפן"
     },
     "summary": {
+      "storePrice": "מחיר בחנויות",
       "bookPrice": "מחיר הספר",
       "coursePrice": "מחיר הקורס",
       "unitPrice": "מחיר ליחידה",
