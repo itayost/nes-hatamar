@@ -442,9 +442,9 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
         {product === 'book' && (
           <div className="flex justify-between text-sm text-dark/50">
             <span>{t('summary.storePrice')}</span>
-            <span className="line-through">
-              ₪{BOOK_LIST_PRICE.toLocaleString()}
-              {quantity > 1 && ` × ${quantity}`}
+            <span>
+              (₪{BOOK_LIST_PRICE.toLocaleString()}
+              {quantity > 1 && ` × ${quantity}`})
             </span>
           </div>
         )}

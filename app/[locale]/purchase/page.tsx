@@ -119,9 +119,8 @@ export default async function PurchasePage({
 
                     {productType === 'book' && (
                       <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 px-4">
-                        <div className="flex items-baseline gap-1.5 text-dark/40">
-                          <span className="line-through text-base">₪{BOOK_LIST_PRICE}</span>
-                          <span className="text-xs">{t('bookInfo.inStoresLabel')}</span>
+                        <div className="flex items-baseline gap-1.5 text-dark/50">
+                          <span className="text-base">(₪{BOOK_LIST_PRICE} {t('bookInfo.inStoresLabel')})</span>
                         </div>
                         <div className="flex items-baseline gap-1.5">
                           <span className="text-gold font-bold text-2xl">₪{SINGLE_BOOK_PRICE}</span>
