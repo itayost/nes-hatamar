@@ -61,10 +61,10 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
   // Calculate shipping (books only, shipping method only — pickup is always free)
   const shippingResult = useMemo(() => {
     if (product === 'book' && deliveryMethod === 'shipping') {
-      return calculateShipping(quantity);
+      return calculateShipping(quantity, shippingAddress.country);
     }
-    return { shippingCost: 0, isFreeShipping: true, threshold: 5 };
-  }, [product, quantity, deliveryMethod]);
+    return { shippingCost: 0, isFreeShipping: true, threshold: 5, isInternational: false };
+  }, [product, quantity, deliveryMethod, shippingAddress.country]);
 
   const priceAfterDiscount = couponState.valid && couponState.discount
     ? couponState.discount.finalPrice
@@ -305,14 +305,20 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
       {/* Shipping Address (Books + shipping only) */}
       {product === 'book' && deliveryMethod === 'shipping' && (
         <div className="pt-6 space-y-4 border-t border-gold/20">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-3 flex-wrap">
             <h3 className="text-lg font-medium text-dark">
               {t('form.shippingAddress')}
             </h3>
-            {!shippingResult.isFreeShipping && (
+            {shippingResult.isInternational ? (
               <span className="text-sm text-gold font-medium">
-                {t('form.freeShippingIncentive', { threshold: shippingResult.threshold })}
+                {t('form.internationalShippingNotice', { cost: shippingResult.shippingCost })}
               </span>
+            ) : (
+              !shippingResult.isFreeShipping && (
+                <span className="text-sm text-gold font-medium">
+                  {t('form.freeShippingIncentive', { threshold: shippingResult.threshold })}
+                </span>
+              )
             )}
           </div>
 

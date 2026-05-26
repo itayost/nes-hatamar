@@ -9,7 +9,6 @@ export const BOOK_PACKAGES = [
   { quantity: 1, totalPrice: 550 },
   { quantity: 2, totalPrice: 990 },
   { quantity: 5, totalPrice: 2250 },
-  { quantity: 10, totalPrice: 3600 },
 ] as const;
 
 // Single book price for reference
@@ -20,7 +19,7 @@ export const SINGLE_BOOK_PRICE = 550;
 export const BOOK_LIST_PRICE = 770;
 
 // Maximum allowed quantity (highest package)
-export const MAX_BOOK_QUANTITY = 10;
+export const MAX_BOOK_QUANTITY = 5;
 
 export interface BookPriceResult {
   totalPrice: number;
@@ -32,7 +31,7 @@ export interface BookPriceResult {
 
 /**
  * Get price for a specific quantity package.
- * Only valid for quantities: 1, 2, 5, 10
+ * Only valid for quantities: 1, 2, 5
  */
 export function calculateBookPrice(quantity: number): BookPriceResult {
   const pkg = BOOK_PACKAGES.find(p => p.quantity === quantity);

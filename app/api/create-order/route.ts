@@ -128,7 +128,7 @@ export async function POST(request: NextRequest) {
     if (product === 'book' && input.quantity) {
       quantity = Math.round(input.quantity);
       if (!isValidBookQuantity(quantity)) {
-        return NextResponse.json({ error: 'Invalid quantity. Available packages: 1, 2, 5, or 10 books' }, { status: 400 });
+        return NextResponse.json({ error: 'Invalid quantity. Available packages: 1, 2, or 5 books' }, { status: 400 });
       }
     }
 
@@ -157,7 +157,10 @@ export async function POST(request: NextRequest) {
     // Add shipping cost (books + shipping only, after discount).
     // Pickup keeps shippingCost = 0 so the total never adds freight.
     if (product === 'book' && deliveryMethod === 'shipping') {
-      const shipping = calculateShipping(quantity);
+      const shipping = calculateShipping(
+        quantity,
+        input.shippingAddress?.country,
+      );
       shippingCost = shipping.shippingCost;
       finalPrice += shippingCost;
     }

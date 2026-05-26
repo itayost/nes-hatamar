@@ -262,6 +262,7 @@
       "pickupContact": "Call to coordinate: 054-7709201",
       "shippingAddress": "Shipping Address",
       "freeShippingIncentive": "Free shipping from {threshold} books!",
+      "internationalShippingNotice": "International shipping ₪{cost}",
       "street": "Street and Number",
       "streetPlaceholder": "123 Main Street",
       "apartmentFloor": "Apartment/Floor (optional)",
