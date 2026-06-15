@@ -15,6 +15,68 @@
     "journey": "Like a walk through an enchanted garden, the book unveils a rich world of plants, animals, minerals, and metals, revealing the hidden healing powers that operate according to the law of similars: like cures like.",
     "connection": "This is a pioneering work connecting the Torah of Israel with the world of homeopathy and medicinal plants. The book illuminates how true healing does not merely cover symptoms but touches the root of illness and sweetens its cause.",
     "experience": "Accompanied by ancient and modern artwork, Nes HaTamar is an experience that engages all senses - internal and external - and opens a new dialogue between the supernatural world of miracles and the natural world itself, between the bitterness of illness and the sweetness of the date palm.",
+    "testimonials": {
+      "title": "Praise for Nes HaTamar",
+      "readMore": "Read more",
+      "readLess": "Read less",
+      "items": [
+        {
+          "name": "Hedva Sternberg",
+          "title": "Homeopath, Jerusalem",
+          "quote": "I just received the book. I was so moved by the weight of the package, and when I opened it I was astonished! Everything you told and shared, and everything you showed of the book in the videos, did not reflect the book itself at all. First, its appearance is phenomenally beautiful, with wonderful taste in the combination of colors - the gold on the white fabric with the purple flower. And within the text, the lovely, complementary blend of the heading colors and the fonts. The images are simply a masterpiece, a work of art in both appearance and depth. You can see how the book is written like interwoven vessels of intellect and emotion, the material and the spiritual, in an amazing way. No words! God has touched you. I wish that your wellsprings spread far and wide."
+        },
+        {
+          "name": "Miriam Bat-El Amsali",
+          "title": "Me'ira Shachar",
+          "quote": "Hello Tamar, the book reached us a few weeks ago. It is amazing and beautifully crafted, and we have already had the chance to immerse ourselves in it several times and learn so much! Thank you very much."
+        },
+        {
+          "name": "Keren Frisch",
+          "title": "Zichron Ya'akov",
+          "quote": "Today the book arrived at my home, and it was very moving. At every stage and on every page you can see how much thought, knowledge, investment, and heart you put into it. Homeopathy is a field you have been studying and delving into deeply for many years, and I am certain that with this book you will succeed in making it accessible to the whole world. This is not only a professional and impressive work - it is a work with a mission, the fruit of your labor, the fruit of Nes HaTamar. Well done for the dedication, the courage, and the privilege. Thank you very much."
+        },
+        {
+          "name": "Iris Ada",
+          "title": "Ein Hod",
+          "quote": "Dear Tamar, the book Nes HaTamar has reached me, and I want to thank you and express my deep appreciation for the rich content and the meticulous design. A rare book in many respects. Wishing you success and blessing. I will certainly recommend it!"
+        },
+        {
+          "name": "Hadas Bachar",
+          "title": "Geva Carmel",
+          "quote": "This morning I received your and Nissim's amazing book, Nes HaTamar, and it is simply wonderful and uniquely beautiful. From the very first glance you can feel how much love, thought, and inspiration it holds. I have no doubt I will learn a great deal from it, and I am already looking forward to starting to read and delve into it. Thank you both for this moving creation."
+        },
+        {
+          "name": "Dalit Zarankin",
+          "title": "Zichron Ya'akov",
+          "quote": "The book is amazing. On Shabbat I read it for about two and a half hours and dove right in. I don't know why, but I dove into the entire chapter on metals. A true gem to have at home."
+        },
+        {
+          "name": "Osnat Barel",
+          "title": "Kfar Saba",
+          "quote": "Dear Tamar, yesterday I received your and Nissim's exquisite, magnificent book, and I cannot remember the last time I opened a book with such excitement and attentiveness, knowing this is a book you leaf through gently when you can devote yourself to it alone, a book to be cherished and guarded, holding for me all the goodness of the earth, the flora and the fauna, and the age-old traditions that connect a person - body, soul, and spirit - to nature. Thank you for the kind blessings."
+        },
+        {
+          "name": "Avraham Dahan",
+          "title": "Historian, author, compiler of the Talmud of Plants Encyclopedia and founder of the Talmud of Plants Orchard at Mitzpe HaYamim",
+          "quote": "To the authors of Nes HaTamar, I have received your wonderful book and was deeply impressed by the dedication, knowledge, and love woven into it. It is clearly a work of great value, one that will give readers inspiration, knowledge, and important insights in the fields of health and way of life. My warm congratulations on the book's publication, and great success in spreading its message to the wider public. With warm regards, Avraham Dahan."
+        },
+        {
+          "name": "Hana Yoster",
+          "title": "Holon",
+          "quote": "A wondrous, unique book whose content is infinite wisdom. A masterpiece that combines the wisdom of Judaism, the wisdom of nature, and the wisdom of homeopathy - together creating a new, rich, and fascinating cosmos. The book, printed in Italy and a work of art in its own right, incorporates paintings by renowned artists, poetry, sources, and nature photography."
+        },
+        {
+          "name": "Edna Zomer",
+          "title": "Hadera",
+          "quote": "Dear Tamar, the wondrous book I have awaited for so long has just arrived. I want to say that I am truly overwhelmed by the magnitude and beauty of the creation, by its appearance and by its profound, all-encompassing content. A book that touches the heart and soul in every sense. I thank you and Nissim with all my heart for this gift for life."
+        },
+        {
+          "name": "Nisan Perez",
+          "title": "Historian, independent photography curator, and producer of photography and art books (including for the Israel Museum)",
+          "quote": "Hi Tamar, I received the book with gratitude. You have done monumental work. Congratulations and continued success."
+        }
+      ]
+    },
     "cta": "Order Now",
     "features": {
       "plants": {
