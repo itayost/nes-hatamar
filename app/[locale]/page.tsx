@@ -5,6 +5,7 @@ import Image from 'next/image';
 import CornerOrnament from '@/components/ornaments/CornerOrnament';
 import Divider from '@/components/ornaments/Divider';
 import AnimateOnScroll from '@/components/AnimateOnScroll';
+import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 import YouTubeVideo from '@/components/YouTubeVideo';
 import { generatePageMetadata } from '@/lib/og-metadata';
 import { generateProductSchema } from '@/lib/structured-data';
@@ -194,35 +195,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               </div>
             </div>
 
-            {/* Right Column - Pull Quote / Highlight */}
-            <div className="relative">
-              {/* Ornamental frame */}
-              <div className="relative p-10 bg-white/60 backdrop-blur-sm rounded-2xl border-2 border-gold/30 shadow-xl">
-                {/* Corner ornaments */}
-                <div className="absolute -top-3 -left-3 w-12 h-12 border-t-4 border-l-4 border-gold/60 rounded-tl-2xl"></div>
-                <div className="absolute -top-3 -right-3 w-12 h-12 border-t-4 border-r-4 border-gold/60 rounded-tr-2xl"></div>
-                <div className="absolute -bottom-3 -left-3 w-12 h-12 border-b-4 border-l-4 border-gold/60 rounded-bl-2xl"></div>
-                <div className="absolute -bottom-3 -right-3 w-12 h-12 border-b-4 border-r-4 border-gold/60 rounded-br-2xl"></div>
-
-                {/* Quote mark ornament */}
-                <div className="text-gold/20 text-8xl leading-none mb-4"></div>
-
-                {/* Quote content */}
-                <p className="text-xl italic text-dark/80 leading-relaxed mb-6">
-                  {t('experience')}
-                </p>
-
-                {/* Bottom decorative element */}
-                <div className="flex justify-center gap-2 mt-8">
-                  <div className="w-3 h-3 rounded-full bg-gold"></div>
-                  <div className="w-3 h-3 rounded-full bg-gold/60"></div>
-                  <div className="w-3 h-3 rounded-full bg-gold/30"></div>
-                </div>
-              </div>
-
-              {/* Floating ornament */}
-              <div className="absolute -bottom-6 -right-6 text-gold/40 text-4xl animate-float" style={{ animationDelay: '0.5s' }}>✦</div>
-            </div>
+            {/* Right Column - Testimonials Carousel */}
+            <TestimonialsCarousel />
           </div>
         </div>
       </section>

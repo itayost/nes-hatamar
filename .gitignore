@@ -60,3 +60,6 @@ dev-debug.log
 # MCP configuration (contains API keys)
 opencode.json
 .env*.local
+
+# Playwright MCP artifacts
+.playwright-mcp/
