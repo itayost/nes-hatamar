@@ -31,6 +31,11 @@ const videos = [
     titleKey: 'videos.channel13.title',
   },
   {
+    id: 'pWPilcp0T7g',
+    titleKey: 'videos.haYenuka.title',
+    aspectRatio: '9:16' as const,
+  },
+  {
     id: 'aIPXpxhFgTY',
     titleKey: 'videos.channel14.title',
   },
@@ -123,6 +128,7 @@ export default async function MediaPage({ params }: { params: Promise<{ locale: 
                     videoId={video.id}
                     title={t(video.titleKey)}
                     autoplay={false}
+                    aspectRatio={video.aspectRatio ?? '16:9'}
                     className="rounded-xl overflow-hidden"
                   />
 
