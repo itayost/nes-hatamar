@@ -280,6 +280,7 @@
       "price": "₪550",
       "inStoresLabel": "in stores",
       "onlineLabel": "online",
+      "launchPriceBadge": "Launch Price",
       "details": {
         "binding": "Hardcover with gold embossing",
         "pages": "700+ pages",

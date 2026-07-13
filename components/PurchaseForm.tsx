@@ -456,8 +456,13 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
         )}
         {product === 'book' && quantity > 1 ? (
           <>
-            <div className="flex justify-between text-dark">
-              <span>{t('summary.unitPrice')}</span>
+            <div className="flex justify-between items-center text-dark gap-2">
+              <span className="flex items-center gap-2 flex-wrap">
+                {t('summary.unitPrice')}
+                <span className="text-[10px] font-semibold text-gold bg-gold/10 border border-gold/30 rounded-full px-1.5 py-0.5 uppercase tracking-wide">
+                  {t('bookInfo.launchPriceBadge')}
+                </span>
+              </span>
               <span>₪{priceInfo.unitPrice.toLocaleString()} × {quantity}</span>
             </div>
             <div className="flex justify-between text-dark">
@@ -472,8 +477,15 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
             )}
           </>
         ) : (
-          <div className="flex justify-between text-dark">
-            <span>{product === 'book' ? t('summary.bookPrice') : t('summary.coursePrice')}</span>
+          <div className="flex justify-between items-center text-dark gap-2">
+            <span className="flex items-center gap-2 flex-wrap">
+              {product === 'book' ? t('summary.bookPrice') : t('summary.coursePrice')}
+              {product === 'book' && (
+                <span className="text-[10px] font-semibold text-gold bg-gold/10 border border-gold/30 rounded-full px-1.5 py-0.5 uppercase tracking-wide">
+                  {t('bookInfo.launchPriceBadge')}
+                </span>
+              )}
+            </span>
             <span>₪{currentBasePrice.toLocaleString()}</span>
           </div>
         )}

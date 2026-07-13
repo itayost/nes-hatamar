@@ -122,9 +122,12 @@ export default async function PurchasePage({
                         <div className="flex items-baseline gap-1.5 text-dark/50">
                           <span className="text-base">(₪{BOOK_LIST_PRICE} {t('bookInfo.inStoresLabel')})</span>
                         </div>
-                        <div className="flex items-baseline gap-1.5">
+                        <div className="flex items-baseline gap-x-2 gap-y-1 flex-wrap">
                           <span className="text-gold font-bold text-2xl">₪{SINGLE_BOOK_PRICE}</span>
                           <span className="text-xs text-dark/60">{t('bookInfo.onlineLabel')}</span>
+                          <span className="text-[11px] font-semibold text-gold bg-gold/10 border border-gold/30 rounded-full px-2 py-0.5 uppercase tracking-wide">
+                            {t('bookInfo.launchPriceBadge')}
+                          </span>
                         </div>
                       </div>
                     )}
