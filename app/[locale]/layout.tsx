@@ -9,6 +9,7 @@ import StructuredData from '@/components/StructuredData';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import WhatsAppFAB from '@/components/WhatsAppFAB';
+import LaunchEventPopup from '@/components/LaunchEventPopup';
 
 export async function generateMetadata({
   params
@@ -72,6 +73,7 @@ export default async function LocaleLayout({
             <Footer />
           </div>
           <WhatsAppFAB />
+          <LaunchEventPopup />
         </NextIntlClientProvider>
       </body>
     </html>

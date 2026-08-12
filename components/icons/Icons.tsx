@@ -622,3 +622,42 @@ export const MediaIcon: React.FC<IconProps> = ({ className = '', size = 24 }) =>
     <path d="M5 6l2 2" opacity="0.3" />
   </svg>
 );
+
+// Location Icon - Map pin for event venues
+export const LocationIcon: React.FC<IconProps> = ({ className = '', size = 24 }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    {/* Pin outline */}
+    <path d="M12 21s7-5.686 7-11a7 7 0 10-14 0c0 5.314 7 11 7 11z" />
+    {/* Inner marker */}
+    <circle cx="12" cy="10" r="2.5" />
+    {/* Decorative center dot */}
+    <circle cx="12" cy="10" r="0.8" fill="currentColor" opacity="0.6" />
+  </svg>
+);
+
+// Close Icon - Dismiss dialogs and overlays
+export const CloseIcon: React.FC<IconProps> = ({ className = '', size = 24 }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <path d="M6 6l12 12M18 6L6 18" />
+  </svg>
+);
