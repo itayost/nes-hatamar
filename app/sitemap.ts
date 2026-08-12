@@ -4,7 +4,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.neshatamar.com
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const locales = ['he', 'en'];
-  const routes = ['', '/about', '/course', '/preview', '/purchase'];
+  const routes = ['', '/about', '/course', '/preview', '/purchase', '/media', '/contact'];
 
   const sitemapEntries: MetadataRoute.Sitemap = [];
 

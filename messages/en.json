@@ -615,5 +615,32 @@
       "subtitle": "Order your copy and start your healing journey",
       "button": "Order Now"
     }
+  },
+  "event": {
+    "badge": "You Are Invited",
+    "title": "A Tour Following the Book 'Nes HaTamar'",
+    "tagline": "A journey among objects, heritage and the nature of the land",
+    "weekday": "Thursday",
+    "dateDay": "27",
+    "dateMonth": "August 2026",
+    "time": "17:00",
+    "duration": "Approximately two and a half hours",
+    "fullDate": "Thursday, August 27, 2026, at 17:00",
+    "venueName": "Eretz Israel Museum",
+    "venueAddress": "2 Haim Levanon St, Ramat Aviv",
+    "description": "A combined tour of the Jewish Culture and Folklore Pavilion and the MUZA Orchard, led by curator Maya Cohen-Mosek together with the book's authors Tamar Eshel and Nissim Krispil.",
+    "scheduleTitle": "Programme",
+    "schedule": [
+      { "time": "17:00", "text": "Gathering" },
+      { "time": "17:15", "text": "Tour of the Jewish Culture and Folklore Pavilion with the curator" },
+      { "time": "17:45", "text": "Tour of the MUZA Orchard with the authors" },
+      { "time": "18:45", "text": "Book launch" }
+    ],
+    "note": "Advance registration required. Limited places. Included with museum admission. Part of the event takes place outdoors, please dress accordingly.",
+    "ticketsCta": "Get Tickets",
+    "detailsCta": "Full details on the museum website",
+    "close": "Close",
+    "sectionTitle": "Book Launch Event",
+    "sectionSubtitle": "A special evening with the authors at the Eretz Israel Museum"
   }
 }

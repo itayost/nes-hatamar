@@ -7,8 +7,19 @@ import Divider from '@/components/ornaments/Divider';
 import AnimateOnScroll from '@/components/AnimateOnScroll';
 import YouTubeVideo from '@/components/YouTubeVideo';
 import SpotifyEmbed from '@/components/SpotifyEmbed';
+import LaunchEventCard from '@/components/LaunchEventCard';
+import StructuredData from '@/components/StructuredData';
 import { generatePageMetadata } from '@/lib/og-metadata';
-import { ArrowRightIcon, BookIcon, MediaIcon } from '@/components/icons/Icons';
+import { generateEventSchema } from '@/lib/structured-data';
+import { LAUNCH_EVENT, isLaunchEventUpcoming } from '@/lib/launch-event';
+import { ArrowRightIcon, BookIcon, CalendarIcon, MediaIcon } from '@/components/icons/Icons';
+
+/**
+ * Revalidate hourly so the launch event section (and its Event JSON-LD)
+ * disappear on their own once the event is over, instead of being frozen
+ * at whatever the date was when the page was built.
+ */
+export const revalidate = 3600;
 
 export async function generateMetadata({
   params
@@ -48,9 +59,26 @@ const videos = [
 export default async function MediaPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const t = await getTranslations('media');
+  const tEvent = await getTranslations('event');
+
+  const showLaunchEvent = isLaunchEventUpcoming();
+
+  const eventSchema = showLaunchEvent
+    ? generateEventSchema({
+        locale,
+        name: tEvent('title'),
+        description: tEvent('description'),
+        startDate: LAUNCH_EVENT.startsAt,
+        endDate: LAUNCH_EVENT.endsAt,
+        ticketsUrl: LAUNCH_EVENT.ticketsUrl,
+        image: LAUNCH_EVENT.image,
+      })
+    : null;
 
   return (
     <div className="min-h-screen bg-cream">
+      {eventSchema && <StructuredData data={eventSchema} />}
+
       {/* Section 1: Hero */}
       <section className="relative bg-gradient-to-b from-white to-cream py-20 sm:py-28 overflow-hidden">
         <CornerOrnament position="top-left" size="lg" />
@@ -67,6 +95,40 @@ export default async function MediaPage({ params }: { params: Promise<{ locale: 
       </section>
 
       <Divider />
+
+      {/* Section 1.5: Launch event - self-removes once the event has passed */}
+      {showLaunchEvent && (
+        <>
+          <section className="relative py-20 sm:py-24">
+            <div className="w-full mx-auto px-6 sm:px-8 lg:px-12 max-w-6xl">
+              <AnimateOnScroll>
+                <div className="text-center mb-12">
+                  <div className="inline-flex items-center justify-center w-20 h-20 bg-gold/10 rounded-full mb-6">
+                    <CalendarIcon size={40} className="text-gold" />
+                  </div>
+                  <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-gold to-gold-light bg-clip-text text-transparent mb-4">
+                    {tEvent('sectionTitle')}
+                  </h2>
+                  <p className="text-xl text-dark/70 max-w-2xl mx-auto">
+                    {tEvent('sectionSubtitle')}
+                  </p>
+                </div>
+              </AnimateOnScroll>
+
+              <AnimateOnScroll>
+                <div className="relative bg-white/60 backdrop-blur-sm p-6 sm:p-8 lg:p-10 rounded-2xl shadow-lg border-2 border-gold/20 hover:border-gold/40 hover:shadow-xl transition-all duration-300">
+                  <CornerOrnament position="top-left" size="sm" />
+                  <CornerOrnament position="bottom-right" size="sm" />
+
+                  <LaunchEventCard variant="section" />
+                </div>
+              </AnimateOnScroll>
+            </div>
+          </section>
+
+          <Divider />
+        </>
+      )}
 
       {/* Section 2: Featured Image */}
       <section className="relative py-20 sm:py-24 bg-gradient-to-b from-cream to-white">

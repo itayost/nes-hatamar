@@ -138,6 +138,79 @@ export function generateProductSchema({ locale, name, description, image, author
   };
 }
 
+interface EventSchemaParams {
+  locale: string;
+  name: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  ticketsUrl: string;
+  image: string;
+}
+
+/**
+ * Generate Event schema for the book launch event
+ */
+export function generateEventSchema({
+  locale,
+  name,
+  description,
+  startDate,
+  endDate,
+  ticketsUrl,
+  image,
+}: EventSchemaParams) {
+  const isHebrew = locale === 'he';
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Event',
+    name,
+    description,
+    startDate,
+    endDate,
+    eventStatus: 'https://schema.org/EventScheduled',
+    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+    inLanguage: 'he-IL',
+    image: `${BASE_URL}${image}`,
+    location: {
+      '@type': 'Place',
+      name: isHebrew ? 'מוזיאון ארץ ישראל' : 'Eretz Israel Museum',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: isHebrew ? 'חיים לבנון 2' : '2 Haim Levanon St',
+        addressLocality: isHebrew ? 'תל אביב' : 'Tel Aviv',
+        addressCountry: 'IL',
+      },
+    },
+    performer: [
+      {
+        '@type': 'Person',
+        name: isHebrew ? 'תמר אשל' : 'Tamar Eshel',
+      },
+      {
+        '@type': 'Person',
+        name: isHebrew ? 'נסים קריספיל' : 'Nissim Krispil',
+      },
+    ],
+    organizer: {
+      '@type': 'Organization',
+      name: isHebrew ? 'מוזיאון ארץ ישראל' : 'Eretz Israel Museum',
+      url: 'https://www.eretzmuseum.org.il',
+    },
+    offers: {
+      '@type': 'Offer',
+      url: ticketsUrl,
+      availability: 'https://schema.org/InStock',
+      validFrom: startDate,
+    },
+    about: {
+      '@type': 'Book',
+      '@id': `${BASE_URL}#book`,
+    },
+  };
+}
+
 /**
  * Generate BreadcrumbList schema for navigation
  */
