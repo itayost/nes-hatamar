@@ -38,6 +38,11 @@ export async function generateMetadata({
 
 const videos = [
   {
+    id: '_fxpnohTZmE',
+    titleKey: 'videos.launchEvent.title',
+    aspectRatio: '9:16' as const,
+  },
+  {
     id: 's_MQZdp7YOc',
     titleKey: 'videos.channel13.title',
   },

@@ -150,6 +150,7 @@
     }
   },
   "about": {
+    "highlightsTitle": "Key Highlights",
     "title": "About the Authors",
     "subtitle": "Meet the authors of Nes HaTamar",
     "authorCards": {
@@ -587,6 +588,9 @@
       "subtitle": "Watch our media appearances and interviews"
     },
     "videos": {
+      "launchEvent": {
+        "title": "The launch of 'Nes HaTamar' at the Eretz Israel Museum, Tel Aviv"
+      },
       "channel13": {
         "title": "Tamar Eshel on Channel 13 talks about the book 'Nes HaTamar'"
       },
