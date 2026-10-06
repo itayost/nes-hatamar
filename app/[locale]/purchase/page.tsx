@@ -6,10 +6,10 @@ import AnimateOnScroll from '@/components/AnimateOnScroll';
 import PurchaseForm from '@/components/PurchaseForm';
 import { generatePageMetadata } from '@/lib/og-metadata';
 import { CheckCircleIcon, ArrowRightIcon, BookIcon, CalendarIcon, ClockIcon, MailIcon, StarIcon } from '@/components/icons/Icons';
-import { BOOK_LIST_PRICE, SINGLE_BOOK_PRICE } from '@/lib/book-pricing';
+import { SINGLE_BOOK_PRICE } from '@/lib/book-pricing';
+import { COURSE_PRICE } from '@/lib/course-pricing';
 
 const BOOK_PRICE = SINGLE_BOOK_PRICE;
-const COURSE_PRICE = 1600;
 
 type ProductType = 'book' | 'course';
 
@@ -118,17 +118,8 @@ export default async function PurchasePage({
                     </div>
 
                     {productType === 'book' && (
-                      <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 px-4">
-                        <div className="flex items-baseline gap-1.5 text-dark/50">
-                          <span className="text-base">(₪{BOOK_LIST_PRICE} {t('bookInfo.inStoresLabel')})</span>
-                        </div>
-                        <div className="flex items-baseline gap-x-2 gap-y-1 flex-wrap">
-                          <span className="text-gold font-bold text-2xl">₪{SINGLE_BOOK_PRICE}</span>
-                          <span className="text-xs text-dark/60">{t('bookInfo.onlineLabel')}</span>
-                          <span className="text-[11px] font-semibold text-gold bg-gold/10 border border-gold/30 rounded-full px-2 py-0.5 uppercase tracking-wide">
-                            {t('bookInfo.launchPriceBadge')}
-                          </span>
-                        </div>
+                      <div className="px-4">
+                        <span className="text-gold font-bold text-2xl">₪{SINGLE_BOOK_PRICE}</span>
                       </div>
                     )}
                   </div>

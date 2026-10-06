@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
-import { calculateBookPrice, BOOK_PACKAGES, BOOK_LIST_PRICE } from '@/lib/book-pricing';
+import { calculateBookPrice, BOOK_PACKAGES, MAX_BOOK_QUANTITY } from '@/lib/book-pricing';
 import { calculateShipping } from '@/lib/shipping-calculator';
 import { isValidPhone } from '@/lib/phone-validation';
 import { COUNTRIES, DEFAULT_COUNTRY_CODE } from '@/lib/countries';
@@ -53,7 +53,7 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
     if (product === 'book') {
       return calculateBookPrice(quantity);
     }
-    return { totalPrice: basePrice, unitPrice: basePrice, savings: 0, quantity: 1, listPrice: basePrice };
+    return { totalPrice: basePrice, unitPrice: basePrice, savings: 0, quantity: 1 };
   }, [product, quantity, basePrice]);
 
   const currentBasePrice = priceInfo.totalPrice;
@@ -314,7 +314,7 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
                 {t('form.internationalShippingNotice', { cost: shippingResult.shippingCost })}
               </span>
             ) : (
-              !shippingResult.isFreeShipping && (
+              !shippingResult.isFreeShipping && shippingResult.threshold <= MAX_BOOK_QUANTITY && (
                 <span className="text-sm text-gold font-medium">
                   {t('form.freeShippingIncentive', { threshold: shippingResult.threshold })}
                 </span>
@@ -445,24 +445,10 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
 
       {/* Price Summary */}
       <div className="bg-gold/5 rounded-xl p-6 space-y-3">
-        {product === 'book' && (
-          <div className="flex justify-between text-sm text-dark/50">
-            <span>{t('summary.storePrice')}</span>
-            <span>
-              (₪{BOOK_LIST_PRICE.toLocaleString()}
-              {quantity > 1 && ` × ${quantity}`})
-            </span>
-          </div>
-        )}
         {product === 'book' && quantity > 1 ? (
           <>
             <div className="flex justify-between items-center text-dark gap-2">
-              <span className="flex items-center gap-2 flex-wrap">
-                {t('summary.unitPrice')}
-                <span className="text-[10px] font-semibold text-gold bg-gold/10 border border-gold/30 rounded-full px-1.5 py-0.5 uppercase tracking-wide">
-                  {t('bookInfo.launchPriceBadge')}
-                </span>
-              </span>
+              <span>{t('summary.unitPrice')}</span>
               <span>₪{priceInfo.unitPrice.toLocaleString()} × {quantity}</span>
             </div>
             <div className="flex justify-between text-dark">
@@ -478,14 +464,7 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
           </>
         ) : (
           <div className="flex justify-between items-center text-dark gap-2">
-            <span className="flex items-center gap-2 flex-wrap">
-              {product === 'book' ? t('summary.bookPrice') : t('summary.coursePrice')}
-              {product === 'book' && (
-                <span className="text-[10px] font-semibold text-gold bg-gold/10 border border-gold/30 rounded-full px-1.5 py-0.5 uppercase tracking-wide">
-                  {t('bookInfo.launchPriceBadge')}
-                </span>
-              )}
-            </span>
+            <span>{product === 'book' ? t('summary.bookPrice') : t('summary.coursePrice')}</span>
             <span>₪{currentBasePrice.toLocaleString()}</span>
           </div>
         )}

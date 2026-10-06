@@ -277,10 +277,7 @@
       "title": "Premium Edition",
       "productName": "Nes HaTamar - Premium Edition",
       "productDescription": "A luxurious 700+ page book on homeopathy and Torah wisdom",
-      "price": "₪550",
-      "inStoresLabel": "in stores",
-      "onlineLabel": "online",
-      "launchPriceBadge": "Launch Price",
+      "price": "₪770",
       "details": {
         "binding": "Hardcover with gold embossing",
         "pages": "700+ pages",
@@ -318,7 +315,7 @@
       "couponError": "Error validating coupon",
       "deliveryMethod": "Delivery Method",
       "shippingOption": "Home Delivery",
-      "shippingOptionDescription": "₪40 · free on 5+ books",
+      "shippingOptionDescription": "₪40",
       "pickupOption": "Self-Pickup from Kerem Maharal",
       "pickupOptionDescription": "Free · call to coordinate",
       "pickupLocation": "Kerem Maharal",
@@ -341,7 +338,6 @@
       "securePayment": "Secure and encrypted payment"
     },
     "summary": {
-      "storePrice": "Store Price",
       "bookPrice": "Book Price",
       "coursePrice": "Course Price",
       "unitPrice": "Unit Price",
@@ -396,11 +392,11 @@
       "sessions": "Sessions",
       "hours": "Hours per Session",
       "price": "Cost",
-      "priceValue": "2,000 ₪"
+      "priceValue": "1,800 ₪"
     },
     "about": {
       "title": "About the Course",
-      "description": "The course will include 8 fascinating 2-hour sessions in the morning hours, once a week starting in February. It will expose students to the healing powers inherent in the three kingdoms - plant, animal, and mineral. The course will pave the way to sustainable, robust health through the long and short path, with a special connection to the Holy Torah and Jewish thought throughout the generations.",
+      "description": "The course will include 8 fascinating 2-hour sessions in the morning hours, once a week on Sundays, starting 19 Kislev (November 29, 2026). It will expose students to the healing powers inherent in the three kingdoms - plant, animal, and mineral. The course will pave the way to sustainable, robust health through the long and short path, with a special connection to the Holy Torah and Jewish thought throughout the generations.",
       "features": {
         "plant": {
           "title": "Plant Kingdom",
@@ -421,7 +417,7 @@
       "items": {
         "course": {
           "title": "8 Fascinating Sessions",
-          "description": "2-hour sessions with Tamar Eshel, in morning hours, once a week"
+          "description": "2-hour sessions with Tamar Eshel, Sundays 10:00-12:00 in Kerem Maharal"
         },
         "book": {
           "title": "The Book 'Nes HaTamar' Included",
@@ -453,15 +449,15 @@
       },
       "schedule": {
         "title": "Day and Time",
-        "value": "To be arranged according to participants' preferences, in morning hours"
+        "value": "Sundays, 10:00-12:00 · Kerem Maharal"
       },
       "startDate": {
         "title": "Start Date",
-        "value": "Starting in February"
+        "value": "19 Kislev (November 29, 2026) · final session January 24, 2027"
       },
       "price": {
         "title": "Cost",
-        "value": "2,000 ₪",
+        "value": "1,800 ₪",
         "includes": "Includes the book 'Nes HaTamar'"
       }
     },

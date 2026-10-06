@@ -137,7 +137,7 @@ export default function CouponForm({ coupon, onSubmit, onCancel }: CouponFormPro
                   onChange={() => handleProductToggle('book')}
                   className="w-5 h-5 text-gold rounded focus:ring-gold/20"
                 />
-                <span className="text-sm text-dark">ספר (₪550)</span>
+                <span className="text-sm text-dark">ספר (₪770)</span>
               </label>
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
@@ -146,7 +146,7 @@ export default function CouponForm({ coupon, onSubmit, onCancel }: CouponFormPro
                   onChange={() => handleProductToggle('course')}
                   className="w-5 h-5 text-gold rounded focus:ring-gold/20"
                 />
-                <span className="text-sm text-dark">קורס (₪1,600)</span>
+                <span className="text-sm text-dark">קורס (₪1,800)</span>
               </label>
             </div>
             <p className="text-xs text-gray-500 mt-1">

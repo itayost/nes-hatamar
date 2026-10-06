@@ -6,32 +6,27 @@
 
 // Fixed pricing packages (only these quantities are available)
 export const BOOK_PACKAGES = [
-  { quantity: 1, totalPrice: 550 },
-  { quantity: 2, totalPrice: 990 },
-  { quantity: 5, totalPrice: 2250 },
+  { quantity: 1, totalPrice: 770 },
+  { quantity: 2, totalPrice: 1300 },
+  { quantity: 3, totalPrice: 1800 },
 ] as const;
 
 // Single book price for reference
-export const SINGLE_BOOK_PRICE = 550;
-
-// List price (price charged in physical stores). Display-only reference for
-// the "in stores vs online" channel comparison. Never used in charge logic.
-export const BOOK_LIST_PRICE = 770;
+export const SINGLE_BOOK_PRICE = 770;
 
 // Maximum allowed quantity (highest package)
-export const MAX_BOOK_QUANTITY = 5;
+export const MAX_BOOK_QUANTITY = 3;
 
 export interface BookPriceResult {
   totalPrice: number;
   unitPrice: number;
   savings: number; // Compared to buying individually
   quantity: number;
-  listPrice: number; // BOOK_LIST_PRICE * quantity (display-only)
 }
 
 /**
  * Get price for a specific quantity package.
- * Only valid for quantities: 1, 2, 5
+ * Only valid for quantities: 1, 2, 3
  */
 export function calculateBookPrice(quantity: number): BookPriceResult {
   const pkg = BOOK_PACKAGES.find(p => p.quantity === quantity);
@@ -43,7 +38,6 @@ export function calculateBookPrice(quantity: number): BookPriceResult {
       unitPrice: SINGLE_BOOK_PRICE,
       savings: 0,
       quantity: 1,
-      listPrice: BOOK_LIST_PRICE,
     };
   }
 
@@ -52,7 +46,6 @@ export function calculateBookPrice(quantity: number): BookPriceResult {
     unitPrice: Math.round(pkg.totalPrice / pkg.quantity),
     savings: (SINGLE_BOOK_PRICE * pkg.quantity) - pkg.totalPrice,
     quantity: pkg.quantity,
-    listPrice: BOOK_LIST_PRICE * pkg.quantity,
   };
 }
 
