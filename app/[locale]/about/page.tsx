@@ -54,7 +54,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 <div className="relative bg-white/60 backdrop-blur-sm p-8 sm:p-10 rounded-3xl shadow-xl border-2 border-gold/30 transition-all duration-300 hover:shadow-2xl hover:border-gold/50">
                   <div className="aspect-[3/4] rounded-2xl relative overflow-hidden group">
                     <Image
-                      src="/images/authors/Tamar.webp"
+                      src="/images/authors/tamar-profile.webp"
                       alt={t('tamar.name')}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
