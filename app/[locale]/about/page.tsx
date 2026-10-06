@@ -109,7 +109,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 <div className="bg-white/60 backdrop-blur-sm p-6 sm:p-8 rounded-2xl border-2 border-gold/20 space-y-3">
                   <h4 className="text-xl font-bold text-gold mb-4 flex items-center gap-2">
                     <div className="w-2 h-2 bg-gold rounded-full"></div>
-                    Key Highlights
+                    {t('highlightsTitle')}
                   </h4>
                   <ul className="space-y-3 text-dark/80">
                     <li className="flex items-start gap-3">
@@ -189,7 +189,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 <div className="bg-white/60 backdrop-blur-sm p-6 sm:p-8 rounded-2xl border-2 border-gold/20 space-y-3">
                   <h4 className="text-xl font-bold text-gold mb-4 flex items-center gap-2">
                     <div className="w-2 h-2 bg-gold rounded-full"></div>
-                    Key Highlights
+                    {t('highlightsTitle')}
                   </h4>
                   <ul className="space-y-3 text-dark/80">
                     <li className="flex items-start gap-3">
