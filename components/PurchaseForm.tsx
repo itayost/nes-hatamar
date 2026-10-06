@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
-import { calculateBookPrice, BOOK_PACKAGES, MAX_BOOK_QUANTITY } from '@/lib/book-pricing';
+import { calculateBookPrice, BOOK_PACKAGES, MAX_BOOK_QUANTITY, SINGLE_BOOK_PRICE } from '@/lib/book-pricing';
 import { calculateShipping } from '@/lib/shipping-calculator';
 import { isValidPhone } from '@/lib/phone-validation';
 import { COUNTRIES, DEFAULT_COUNTRY_CODE } from '@/lib/countries';
@@ -449,11 +449,7 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
           <>
             <div className="flex justify-between items-center text-dark gap-2">
               <span>{t('summary.unitPrice')}</span>
-              <span>₪{priceInfo.unitPrice.toLocaleString()} × {quantity}</span>
-            </div>
-            <div className="flex justify-between text-dark">
-              <span>{t('summary.subtotal')}</span>
-              <span>₪{currentBasePrice.toLocaleString()}</span>
+              <span>₪{SINGLE_BOOK_PRICE.toLocaleString()} × {quantity}</span>
             </div>
             {priceInfo.savings > 0 && (
               <div className="flex justify-between text-green-600">
@@ -461,6 +457,10 @@ export default function PurchaseForm({ product, basePrice }: PurchaseFormProps) 
                 <span>-₪{priceInfo.savings.toLocaleString()}</span>
               </div>
             )}
+            <div className="flex justify-between text-dark">
+              <span>{t('summary.subtotal')}</span>
+              <span>₪{currentBasePrice.toLocaleString()}</span>
+            </div>
           </>
         ) : (
           <div className="flex justify-between items-center text-dark gap-2">
