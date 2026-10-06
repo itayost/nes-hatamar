@@ -1,8 +1,8 @@
 import { Coupon, CouponValidationResult, CouponCreateInput, CouponUpdateInput, ProductType } from '@/types/coupon';
 import * as storage from './coupon-storage';
 import { calculateBookPrice, SINGLE_BOOK_PRICE } from './book-pricing';
+import { COURSE_PRICE } from './course-pricing';
 
-const COURSE_PRICE = 1600; // Base price in NIS
 const BOOK_PRICE = SINGLE_BOOK_PRICE; // Single book price in NIS
 
 // Re-export ProductType for backward compatibility
